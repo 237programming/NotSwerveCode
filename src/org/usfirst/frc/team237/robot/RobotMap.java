@@ -11,6 +11,36 @@ public class RobotMap {
     // public static int leftMotor = 1;
     // public static int rightMotor = 2;
     
+	// Edited by Dan
+	// we are going to define all the motors we will need
+	
+	// Drive Train map. 
+	public class DriveMap {
+		// Drive constants
+		public static final double driveMultiplier = 1.0;
+		public static final double driveNegated = -1.0;
+		public static final int encoderSetPoint = 10000; 
+		public static final double autoDriveMax = 0.5;
+		public static final double autoDriveMin = -0.5; 
+		public static final double autoEncMax = 0.0; 
+		public static final double autoEncMin = 0.0; 
+		// Motors 
+		public static final int leftTalon = 0;
+		public static final int leftTalonPrime = 1;
+		public static final int rightTalon = 2; 
+		public static final int rightTalonPrime = 3; 
+		
+	}
+	// turret motors 
+	
+	public class TurretMap {
+		// TODO: add turret map.
+	}
+	public class ControlMap {
+		public static final int leftStick = 0;
+		public static final int rightStick = 1; 
+		public static final int controller = 2; 
+	}
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:
     // public static int rangefinderPort = 1;
