@@ -1,6 +1,6 @@
 package org.usfirst.frc.team237.robot.subsystems;
-import org.usfirst.frc.team237.robot.RobotMap;
 
+import org.usfirst.frc.team237.robot.RobotMap;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -28,6 +28,7 @@ public class PIDDrive extends PIDSubsystem{
 		leftMotorPrime = new CANTalon(RobotMap.DriveMap.leftTalonPrime);
 		rightMotor = new CANTalon(RobotMap.DriveMap.rightTalon);
 		rightMotorPrime	= new CANTalon(RobotMap.DriveMap.rightTalonPrime);
+		
 	}
 
 	@Override
@@ -64,12 +65,16 @@ public class PIDDrive extends PIDSubsystem{
 	
 	public void setLeft(double speed) {
 		speed *= RobotMap.DriveMap.driveMultiplier;
-		//TODO: add the actual set motor speed. 
+		//TODO: add the actual set motor speed.
+		leftMotor.set(speed);
+		leftMotorPrime.set(speed);
 	}
 	
 	public void setRight(double speed ) {
 		speed *= RobotMap.DriveMap.driveMultiplier;
-		//TODO: add the actual set motor speed. 
+		//TODO: add the actual set motor speed.
+		rightMotor.set(speed);
+		leftMotorPrime.set(speed);
 	}
 	
 	public void set(double speedLeft, double speedRight){

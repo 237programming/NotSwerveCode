@@ -1,4 +1,7 @@
 package org.usfirst.frc.team237.robot;
+
+import org.usfirst.frc.team237.robot.subsystems.PIDDrive;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -29,7 +32,7 @@ public class RobotMap {
 		public static final int leftTalonPrime = 1;
 		public static final int rightTalon = 2; 
 		public static final int rightTalonPrime = 3; 
-		
+		//public static final PIDDrive RobotDrive = new PIDDrive();
 	}
 	// turret motors 
 	
