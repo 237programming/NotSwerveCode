@@ -1,9 +1,14 @@
 package org.usfirst.frc.team237.robot.subsystems;
 
+import java.awt.Robot;
+
 import org.usfirst.frc.team237.robot.RobotMap;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
 
 public class PIDDrive extends PIDSubsystem{
 	// changed some things around for ease of use. 
@@ -12,6 +17,10 @@ public class PIDDrive extends PIDSubsystem{
 	CANTalon leftMotorPrime ;
 	CANTalon rightMotor;
 	CANTalon rightMotorPrime;
+	
+	PIDController horizontalVisionControlLoop;
+	PIDSource visionInput;
+	PIDOutput visionMotorOutput;
 	
 	String DriveName = "Drive"; 
 	
@@ -28,7 +37,11 @@ public class PIDDrive extends PIDSubsystem{
 		leftMotorPrime = new CANTalon(RobotMap.DriveMap.leftTalonPrime);
 		rightMotor = new CANTalon(RobotMap.DriveMap.rightTalon);
 		rightMotorPrime	= new CANTalon(RobotMap.DriveMap.rightTalonPrime);
-		
+		horizontalVisionControlLoop = new PIDController(RobotMap.DriveMap.horizontalP, RobotMap.DriveMap.horizontalI, RobotMap.DriveMap.horizontalD, 0, visionInput, visionMotorOutput);
+		horizontalVisionControlLoop.setContinuous(false);
+		horizontalVisionControlLoop.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
+		horizontalVisionControlLoop.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
+		horizontalVisionControlLoop.setSetpoint(RobotMap.DriveMap.setPoint);
 	}
 
 	@Override

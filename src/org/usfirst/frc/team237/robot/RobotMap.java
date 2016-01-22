@@ -27,11 +27,17 @@ public class RobotMap {
 		public static final double autoDriveMin = -0.5; 
 		public static final double autoEncMax = 0.0; 
 		public static final double autoEncMin = 0.0; 
+		public static final double horizontalP = 1.0;
+		public static final double horizontalI = 0.0;
+		public static final double horizontalD = 0.0;
 		// Motors 
 		public static final int leftTalon = 3;
 		public static final int leftTalonPrime = 4;
 		public static final int rightTalon = 5; 
 		public static final int rightTalonPrime = 6; 
+		public static final int minInput = 0;
+		public static final int maxInput = 1920;
+		public static final int setPoint = maxInput/2;
 		//public static final PIDDrive RobotDrive = new PIDDrive();
 	}
 	// turret motors 
