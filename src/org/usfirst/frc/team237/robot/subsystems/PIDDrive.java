@@ -74,7 +74,7 @@ public class PIDDrive extends PIDSubsystem{
 		speed *= RobotMap.DriveMap.driveMultiplier;
 		//TODO: add the actual set motor speed.
 		rightMotor.set(speed);
-		leftMotorPrime.set(speed);
+		rightMotorPrime.set(speed);
 	}
 	
 	public void set(double speedLeft, double speedRight){

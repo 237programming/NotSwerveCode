@@ -36,8 +36,10 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		driveTrain = new PIDDrive();
+		driveCommand = new TeleopDrive();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new ExampleCommand());
+        chooser.addObject("Default Tele", new TeleopDrive());
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
     }
@@ -95,7 +97,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-        driveCommand = (TeleopDrive) chooser.getSelected();
+        driveCommand.start();
     }
 
     /**
