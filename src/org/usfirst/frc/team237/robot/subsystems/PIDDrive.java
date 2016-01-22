@@ -18,9 +18,10 @@ public class PIDDrive extends PIDSubsystem{
 	CANTalon rightMotor;
 	CANTalon rightMotorPrime;
 	
-	PIDController horizontalVisionControlLoop;
+	PIDController horizontalPIDLeft;
+	PIDController horizontalPIDLeft2;
 	PIDSource visionInput;
-	PIDOutput visionMotorOutput;
+	
 	
 	String DriveName = "Drive"; 
 	
@@ -37,11 +38,16 @@ public class PIDDrive extends PIDSubsystem{
 		leftMotorPrime = new CANTalon(RobotMap.DriveMap.leftTalonPrime);
 		rightMotor = new CANTalon(RobotMap.DriveMap.rightTalon);
 		rightMotorPrime	= new CANTalon(RobotMap.DriveMap.rightTalonPrime);
-		horizontalVisionControlLoop = new PIDController(RobotMap.DriveMap.horizontalP, RobotMap.DriveMap.horizontalI, RobotMap.DriveMap.horizontalD, 0, visionInput, visionMotorOutput);
-		horizontalVisionControlLoop.setContinuous(false);
-		horizontalVisionControlLoop.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
-		horizontalVisionControlLoop.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
-		horizontalVisionControlLoop.setSetpoint(RobotMap.DriveMap.setPoint);
+		horizontalPIDLeft = new PIDController(RobotMap.DriveMap.horizontalP, RobotMap.DriveMap.horizontalI, RobotMap.DriveMap.horizontalD, 0, visionInput, leftMotor);
+		horizontalPIDLeft2 = new PIDController(RobotMap.DriveMap.horizontalP, RobotMap.DriveMap.horizontalI, RobotMap.DriveMap.horizontalD, 0, visionInput, leftMotor);
+		horizontalPIDLeft.setContinuous(false);
+		horizontalPIDLeft.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
+		horizontalPIDLeft.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
+		horizontalPIDLeft.setSetpoint(RobotMap.DriveMap.setPoint);
+		horizontalPIDLeft2.setContinuous(false);
+		horizontalPIDLeft2.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
+		horizontalPIDLeft2.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
+		horizontalPIDLeft2.setSetpoint(RobotMap.DriveMap.setPoint);
 	}
 
 	@Override
@@ -98,4 +104,19 @@ public class PIDDrive extends PIDSubsystem{
 		setRight(0.0);
 		setLeft(0.0);
 	}
+	
+	public void seekTargetX(double output){
+		int testVal = 0;
+		horizontalPIDLeft.enable();
+		leftMotor.pidWrite(output);
+		leftMotorPrime.pidWrite(output);
+	}
+	
+	public int getVisionInput(){
+		//TODO: get the x position from network table
+		int X = 0;
+		return X;
+		
+	}
+	
 }
