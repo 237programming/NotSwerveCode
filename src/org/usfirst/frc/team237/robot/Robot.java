@@ -9,6 +9,7 @@ import org.usfirst.frc.team237.robot.commands.ExampleCommand;
 import org.usfirst.frc.team237.robot.commands.TeleopDrive;
 import org.usfirst.frc.team237.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.PIDDrive;
+import org.usfirst.frc.team237.robot.subsystems.PneumaticControls;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,6 +26,7 @@ public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 	public static PIDDrive driveTrain;
+	public static PneumaticControls pControls;
     Command autonomousCommand;
     TeleopDrive driveCommand;
     SendableChooser chooser;
@@ -37,6 +39,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		driveTrain = new PIDDrive();
 		driveCommand = new TeleopDrive();
+		pControls = new PneumaticControls();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new ExampleCommand());
         chooser.addObject("Default Tele", new TeleopDrive());

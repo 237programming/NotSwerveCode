@@ -1,7 +1,10 @@
 package org.usfirst.frc.team237.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
+import org.usfirst.frc.team237.robot.commands.ShifterCommand;
 
 /*
  * This class is the glue that binds the controls on the physical operator
@@ -9,6 +12,8 @@ import org.usfirst.frc.team237.robot.commands.ExampleCommand;
  */
 public class OI {
 	public static Joystick LeftJoyStick, RightJoyStick;
+	
+	public static Button shiftButton = new JoystickButton(LeftJoyStick, 1);
 	
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -40,6 +45,7 @@ public class OI {
 	public OI() {
 		LeftJoyStick = new Joystick(RobotMap.ControlMap.leftStick);
 		RightJoyStick = new Joystick(RobotMap.ControlMap.rightStick);
+		shiftButton.whenPressed(new ShifterCommand());
 	}
 }
 
