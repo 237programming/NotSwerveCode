@@ -18,9 +18,9 @@ public class PIDDrive extends PIDSubsystem{
 	CANTalon rightMotor;
 	CANTalon rightMotorPrime;
 	
-	PIDController horizontalPIDLeft;
-	PIDController horizontalPIDLeft2;
-	PIDSource visionInput;
+	//PIDController horizontalPIDLeft;
+	//PIDController horizontalPIDLeft2;
+	//PIDSource visionInput;
 	
 	
 	String DriveName = "Drive"; 
@@ -38,16 +38,16 @@ public class PIDDrive extends PIDSubsystem{
 		leftMotorPrime = new CANTalon(RobotMap.DriveMap.leftTalonPrime);
 		rightMotor = new CANTalon(RobotMap.DriveMap.rightTalon);
 		rightMotorPrime	= new CANTalon(RobotMap.DriveMap.rightTalonPrime);
-		horizontalPIDLeft = new PIDController(RobotMap.DriveMap.horizontalP, RobotMap.DriveMap.horizontalI, RobotMap.DriveMap.horizontalD, 0, visionInput, leftMotor);
-		horizontalPIDLeft2 = new PIDController(RobotMap.DriveMap.horizontalP, RobotMap.DriveMap.horizontalI, RobotMap.DriveMap.horizontalD, 0, visionInput, leftMotor);
-		horizontalPIDLeft.setContinuous(false);
-		horizontalPIDLeft.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
-		horizontalPIDLeft.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
-		horizontalPIDLeft.setSetpoint(RobotMap.DriveMap.setPoint);
-		horizontalPIDLeft2.setContinuous(false);
-		horizontalPIDLeft2.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
-		horizontalPIDLeft2.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
-		horizontalPIDLeft2.setSetpoint(RobotMap.DriveMap.setPoint);
+//		horizontalPIDLeft = new PIDController(RobotMap.DriveMap.horizontalP, RobotMap.DriveMap.horizontalI, RobotMap.DriveMap.horizontalD, 0, visionInput, leftMotor);
+//		horizontalPIDLeft2 = new PIDController(RobotMap.DriveMap.horizontalP, RobotMap.DriveMap.horizontalI, RobotMap.DriveMap.horizontalD, 0, visionInput, leftMotor);
+//		horizontalPIDLeft.setContinuous(false);
+//		horizontalPIDLeft.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
+//		horizontalPIDLeft.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
+//		horizontalPIDLeft.setSetpoint(RobotMap.DriveMap.setPoint);
+//		horizontalPIDLeft2.setContinuous(false);
+//		horizontalPIDLeft2.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
+//		horizontalPIDLeft2.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
+//		horizontalPIDLeft2.setSetpoint(RobotMap.DriveMap.setPoint);
 	}
 
 	@Override
@@ -107,9 +107,9 @@ public class PIDDrive extends PIDSubsystem{
 	
 	public void seekTargetX(double output){
 		int testVal = 0;
-		horizontalPIDLeft.enable();
-		leftMotor.pidWrite(output);
-		leftMotorPrime.pidWrite(output);
+		//horizontalPIDLeft.enable();
+		//leftMotor.pidWrite(output);
+		//leftMotorPrime.pidWrite(output);
 	}
 	
 	public int getVisionInput(){

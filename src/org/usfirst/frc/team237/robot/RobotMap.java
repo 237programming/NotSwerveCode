@@ -54,6 +54,7 @@ public class RobotMap {
 	public class PneumaticsMap {
 		public static final int shifterSolenoid1 = 0;
 		public static final int shifterSolenoid2 = 1;
+		public static final int CANAddres = 2; 
 	}
 	
     // If you are using multiple modules, make sure to define both the port

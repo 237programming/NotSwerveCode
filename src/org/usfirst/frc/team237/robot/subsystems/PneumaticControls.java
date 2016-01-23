@@ -16,11 +16,13 @@ public class PneumaticControls extends Subsystem {
     // here. Call these from Commands.
 
 	Compressor compressor;
-	DoubleSolenoid shifter;
+	
+	static DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.PneumaticsMap.CANAddres,RobotMap.PneumaticsMap.shifterSolenoid1, RobotMap.PneumaticsMap.shifterSolenoid2);;
 	
 	public void PneumaticControls() {
 		compressor = new Compressor();
-		shifter = new DoubleSolenoid(RobotMap.PneumaticsMap.shifterSolenoid1, RobotMap.PneumaticsMap.shifterSolenoid2);
+		//shifter = new DoubleSolenoid(RobotMap.PneumaticsMap.shifterSolenoid1, RobotMap.PneumaticsMap.shifterSolenoid2);
+		shifter.set(DoubleSolenoid.Value.kOff);
 		compressor.setClosedLoopControl(true);
 		compressor.start();
 	}
@@ -29,16 +31,17 @@ public class PneumaticControls extends Subsystem {
 		shifter.set(DoubleSolenoid.Value.kForward);
 	}
 	public void shiftLow() {
-		shifter.set(DoubleSolenoid.Value.kOff);
+		shifter.set(DoubleSolenoid.Value.kReverse);
 	}
 	public void toggle() {
 		if(shifter.get() == DoubleSolenoid.Value.kForward) {
 			this.shiftLow();
 		}
-		else if(shifter.get() == DoubleSolenoid.Value.kOff) {
+		else if(shifter.get() == DoubleSolenoid.Value.kReverse) {
 			this.shiftHigh();
 		} else {
 			//:^)
+			this.shiftHigh();
 		}
 	}
 	

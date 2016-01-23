@@ -11,7 +11,8 @@ import org.usfirst.frc.team237.robot.commands.ShifterCommand;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	public static Joystick LeftJoyStick, RightJoyStick;
+	public static Joystick LeftJoyStick = new Joystick(RobotMap.ControlMap.leftStick);
+	public static Joystick RightJoyStick = new Joystick(RobotMap.ControlMap.rightStick);
 	
 	public static Button shiftButton = new JoystickButton(LeftJoyStick, 1);
 	
@@ -43,9 +44,9 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
 	
 	public OI() {
-		LeftJoyStick = new Joystick(RobotMap.ControlMap.leftStick);
-		RightJoyStick = new Joystick(RobotMap.ControlMap.rightStick);
+		
 		shiftButton.whenPressed(new ShifterCommand());
+		
 	}
 }
 

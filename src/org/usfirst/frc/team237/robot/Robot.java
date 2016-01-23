@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
 import org.usfirst.frc.team237.robot.commands.TeleopDrive;
 import org.usfirst.frc.team237.robot.subsystems.ExampleSubsystem;
@@ -26,10 +28,11 @@ public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 	public static PIDDrive driveTrain;
-	public static PneumaticControls pControls;
+	public static PneumaticControls pControls = new PneumaticControls();
     Command autonomousCommand;
     TeleopDrive driveCommand;
     SendableChooser chooser;
+    public static NetworkTable visionSystemTable; 
 
     /**
      * This function is run when the robot is first started up and should be
@@ -39,10 +42,10 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		driveTrain = new PIDDrive();
 		driveCommand = new TeleopDrive();
-		pControls = new PneumaticControls();
+		//pControls = new PneumaticControls();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new ExampleCommand());
-        chooser.addObject("Default Tele", new TeleopDrive());
+        //chooser.addObject("Default Tele", new TeleopDrive());
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
     }
