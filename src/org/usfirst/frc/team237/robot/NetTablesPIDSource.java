@@ -15,7 +15,7 @@ public class NetTablesPIDSource implements PIDSource {
 	public void setDirection(direction dir){
 		m_direction = dir; 
 	}
-	public void NetTablesPIDSource(){
+	public NetTablesPIDSource(){
 		table = NetworkTable.getTable("GRIP/Vision");
 	}
 	private int getLargestAreaIndex(){
