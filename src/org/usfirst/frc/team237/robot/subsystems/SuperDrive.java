@@ -34,7 +34,7 @@ public class SuperDrive extends Subsystem {
 	String DriveName = "Drive"; 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	public void SuperDrive(){
+	public SuperDrive(){
 		
 		leftMotor = new CANTalon(RobotMap.DriveMap.leftTalon);
 		leftMotorPrime = new CANTalon(RobotMap.DriveMap.leftTalonPrime);
