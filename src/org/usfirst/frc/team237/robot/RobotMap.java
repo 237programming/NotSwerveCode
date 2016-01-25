@@ -20,9 +20,12 @@ public class RobotMap {
 	// Drive Train map. 
 	public class DriveMap {
 		// Drive constants
+		public static final int encoderSetPoint = 10000; 
+		public static final int minInput = 0;
+		public static final int maxInput = 1920;
+		public static final int setPoint = maxInput/2;
 		public static final double driveMultiplier = 1.0;
 		public static final double driveNegated = -1.0;
-		public static final int encoderSetPoint = 10000; 
 		public static final double autoDriveMax = 0.5;
 		public static final double autoDriveMin = -0.5; 
 		public static final double autoEncMax = 0.0; 
@@ -35,10 +38,6 @@ public class RobotMap {
 		public static final int leftTalonPrime = 4;
 		public static final int rightTalon = 5; 
 		public static final int rightTalonPrime = 6; 
-		public static final int minInput = 0;
-		public static final int maxInput = 1920;
-		public static final int setPoint = maxInput/2;
-		//public static final PIDDrive RobotDrive = new PIDDrive();
 	}
 	// turret motors 
 	

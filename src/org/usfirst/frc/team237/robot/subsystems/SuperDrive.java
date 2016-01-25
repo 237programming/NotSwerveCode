@@ -35,16 +35,17 @@ public class SuperDrive extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	public SuperDrive(){
-		
+		horizontalPID = new PIDController(1.0,0.0,0.0,visionXSrc,leftMotor);
+		horizontalPID.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
+		horizontalPID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
 		leftMotor = new CANTalon(RobotMap.DriveMap.leftTalon);
 		leftMotorPrime = new CANTalon(RobotMap.DriveMap.leftTalonPrime);
 		rightMotor = new CANTalon(RobotMap.DriveMap.rightTalon);
 		rightMotorPrime	= new CANTalon(RobotMap.DriveMap.rightTalonPrime);
 		visionXSrc = new NetTablesPIDSource(); 
 		// initialize control loops 
-		horizontalPID = new PIDController(1.0,0.0,0.0,visionXSrc,leftMotor);
 		//leftMotor.createTableListener()
-				
+		
 	}
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -72,6 +73,12 @@ public class SuperDrive extends Subsystem {
 	public void stop(){
 		setRight(0.0);
 		setLeft(0.0);
+	}
+	public void visionStart(){
+		horizontalPID.enable();
+	}
+	public void visionStop(){
+		horizontalPID.disable();
 	}
 }
 
