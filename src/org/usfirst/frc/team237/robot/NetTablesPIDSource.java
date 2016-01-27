@@ -17,6 +17,7 @@ public class NetTablesPIDSource implements PIDSource {
 	}
 	public NetTablesPIDSource(){
 		table = NetworkTable.getTable("GRIP/Vision");
+		System.out.print("Aquired Table");
 	}
 	private int getLargestAreaIndex(){
 		double[] areas = table.getNumberArray("area", new double[0]);
@@ -49,6 +50,7 @@ public class NetTablesPIDSource implements PIDSource {
 	@Override
 	public PIDSourceType getPIDSourceType() {
 		// TODO Auto-generated method stub
+		
 		return m_pidSource;
 	}
 	
@@ -56,6 +58,8 @@ public class NetTablesPIDSource implements PIDSource {
 	public double pidGet() {
 		// TODO Auto-generated method stub
 		if (m_direction == direction.x){
+			//System.out.print(getCenterX());
+			//System.out.print("\n");
 			return getCenterX();
 		} else if (m_direction == direction.y){
 			return getCenterY();

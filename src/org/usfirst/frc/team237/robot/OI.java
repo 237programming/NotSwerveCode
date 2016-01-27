@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
 import org.usfirst.frc.team237.robot.commands.ShifterCommand;
+import org.usfirst.frc.team237.robot.commands.TrackTarget;
 
 /*
  * This class is the glue that binds the controls on the physical operator
@@ -15,6 +16,8 @@ public class OI {
 	public static Joystick RightJoyStick = new Joystick(RobotMap.ControlMap.rightStick);
 	
 	public static Button shiftButton = new JoystickButton(LeftJoyStick, 1);
+	public static Button enableVisionTrack = new JoystickButton(LeftJoyStick, 2);
+	public static Button disableVisionTrack = new JoystickButton(LeftJoyStick, 3);
 	
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -46,7 +49,7 @@ public class OI {
 	public OI() {
 		
 		shiftButton.whenPressed(new ShifterCommand());
-		
+		enableVisionTrack.whileHeld(new TrackTarget());
 	}
 }
 

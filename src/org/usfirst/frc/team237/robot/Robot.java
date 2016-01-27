@@ -12,6 +12,7 @@ import org.usfirst.frc.team237.robot.commands.TeleopDrive;
 import org.usfirst.frc.team237.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.PIDDrive;
 import org.usfirst.frc.team237.robot.subsystems.PneumaticControls;
+import org.usfirst.frc.team237.robot.subsystems.SuperDrive;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,7 +28,8 @@ public class Robot extends IterativeRobot {
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
-	public static PIDDrive driveTrain;
+	//public static PIDDrive driveTrain;
+	public static SuperDrive driveTrain; 
 	public static PneumaticControls pControls = new PneumaticControls();
     Command autonomousCommand;
     TeleopDrive driveCommand;
@@ -39,8 +41,10 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+    	driveTrain = new SuperDrive();
 		oi = new OI();
-		driveTrain = new PIDDrive();
+		//driveTrain = new PIDDrive();
+		
 		driveCommand = new TeleopDrive();
 		//pControls = new PneumaticControls();
         chooser = new SendableChooser();
@@ -88,6 +92,7 @@ public class Robot extends IterativeRobot {
     	
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+        driveTrain.visionStart();
     }
 
     /**
@@ -95,6 +100,9 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        if (driveTrain.onTarget() == true){
+        	driveTrain.visionStop();
+        }
     }
 
     public void teleopInit() {
@@ -103,6 +111,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        driveTrain.visionStop();
         driveCommand.start();
     }
 
@@ -111,6 +120,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
     }
     
     /**
