@@ -54,6 +54,7 @@ public class SuperDrive extends Subsystem {
 		horizontalNegatedPID.setAbsoluteTolerance(5.0);
 		horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
 		horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
+		horizontalPID.initTable(NetworkTable.getTable("PID/Horiontal PID"));
 		leftMotorPrime.changeControlMode(CANTalon.TalonControlMode.Follower);
 		leftMotorPrime.set(RobotMap.DriveMap.leftTalon);
 		rightMotorPrime.changeControlMode(CANTalon.TalonControlMode.Follower);
