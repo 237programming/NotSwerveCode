@@ -35,7 +35,7 @@ public class Robot extends IterativeRobot {
     TeleopDrive driveCommand;
     SendableChooser chooser;
     public static NetworkTable visionSystemTable; 
-
+    boolean flag;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -52,6 +52,7 @@ public class Robot extends IterativeRobot {
         //chooser.addObject("Default Tele", new TeleopDrive());
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        SmartDashboard.putNumber("PID error", driveTrain.getError());
     }
 	
 	/**
@@ -60,11 +61,12 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
      */
     public void disabledInit(){
-
+    	//driveTrain.visionStop();
     }
 	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("PID error", driveTrain.getError());
 	}
 
 	/**
@@ -92,7 +94,9 @@ public class Robot extends IterativeRobot {
     	
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+        
         driveTrain.visionStart();
+        
     }
 
     /**
@@ -100,9 +104,9 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        if (driveTrain.onTarget() == true){
-        	driveTrain.visionStop();
-        }
+        SmartDashboard.putNumber("PID error", driveTrain.getError());
+        SmartDashboard.putBoolean("On Target", driveTrain.onTarget());
+        driveTrain.visionPeriodic();
     }
 
     public void teleopInit() {

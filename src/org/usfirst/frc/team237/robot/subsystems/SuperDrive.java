@@ -33,6 +33,7 @@ public class SuperDrive extends Subsystem {
 	//Define the drive
 	//TankDrive drive; 
 	
+	boolean _onTarget = false; 
 	
 	String DriveName = "Drive"; 
     // Put methods for controlling this subsystem
@@ -44,21 +45,34 @@ public class SuperDrive extends Subsystem {
 		rightMotorPrime	= new CANTalon(RobotMap.DriveMap.rightTalonPrime);
 		visionXSrc = new NetTablesPIDSource(); 
 		visionXSrc.setDirection(NetTablesPIDSource.direction.x);
-		horizontalPID = new PIDController(1.0,0.5,0.1,visionXSrc,leftMotor);
-		horizontalNegatedPID = new PIDController(1.0,0.5,0.1,visionXSrc,rightMotor);
-		horizontalPID.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
-		horizontalNegatedPID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
-		horizontalNegatedPID.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
-		horizontalPID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
-		horizontalPID.setAbsoluteTolerance(5.0);
-		horizontalNegatedPID.setAbsoluteTolerance(5.0);
-		horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
-		horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
-		horizontalPID.initTable(NetworkTable.getTable("PID/Horiontal PID"));
+
 		leftMotorPrime.changeControlMode(CANTalon.TalonControlMode.Follower);
 		leftMotorPrime.set(RobotMap.DriveMap.leftTalon);
 		rightMotorPrime.changeControlMode(CANTalon.TalonControlMode.Follower);
 		rightMotorPrime.set(RobotMap.DriveMap.rightTalon);
+
+		horizontalPID = new PIDController(
+				RobotMap.DriveMap.horizontalP,
+				RobotMap.DriveMap.horizontalI,
+				RobotMap.DriveMap.horizontalD,
+				visionXSrc,
+				rightMotor);
+		horizontalNegatedPID = new PIDController(
+				RobotMap.DriveMap.horizontalP,
+				RobotMap.DriveMap.horizontalI,
+				RobotMap.DriveMap.horizontalD,
+				visionXSrc,
+				rightMotor);
+		horizontalPID.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
+		horizontalNegatedPID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
+		horizontalNegatedPID.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
+		horizontalPID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
+		horizontalPID.setToleranceBuffer(5);
+		horizontalNegatedPID.setToleranceBuffer(5);
+		horizontalPID.setAbsoluteTolerance(400.0);
+		horizontalNegatedPID.setAbsoluteTolerance(400.0);
+
+		horizontalPID.initTable(NetworkTable.getTable("PID/Horiontal PID"));
 		//horizontalPID.startLiveWindowMode();
 		//SmartDashboard.putNumber("Input", horizontalPID.getTable().getNumber("p", 0.0));
 		// initialize control loops 
@@ -71,14 +85,14 @@ public class SuperDrive extends Subsystem {
     }
     
     public void setLeft(double speed) {
-		speed *= RobotMap.DriveMap.driveMultiplier;
+		speed *= RobotMap.DriveMap.driveNegated;
 		//TODO: add the actual set motor speed.
 		leftMotor.set(speed);
 		//leftMotorPrime.set(speed);
 	}
 	
 	public void setRight(double speed ) {
-		speed *= RobotMap.DriveMap.driveMultiplier;
+		speed *= RobotMap.DriveMap.driveNegated;
 		//TODO: add the actual set motor speed.
 		rightMotor.set(speed);
 		//rightMotorPrime.set(speed);
@@ -95,17 +109,38 @@ public class SuperDrive extends Subsystem {
 	public void visionStart(){
 		horizontalPID.enable();
 		horizontalNegatedPID.enable();
+		horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
+		horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
+		
+	}
+	public void visionPeriodic(){
+		if (horizontalPID.onTarget() == true) {
+			System.out.println("Target Found");
+			horizontalPID.disable();
+			horizontalNegatedPID.disable();
+			//stop();
+		} else {
+			
+			
+			//horizontalPID.enable();
+			//horizontalNegatedPID.enable();
+		}
+		horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
+		horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
 	}
 	public void visionStop(){
 		horizontalPID.disable();
 		horizontalNegatedPID.disable();
 	}
+	public double getError(){
+		return horizontalPID.getError();
+	}
 	public boolean onTarget() {
-		if (horizontalPID.onTarget()) {
-			return true; 
-		} else {
-			return false;
+		SmartDashboard.putBoolean("Left On Target", horizontalPID.onTarget());
+		if (_onTarget == false){
+			_onTarget = horizontalPID.onTarget();
 		}
+		return _onTarget;
 	}
 }
 

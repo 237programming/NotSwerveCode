@@ -34,6 +34,9 @@ public class NetTablesPIDSource implements PIDSource {
 	private double getCenterX(){
 		int index = getLargestAreaIndex(); 
 		double[] centerX = table.getNumberArray("centerX", new double[0]);
+		if (centerX.length == 0) {
+			return 0.0;
+		}
 		return centerX[index]; 
 	}
 	private double getCenterY(){
