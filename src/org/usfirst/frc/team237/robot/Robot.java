@@ -62,6 +62,7 @@ public class Robot extends IterativeRobot {
      */
     public void disabledInit(){
     	//driveTrain.visionStop();
+    	//driveTrain.resetTarget();
     }
 	
 	public void disabledPeriodic() {
