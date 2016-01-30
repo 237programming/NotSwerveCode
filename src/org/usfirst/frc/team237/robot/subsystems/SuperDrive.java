@@ -59,7 +59,7 @@ public class SuperDrive extends Subsystem {
 				this.visionXSrc,
 				this.rightMotor);
 		this.horizontalNegatedPID = new PIDController(
-				RobotMap.DriveMap.horizontalP,
+				RobotMap.DriveMap.horizontalP*RobotMap.DriveMap.driveNegated,
 				RobotMap.DriveMap.horizontalI,
 				RobotMap.DriveMap.horizontalD,
 				this.visionXSrc,
@@ -74,6 +74,7 @@ public class SuperDrive extends Subsystem {
 		this.horizontalNegatedPID.setAbsoluteTolerance(20.0);
 
 		this.horizontalPID.initTable(NetworkTable.getTable("PID/Horiontal PID"));
+		this.horizontalNegatedPID.initTable(NetworkTable.getTable("PID/Horiontal Negated PID"));
 		//horizontalPID.startLiveWindowMode();
 		//SmartDashboard.putNumber("Input", horizontalPID.getTable().getNumber("p", 0.0));
 		// initialize control loops 

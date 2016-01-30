@@ -26,8 +26,8 @@ public class RobotMap {
 		public static final int setPoint = maxInput/2;
 		public static final double driveMultiplier = 1.0;
 		public static final double driveNegated = -1.0;
-		public static final double autoDriveMax = 0.5;
-		public static final double autoDriveMin = -0.5; 
+		public static final double autoDriveMax = 0.0;
+		public static final double autoDriveMin = -0.0; 
 		public static final double autoEncMax = 0.0; 
 		public static final double autoEncMin = 0.0; 
 		public static final double horizontalP = 0.5;
