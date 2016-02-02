@@ -35,7 +35,8 @@ public class RobotMap {
 		public static final double horizontalD = 0.0;
 		public static final double absTolerance = 40.0;
 		public static final double adjacentLength = 13.0;
-		public static final double feetPerPixel = .02825;
+		public static final double feetPerPixel = 0.043025;
+		public static final double pixelPerFoot = 23.24;
 		// Motors 
 		public static final int leftTalon = 3;
 		public static final int leftTalonPrime = 4;

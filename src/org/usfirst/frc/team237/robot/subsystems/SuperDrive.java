@@ -65,9 +65,10 @@ public class SuperDrive extends Subsystem {
 				RobotMap.DriveMap.horizontalD,
 				this.gyro,
 				this.rightMotor);
-		this.horizontalPID.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
+		this.horizontalPID.setContinuous(true);
+		this.horizontalNegatedPID.setContinuous(true);
+		
 		this.horizontalNegatedPID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
-		this.horizontalNegatedPID.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
 		this.horizontalPID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
 		this.horizontalPID.setToleranceBuffer(1);
 		this.horizontalNegatedPID.setToleranceBuffer(1);
