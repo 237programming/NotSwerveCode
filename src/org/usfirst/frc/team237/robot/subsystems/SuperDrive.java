@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.Sendable;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,7 +32,7 @@ public class SuperDrive extends Subsystem {
 	private NetTablesPIDSource visionXSrc; 
 	private double leftTolerance;
 	private double rightTolerance;
-	AHRS gyro; 
+	private AHRS gyro = new AHRS(SerialPort.Port.kMXP);
 	//Define the drive
 	//TankDrive drive; 
 	
@@ -44,7 +45,7 @@ public class SuperDrive extends Subsystem {
 		this.leftMotor = new CANTalon(RobotMap.DriveMap.leftTalon);
 		this.leftMotorPrime = new CANTalon(RobotMap.DriveMap.leftTalonPrime);
 		this.rightMotor = new CANTalon(RobotMap.DriveMap.rightTalon);
-		this.rightMotorPrime	= new CANTalon(RobotMap.DriveMap.rightTalonPrime);
+		this.rightMotorPrime = new CANTalon(RobotMap.DriveMap.rightTalonPrime);
 		this.visionXSrc = new NetTablesPIDSource(); 
 		this.visionXSrc.setDirection(NetTablesPIDSource.direction.x);
 
@@ -56,13 +57,13 @@ public class SuperDrive extends Subsystem {
 				RobotMap.DriveMap.horizontalP,
 				RobotMap.DriveMap.horizontalI,
 				RobotMap.DriveMap.horizontalD,
-				this.visionXSrc,
+				this.gyro,
 				this.rightMotor);
 		this.horizontalNegatedPID = new PIDController(
 				RobotMap.DriveMap.horizontalP*RobotMap.DriveMap.driveNegated,
 				RobotMap.DriveMap.horizontalI,
 				RobotMap.DriveMap.horizontalD,
-				this.visionXSrc,
+				this.gyro,
 				this.rightMotor);
 		this.horizontalPID.setInputRange(RobotMap.DriveMap.minInput, RobotMap.DriveMap.maxInput);
 		this.horizontalNegatedPID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
@@ -85,7 +86,13 @@ public class SuperDrive extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-    
+    public void searchTarget() {
+    	double xLocation = visionXSrc.pidGet(); 
+    	double setPoint = calcSetPoint(xLocation);
+    	SmartDashboard.putNumber("Target Angle", setPoint);
+    	horizontalPID.setSetpoint(setPoint);
+    	horizontalNegatedPID.setSetpoint(setPoint);
+    }
     public void setLeft(double speed) {
 		speed *= RobotMap.DriveMap.driveNegated;
 		//TODO: add the actual set motor speed.
@@ -153,6 +160,13 @@ public class SuperDrive extends Subsystem {
 	public void resetTarget(){
 		this._onTarget = false;
 		
+	}
+	public void setAHRS(AHRS inputGyro)
+	{
+		gyro = inputGyro;
+	}
+	public double calcSetPoint(double opposite){
+		return Math.atan(opposite/RobotMap.DriveMap.adjacentLength);
 	}
 }
 

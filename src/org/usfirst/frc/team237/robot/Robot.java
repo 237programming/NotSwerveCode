@@ -2,6 +2,7 @@
 package org.usfirst.frc.team237.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -13,6 +14,8 @@ import org.usfirst.frc.team237.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.PIDDrive;
 import org.usfirst.frc.team237.robot.subsystems.PneumaticControls;
 import org.usfirst.frc.team237.robot.subsystems.SuperDrive;
+
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -34,7 +37,9 @@ public class Robot extends IterativeRobot {
     Command autonomousCommand;
     TeleopDrive driveCommand;
     SendableChooser chooser;
-    public static NetworkTable visionSystemTable; 
+    public static NetworkTable visionSystemTable;
+    //private static SerialPort navXSerial = new SerialPort(57600, SerialPort.Port.kMXP);
+    //public static AHRS navX ;
     boolean flag;
     /**
      * This function is run when the robot is first started up and should be

@@ -22,7 +22,7 @@ public class RobotMap {
 		// Drive constants
 		public static final int encoderSetPoint = 10000; 
 		public static final int minInput = 0;
-		public static final int maxInput = 320;
+		public static final int maxInput = 360;
 		public static final int setPoint = maxInput/2;
 		public static final double driveMultiplier = 1.0;
 		public static final double driveNegated = -1.0;
@@ -34,6 +34,8 @@ public class RobotMap {
 		public static final double horizontalI = 0.0;
 		public static final double horizontalD = 0.0;
 		public static final double absTolerance = 40.0;
+		public static final double adjacentLength = 13.0;
+		public static final double feetPerPixel = .02825;
 		// Motors 
 		public static final int leftTalon = 3;
 		public static final int leftTalonPrime = 4;
