@@ -121,9 +121,9 @@ public class SuperDrive extends Subsystem {
 		this.horizontalPID.initTable(NetworkTable.getTable("PID/Horiontal PID"));
 		this.horizontalPID.enable();
 		this.horizontalNegatedPID.enable();
-		this.horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
-		this.horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
-		
+		//this.horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
+		//this.horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
+		this.searchTarget();
 	}
 	public void visionPeriodic(){
 		if (this.onTarget() == true) {
@@ -135,6 +135,8 @@ public class SuperDrive extends Subsystem {
 			this.horizontalPID.enable();
 			this.horizontalNegatedPID.enable();
 		}
+		this.searchTarget();
+		SmartDashboard.putNumber("Robot Yaw", gyro.pidGet());
 		//horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
 		//horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
 	}
@@ -167,7 +169,7 @@ public class SuperDrive extends Subsystem {
 		gyro = inputGyro;
 	}
 	public double calcSetPoint(double opposite){
-		return Math.atan(opposite/RobotMap.DriveMap.adjacentLength);
+		return Math.toDegrees(Math.atan(opposite*RobotMap.DriveMap.feetPerPixel/RobotMap.DriveMap.adjacentLength));
 	}
 }
 
