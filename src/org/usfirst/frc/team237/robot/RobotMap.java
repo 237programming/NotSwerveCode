@@ -23,20 +23,21 @@ public class RobotMap {
 		public static final int encoderSetPoint = 10000; 
 		public static final int minInput = 0;
 		public static final int maxInput = 360;
+		public static final int centerScreenX = 200;
 		public static final int setPoint = maxInput/2;
 		public static final double driveMultiplier = 1.0;
 		public static final double driveNegated = -1.0;
-		public static final double autoDriveMax = 0.0;
-		public static final double autoDriveMin = -0.0; 
+		public static final double autoDriveMax = 0.5;
+		public static final double autoDriveMin = -0.5; 
 		public static final double autoEncMax = 0.0; 
 		public static final double autoEncMin = 0.0; 
 		public static final double horizontalP = 0.5;
 		public static final double horizontalI = 0.0;
 		public static final double horizontalD = 0.0;
-		public static final double absTolerance = 40.0;
-		public static final double adjacentLength = 13.0;
-		public static final double feetPerPixel = 0.043025;
-		public static final double pixelPerFoot = 23.24;
+		public static final double absTolerance = 0.5;
+		public static final double adjacentLength = 9.25;
+		public static final double feetPerPixel = 0.0305997;
+		public static final double pixelPerFoot = 32.68;
 		// Motors 
 		public static final int leftTalon = 3;
 		public static final int leftTalonPrime = 4;

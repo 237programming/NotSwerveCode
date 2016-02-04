@@ -58,7 +58,7 @@ public class SuperDrive extends Subsystem {
 				RobotMap.DriveMap.horizontalI,
 				RobotMap.DriveMap.horizontalD,
 				this.gyro,
-				this.rightMotor);
+				this.leftMotor);
 		this.horizontalNegatedPID = new PIDController(
 				RobotMap.DriveMap.horizontalP*RobotMap.DriveMap.driveNegated,
 				RobotMap.DriveMap.horizontalI,
@@ -89,7 +89,7 @@ public class SuperDrive extends Subsystem {
     }
     public void searchTarget() {
     	double xLocation = visionXSrc.pidGet(); 
-    	double setPoint = calcSetPoint(xLocation);
+    	double setPoint = calcSetPoint(xLocation-RobotMap.DriveMap.centerScreenX);
     	SmartDashboard.putNumber("Target Angle", setPoint);
     	horizontalPID.setSetpoint(setPoint);
     	horizontalNegatedPID.setSetpoint(setPoint);
@@ -169,7 +169,8 @@ public class SuperDrive extends Subsystem {
 		gyro = inputGyro;
 	}
 	public double calcSetPoint(double opposite){
-		return Math.toDegrees(Math.atan(opposite*RobotMap.DriveMap.feetPerPixel/RobotMap.DriveMap.adjacentLength));
+		double val = Math.toDegrees(Math.atan((opposite/RobotMap.DriveMap.pixelPerFoot)/RobotMap.DriveMap.adjacentLength));
+		return val;
 	}
 }
 
