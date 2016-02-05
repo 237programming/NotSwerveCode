@@ -32,9 +32,9 @@ public class RobotMap {
 		public static final double autoEncMax = 0.0; 
 		public static final double autoEncMin = 0.0; 
 		public static final double horizontalP = 0.5;
-		public static final double horizontalI = 0.0;
+		public static final double horizontalI = 0.2;
 		public static final double horizontalD = 0.0;
-		public static final double absTolerance = 0.5;
+		public static final double absTolerance = 0.1;
 		public static final double adjacentLength = 9.25;
 		public static final double feetPerPixel = 0.0305997;
 		public static final double pixelPerFoot = 32.68;

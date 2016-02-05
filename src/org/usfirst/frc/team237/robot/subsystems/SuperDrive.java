@@ -61,8 +61,8 @@ public class SuperDrive extends Subsystem {
 				this.leftMotor);
 		this.horizontalNegatedPID = new PIDController(
 				RobotMap.DriveMap.horizontalP*RobotMap.DriveMap.driveNegated,
-				RobotMap.DriveMap.horizontalI,
-				RobotMap.DriveMap.horizontalD,
+				RobotMap.DriveMap.horizontalI*RobotMap.DriveMap.driveNegated,
+				RobotMap.DriveMap.horizontalD*RobotMap.DriveMap.driveNegated,
 				this.gyro,
 				this.rightMotor);
 		this.horizontalPID.setContinuous(true);
