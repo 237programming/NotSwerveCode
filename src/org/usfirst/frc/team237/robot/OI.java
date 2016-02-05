@@ -49,7 +49,7 @@ public class OI {
 	public OI() {
 		
 		shiftButton.whenPressed(new ShifterCommand());
-		enableVisionTrack.whileHeld(new TrackTarget());
+		enableVisionTrack.whenPressed(new TrackTarget());
 	}
 }
 

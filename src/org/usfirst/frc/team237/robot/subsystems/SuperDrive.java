@@ -135,7 +135,7 @@ public class SuperDrive extends Subsystem {
 			this.horizontalPID.enable();
 			this.horizontalNegatedPID.enable();
 		}
-		this.searchTarget();
+		//this.searchTarget();
 		SmartDashboard.putNumber("Robot Yaw", gyro.pidGet());
 		//horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
 		//horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
@@ -170,7 +170,7 @@ public class SuperDrive extends Subsystem {
 	}
 	public double calcSetPoint(double opposite){
 		double val = Math.toDegrees(Math.atan((opposite/RobotMap.DriveMap.pixelPerFoot)/RobotMap.DriveMap.adjacentLength));
-		return val;
+		return gyro.pidGet()+val;
 	}
 }
 
