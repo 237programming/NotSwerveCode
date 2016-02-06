@@ -1,9 +1,11 @@
 package org.usfirst.frc.team237.robot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
+import org.usfirst.frc.team237.robot.commands.LightCommand;
 import org.usfirst.frc.team237.robot.commands.ShifterCommand;
 import org.usfirst.frc.team237.robot.commands.TrackTarget;
 
@@ -16,8 +18,9 @@ public class OI {
 	public static Joystick RightJoyStick = new Joystick(RobotMap.ControlMap.rightStick);
 	
 	public static Button shiftButton = new JoystickButton(LeftJoyStick, 1);
-	public static Button enableVisionTrack = new JoystickButton(LeftJoyStick, 2);
-	public static Button disableVisionTrack = new JoystickButton(LeftJoyStick, 3);
+	public static Button enableLight = new JoystickButton(RightJoyStick , 1);
+	public static Button enableVisionTrack = new JoystickButton(RightJoyStick, 2);
+	public static Button disableVisionTrack = new JoystickButton(RightJoyStick, 3);
 	
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -49,6 +52,7 @@ public class OI {
 	public OI() {
 		
 		shiftButton.whenPressed(new ShifterCommand());
+		enableLight.whenPressed(new LightCommand());
 		enableVisionTrack.whenPressed(new TrackTarget());
 	}
 }
