@@ -40,23 +40,7 @@ public class Robot extends IterativeRobot {
     SendableChooser chooser;
     public static NetworkTable visionSystemTable;
     public static Relay relay = new Relay(0);
-    //this probably needs to go into a separate class or something
-    //just for testing stuff
     //p.s. andew rule$
-    public static void toggleRelay(Relay relay)
-    {
-    	if(relay.get() == Relay.Value.kForward)
-    	{
-    		relay.set(Relay.Value.kOff);
-    		System.out.println("LIGHT OFF");
-    	}
-    	else if(relay.get() == Relay.Value.kOff)
-    	{
-    		relay.set(Relay.Value.kForward);
-    		System.out.println("LIGHT ON");
-    	}
-    	else relay.set(Relay.Value.kForward);
-    }
     //private static SerialPort navXSerial = new SerialPort(57600, SerialPort.Port.kMXP);
     //public static AHRS navX ;
     boolean flag;

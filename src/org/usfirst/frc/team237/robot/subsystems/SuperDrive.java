@@ -7,6 +7,7 @@ import org.usfirst.frc.team237.robot.RobotMap;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -87,6 +88,22 @@ public class SuperDrive extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+    
+    public static void toggleRelay(Relay relay)
+    {
+    	if(relay.get() == Relay.Value.kForward)
+    	{
+    		relay.set(Relay.Value.kOff);
+    		System.out.println("LIGHT OFF");
+    	}
+    	else if(relay.get() == Relay.Value.kOff)
+    	{
+    		relay.set(Relay.Value.kForward);
+    		System.out.println("LIGHT ON");
+    	}
+    	else relay.set(Relay.Value.kForward);
+    }
+    
     public void searchTarget() {
     	double xLocation = visionXSrc.pidGet(); 
     	double setPoint = calcSetPoint(xLocation-RobotMap.DriveMap.centerScreenX);
