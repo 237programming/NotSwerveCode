@@ -42,7 +42,11 @@ public class RobotMap {
 		public static final int leftTalon = 3;
 		public static final int leftTalonPrime = 4;
 		public static final int rightTalon = 5; 
-		public static final int rightTalonPrime = 6; 
+		public static final int rightTalonPrime = 6;
+		//Values TBD
+		public static final int leftIntake = 0;
+		public static final int rightIntake = 0;
+		public static final int rotateWrist = 0;
 	}
 	// turret motors 
 	
