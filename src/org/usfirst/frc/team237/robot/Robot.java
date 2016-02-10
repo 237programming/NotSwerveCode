@@ -15,6 +15,7 @@ import org.usfirst.frc.team237.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.PIDDrive;
 import org.usfirst.frc.team237.robot.subsystems.PneumaticControls;
 import org.usfirst.frc.team237.robot.subsystems.SuperDrive;
+import org.usfirst.frc.team237.robot.subsystems.WristSubsystem;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -40,6 +41,7 @@ public class Robot extends IterativeRobot {
     SendableChooser chooser;
     public static NetworkTable visionSystemTable;
     public static Relay relay = new Relay(0);
+    public static WristSubsystem wristSubsystem;
     //p.s. andew rule$
     //private static SerialPort navXSerial = new SerialPort(57600, SerialPort.Port.kMXP);
     //public static AHRS navX ;
@@ -59,6 +61,7 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Default Auto", new ExampleCommand());
         //chooser.addObject("Default Tele", new TeleopDrive());
 //        chooser.addObject("My Auto", new MyAutoCommand());
+        wristSubsystem = new WristSubsystem();
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putNumber("PID error", driveTrain.getError());
     }

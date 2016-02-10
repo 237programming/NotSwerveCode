@@ -30,7 +30,30 @@ public class WristSubsystem extends Subsystem {
         //                  to
         // enable() - Enables the PID controller.
     }
-    
+    public void raiseWrist(){
+    	rotateWrist.set(RobotMap.ArmMap.wristPositiveSpeed);
+    }
+    public void lowerWrist(){
+    	rotateWrist.set(RobotMap.ArmMap.wirstNegativeSpeed);
+    }
+    public void stopWrist(){
+    	rotateWrist.set(0);
+    }
+    public void inTake(){
+    	leftIntake.set(1);
+    	rightIntake.set(1);
+    }
+    public void outTake(){
+    	leftIntake.set(-1);
+    	rightIntake.set(-1);
+    }
+    public void stopTake(){
+    	leftIntake.set(0);
+    	rightIntake.set(0);
+    }
+    public void resetTalonEncoder(){
+    	rotateWrist.setEncPosition(0);
+    }
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
@@ -47,15 +70,4 @@ public class WristSubsystem extends Subsystem {
     rotateWrist.disable();
     }
     
-    protected double returnPIDInput() {
-        // Return your input value for the PID loop
-        // e.g. a sensor, like a potentiometer:
-        // yourPot.getAverageVoltage() / kYourMaxVoltage;
-    	return 0.0;
-    }
-    
-    protected void usePIDOutput(double output) {
-        // Use output to drive your system, like a motor
-        // e.g. yourMotor.set(output);
-    }
 }
