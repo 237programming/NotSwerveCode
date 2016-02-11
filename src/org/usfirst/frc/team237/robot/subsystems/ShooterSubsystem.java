@@ -41,6 +41,13 @@ public class ShooterSubsystem extends Subsystem {
 		setRight(RobotMap.ArmMap.shooterFullSpeed * RobotMap.ArmMap.intakeMultiplayer);
 	}
 	
+	public void stopLeft() {
+		shooterLeftTalon.set(0);
+	}
+	public void stopRight() {
+		shooterRightTalon.set(0);
+	}
+	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

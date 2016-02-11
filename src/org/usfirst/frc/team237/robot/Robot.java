@@ -6,14 +6,17 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
 import org.usfirst.frc.team237.robot.commands.TeleopDrive;
+import org.usfirst.frc.team237.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.PIDDrive;
 import org.usfirst.frc.team237.robot.subsystems.PneumaticControls;
+import org.usfirst.frc.team237.robot.subsystems.ShooterSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.SuperDrive;
 import org.usfirst.frc.team237.robot.subsystems.WristSubsystem;
 
@@ -42,6 +45,8 @@ public class Robot extends IterativeRobot {
     public static NetworkTable visionSystemTable;
     public static Relay relay = new Relay(0);
     public static WristSubsystem wristSubsystem;
+    public static ShooterSubsystem shooterSubsystem;
+	public static ArmSubsystem armSubsystem;
     //p.s. andew rule$
     //private static SerialPort navXSerial = new SerialPort(57600, SerialPort.Port.kMXP);
     //public static AHRS navX ;

@@ -49,6 +49,23 @@ public class ArmSubsystem extends Subsystem {
 		extensionTalon.disable();
 	}
 	
+	public void angleArmUp() {
+		jointDisable();
+		jointTalon.set(RobotMap.ArmMap.manualAngle);
+	}
+	public void angleArmDown() {
+		jointDisable();
+		jointTalon.set(RobotMap.ArmMap.manualAngle * -1.0);
+	}
+	public void extendArm() {
+		extensionDisable();
+		extensionTalon.set(RobotMap.ArmMap.manualExtension);
+	}
+	public void retractArm() {
+		extensionDisable();
+		extensionTalon.set(RobotMap.ArmMap.manualExtension * -1.0);
+	}
+	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
