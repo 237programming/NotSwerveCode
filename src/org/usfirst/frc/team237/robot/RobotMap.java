@@ -70,7 +70,14 @@ public class RobotMap {
 		public static final double wristTransverseDefense = 0.0;
 		public static final double ballIntake = 0.0;
 		public static final double drawBridge = 0.0;
-		public static final double portCullis = 0.0;		
+		public static final double portCullis = 0.0;
+		public static final int jointTalon = 0; //TBD
+		public static final int extensionTalon = 0; //TBD
+		public static final int shooterLeftTalon = 0; //TBD
+		public static final int shooterRightTalon = 0; //TBD
+		public static final int shooterVictor = 0; //TBD
+		public static final double shooterFullSpeed = 1.0;
+		public static final double intakeMultiplayer = 0.3;
 	}
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:
