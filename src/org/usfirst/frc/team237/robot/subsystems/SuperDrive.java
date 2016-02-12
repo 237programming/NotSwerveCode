@@ -189,5 +189,8 @@ public class SuperDrive extends Subsystem {
 		double val = Math.toDegrees(Math.atan((opposite/RobotMap.DriveMap.pixelPerFoot)/RobotMap.DriveMap.adjacentLength));
 		return gyro.pidGet()+val;
 	}
+	public double getRobotPitch() {
+		return gyro.getPitch();
+	}
 }
 
