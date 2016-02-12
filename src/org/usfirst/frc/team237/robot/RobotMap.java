@@ -44,9 +44,8 @@ public class RobotMap {
 		public static final int rightTalon = 5; 
 		public static final int rightTalonPrime = 6;
 		//Values TBD
-		public static final int leftIntake = 0;
-		public static final int rightIntake = 0;
-		public static final int rotateWrist = 0;
+		public static final int intake = 1;
+		public static final int rotateWrist = 7;
 	}
 	// turret motors 
 	
@@ -71,11 +70,11 @@ public class RobotMap {
 		public static final double ballIntake = 0.0;
 		public static final double drawBridge = 0.0;
 		public static final double portCullis = 0.0;
-		public static final int jointTalon = 0; //TBD
-		public static final int extensionTalon = 0; //TBD
-		public static final int shooterLeftTalon = 0; //TBD
-		public static final int shooterRightTalon = 0; //TBD
-		public static final int shooterVictor = 0; //TBD
+		public static final int jointTalon = 8;
+		public static final int extensionTalon = 9; 
+		public static final int shooterLeftTalon = 10; 
+		public static final int shooterRightTalon = 11; 
+		public static final int shooterVictor = 0;
 		public static final double shooterFullSpeed = 1.0;
 		public static final double intakeMultiplayer = 0.3;
 		public static final double manualAngle = 0.5;
