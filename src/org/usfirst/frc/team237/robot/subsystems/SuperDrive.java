@@ -33,7 +33,7 @@ public class SuperDrive extends Subsystem {
 	private NetTablesPIDSource visionXSrc; 
 	private double leftTolerance;
 	private double rightTolerance;
-	private AHRS gyro = new AHRS(SerialPort.Port.kMXP);
+	private AHRS gyro;
 	//Define the drive
 	//TankDrive drive; 
 	
