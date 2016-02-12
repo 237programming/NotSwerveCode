@@ -34,6 +34,9 @@ public class RobotMap {
 		public static final double horizontalP = 0.5;
 		public static final double horizontalI = 0.2;
 		public static final double horizontalD = 0.0;
+		public static final double driveP = 0.5;
+		public static final double driveI = 0.2;
+		public static final double driveD = 0.0;
 		public static final double absTolerance = 0.1;
 		public static final double adjacentLength = 9.25;
 		public static final double feetPerPixel = 0.0305997;

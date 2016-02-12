@@ -26,8 +26,8 @@ public class SuperDrive extends Subsystem {
 	private CANTalon rightMotor;
 	private CANTalon rightMotorPrime;
 	// define all PID loops
-	private PIDController horizontalPID;
-	private PIDController horizontalNegatedPID;
+	private PIDController leftDrivePID;
+	private PIDController rightDrivePID;
 	private PIDController encoderPID; 
 	private PIDController yawPID; 
 	private NetTablesPIDSource visionXSrc; 
@@ -54,34 +54,31 @@ public class SuperDrive extends Subsystem {
 		this.leftMotorPrime.set(RobotMap.DriveMap.leftTalon);
 		this.rightMotorPrime.changeControlMode(CANTalon.TalonControlMode.Follower);
 		this.rightMotorPrime.set(RobotMap.DriveMap.rightTalon);
-		this.horizontalPID = new PIDController(
-				RobotMap.DriveMap.horizontalP,
-				RobotMap.DriveMap.horizontalI,
-				RobotMap.DriveMap.horizontalD,
+		this.leftDrivePID = new PIDController(
+				RobotMap.DriveMap.driveP,
+				RobotMap.DriveMap.driveI,
+				RobotMap.DriveMap.driveD,
 				this.gyro,
 				this.leftMotor);
-		this.horizontalNegatedPID = new PIDController(
-				RobotMap.DriveMap.horizontalP*RobotMap.DriveMap.driveNegated,
-				RobotMap.DriveMap.horizontalI*RobotMap.DriveMap.driveNegated,
-				RobotMap.DriveMap.horizontalD*RobotMap.DriveMap.driveNegated,
+		this.rightDrivePID = new PIDController(
+				RobotMap.DriveMap.driveP,
+				RobotMap.DriveMap.driveI,
+				RobotMap.DriveMap.driveD,
 				this.gyro,
 				this.rightMotor);
-		this.horizontalPID.setContinuous(true);
-		this.horizontalNegatedPID.setContinuous(true);
+		this.leftDrivePID.setContinuous(true);
+		this.rightDrivePID.setContinuous(true);
 		
-		this.horizontalNegatedPID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
-		this.horizontalPID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
-		this.horizontalPID.setToleranceBuffer(1);
-		this.horizontalNegatedPID.setToleranceBuffer(1);
-		this.horizontalPID.setAbsoluteTolerance(20.0);
-		this.horizontalNegatedPID.setAbsoluteTolerance(20.0);
+		this.rightDrivePID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
+		this.leftDrivePID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
+		this.leftDrivePID.setToleranceBuffer(1);
+		this.rightDrivePID.setToleranceBuffer(1);
+		this.leftDrivePID.setAbsoluteTolerance(20.0);
+		this.rightDrivePID.setAbsoluteTolerance(20.0);
 
-		this.horizontalPID.initTable(NetworkTable.getTable("PID/Horiontal PID"));
-		this.horizontalNegatedPID.initTable(NetworkTable.getTable("PID/Horiontal Negated PID"));
-		//horizontalPID.startLiveWindowMode();
-		//SmartDashboard.putNumber("Input", horizontalPID.getTable().getNumber("p", 0.0));
-		// initialize control loops 
-		//leftMotor.createTableListener()
+		this.leftDrivePID.initTable(NetworkTable.getTable("PID/Horiontal PID"));
+		this.rightDrivePID.initTable(NetworkTable.getTable("PID/Horiontal Negated PID"));
+
 		
 	}
     public void initDefaultCommand() {
@@ -108,8 +105,8 @@ public class SuperDrive extends Subsystem {
     	double xLocation = visionXSrc.pidGet(); 
     	double setPoint = calcSetPoint(xLocation-RobotMap.DriveMap.centerScreenX);
     	SmartDashboard.putNumber("Target Angle", setPoint);
-    	horizontalPID.setSetpoint(setPoint);
-    	horizontalNegatedPID.setSetpoint(setPoint);
+    	leftDrivePID.setSetpoint(setPoint);
+    	rightDrivePID.setSetpoint(setPoint);
     }
     public void setLeft(double speed) {
 		speed *= RobotMap.DriveMap.driveNegated;
@@ -135,9 +132,21 @@ public class SuperDrive extends Subsystem {
 	}
 	public void visionStart(){
 		
-		this.horizontalPID.initTable(NetworkTable.getTable("PID/Horiontal PID"));
-		this.horizontalPID.enable();
-		this.horizontalNegatedPID.enable();
+		this.leftDrivePID.initTable(NetworkTable.getTable("PID/Horiontal PID"));
+		this.leftDrivePID.disable();
+		this.rightDrivePID.disable();
+		this.leftDrivePID.setPID(
+				RobotMap.DriveMap.horizontalP,
+				RobotMap.DriveMap.horizontalI,
+				RobotMap.DriveMap.horizontalD
+				);
+		this.rightDrivePID.setPID(
+			RobotMap.DriveMap.horizontalP*RobotMap.DriveMap.driveNegated,
+			RobotMap.DriveMap.horizontalI*RobotMap.DriveMap.driveNegated,
+			RobotMap.DriveMap.horizontalD*RobotMap.DriveMap.driveNegated
+		);
+		this.leftDrivePID.enable();
+		this.rightDrivePID.enable();
 		//this.horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
 		//this.horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
 		this.searchTarget();
@@ -145,12 +154,12 @@ public class SuperDrive extends Subsystem {
 	public void visionPeriodic(){
 		if (this.onTarget() == true) {
 			System.out.println("Target Found");
-			this.horizontalPID.disable();
-			this.horizontalNegatedPID.disable();
+			this.leftDrivePID.disable();
+			this.rightDrivePID.disable();
 			this.stop();
 		} else {
-			this.horizontalPID.enable();
-			this.horizontalNegatedPID.enable();
+			this.leftDrivePID.enable();
+			this.rightDrivePID.enable();
 		}
 		//this.searchTarget();
 		SmartDashboard.putNumber("Robot Yaw", gyro.pidGet());
@@ -158,17 +167,18 @@ public class SuperDrive extends Subsystem {
 		//horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
 	}
 	public void visionStop(){
-		this.horizontalPID.disable();
-		this.horizontalNegatedPID.disable();
-		//horizontalPID.free();
-		//horizontalNegatedPID.free();
+		this.leftDrivePID.disable();
+		this.rightDrivePID.disable();
+		rightDrivePID.setPID(RobotMap.DriveMap.horizontalP, RobotMap.DriveMap.horizontalI, RobotMap.DriveMap.horizontalD);
+		
+		
 	}
 	public double getError(){
-		return horizontalPID.getError();
+		return leftDrivePID.getError();
 	}
 	public boolean onTarget() {
-		SmartDashboard.putBoolean("Left On Target", horizontalPID.onTarget());
-		if(Math.abs(horizontalPID.getError()) < RobotMap.DriveMap.absTolerance) {
+		SmartDashboard.putBoolean("Left On Target", leftDrivePID.onTarget());
+		if(Math.abs(leftDrivePID.getError()) < RobotMap.DriveMap.absTolerance) {
 			return true;
 		}
 		return false;
