@@ -42,7 +42,8 @@ public class SuperDrive extends Subsystem {
 	String DriveName = "Drive"; 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	public SuperDrive(){
+	public SuperDrive(AHRS g){
+		gyro = g;
 		this.leftMotor = new CANTalon(RobotMap.DriveMap.leftTalon);
 		this.leftMotorPrime = new CANTalon(RobotMap.DriveMap.leftTalonPrime);
 		this.rightMotor = new CANTalon(RobotMap.DriveMap.rightTalon);

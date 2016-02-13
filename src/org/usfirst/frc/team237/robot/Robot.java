@@ -47,6 +47,8 @@ public class Robot extends IterativeRobot {
     public static WristSubsystem wristSubsystem;
     public static ShooterSubsystem shooterSubsystem;
 	public static ArmSubsystem armSubsystem;
+	public AHRS gyro;
+	
     //p.s. andew rule$
     //private static SerialPort navXSerial = new SerialPort(57600, SerialPort.Port.kMXP);
     //public static AHRS navX ;
@@ -56,7 +58,9 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	driveTrain = new SuperDrive();
+    	gyro = new AHRS(SerialPort.Port.kMXP);
+    	armSubsystem = new ArmSubsystem(gyro);
+    	driveTrain = new SuperDrive(gyro);
 		oi = new OI();
 		//driveTrain = new PIDDrive();
 		
@@ -69,6 +73,8 @@ public class Robot extends IterativeRobot {
         wristSubsystem = new WristSubsystem();
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putNumber("PID error", driveTrain.getError());
+        driveTrain.setAHRS(gyro);
+        armSubsystem.setAHRS(gyro);
     }
 	
 	/**

@@ -24,6 +24,7 @@ public class RobotMap {
 		public static final int minInput = 0;
 		public static final int maxInput = 360;
 		public static final int centerScreenX = 200;
+		public static final int centerScreenY = 100;
 		public static final int setPoint = maxInput/2;
 		public static final double driveMultiplier = 1.0;
 		public static final double driveNegated = -1.0;
@@ -83,6 +84,9 @@ public class RobotMap {
 		public static final double intakeMultiplayer = 0.3;
 		public static final double manualAngle = 0.5;
 		public static final double manualExtension = 0.5;
+		public static final double armRotationP = 1;
+		public static final double armRotationI = 0;
+		public static final double armRotationD = 0;
 	}
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:
