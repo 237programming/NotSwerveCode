@@ -6,6 +6,7 @@ import org.usfirst.frc.team237.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  *
@@ -18,11 +19,13 @@ public class PneumaticControls extends Subsystem {
 	Compressor compressor;
 	
 	static DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.PneumaticsMap.CANAddres,RobotMap.PneumaticsMap.shifterSolenoid1, RobotMap.PneumaticsMap.shifterSolenoid2);;
+	static Solenoid iceSkate = new Solenoid(RobotMap.PneumaticsMap.CANAddres, RobotMap.PneumaticsMap.iceSkateSolenoid);
 	
 	public void PneumaticControls() {
 		compressor = new Compressor();
 		//shifter = new DoubleSolenoid(RobotMap.PneumaticsMap.shifterSolenoid1, RobotMap.PneumaticsMap.shifterSolenoid2);
 		shifter.set(DoubleSolenoid.Value.kOff);
+		iceSkate.set(false);
 		compressor.setClosedLoopControl(true);
 		compressor.start();
 	}
@@ -44,7 +47,20 @@ public class PneumaticControls extends Subsystem {
 			this.shiftHigh();
 		}
 	}
-	
+	public void iceSkateOn(){
+		iceSkate.set(true);
+	}
+	public void iceSkateOff(){
+		iceSkate.set(false);
+	}
+	public void iceSkateToggle(){
+		if(iceSkate.get() == true ){
+			this.iceSkateOff();
+		}
+		else if(iceSkate.get() == false ){
+			this.iceSkateOn();
+		}
+	}
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

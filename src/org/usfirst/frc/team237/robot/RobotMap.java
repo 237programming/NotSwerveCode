@@ -65,7 +65,8 @@ public class RobotMap {
 	public class PneumaticsMap {
 		public static final int shifterSolenoid1 = 0;
 		public static final int shifterSolenoid2 = 1;
-		public static final int CANAddres = 2; 
+		public static final int CANAddres = 2;
+		public static final int iceSkateSolenoid = 0;
 	}
 	public class ArmMap{
 		public static final double wristPositiveSpeed = 0.3;
