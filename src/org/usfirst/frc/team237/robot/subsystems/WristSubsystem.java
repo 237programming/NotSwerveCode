@@ -65,5 +65,9 @@ public class WristSubsystem extends Subsystem {
     public void disableWrist(){
     rotateWrist.disable();
     }
+    public void set(double speed){
+    	disableWrist();
+    	rotateWrist.set(speed);
+    }
     
 }

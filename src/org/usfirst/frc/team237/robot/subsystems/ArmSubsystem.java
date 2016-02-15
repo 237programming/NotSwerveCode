@@ -48,7 +48,7 @@ public class ArmSubsystem extends Subsystem {
 	public void setAngle(double angle) {
 		jointTalon.setSetpoint(angle);
 	}
-	public void setExtension(double distance) {
+	public void setExtensionSpeed(double distance) {
 		extensionTalon.setSetpoint(distance);
 	}
 	
@@ -58,7 +58,10 @@ public class ArmSubsystem extends Subsystem {
 	public void extensionEnable() {
 		extensionTalon.enable();
 	}
-	
+	public void stopArm(){
+		jointTalon.disable();
+		jointTalon.set(0);	
+	}
 	public void jointDisable() {
 		jointTalon.disable();
 	}
@@ -82,7 +85,10 @@ public class ArmSubsystem extends Subsystem {
 		extensionDisable();
 		extensionTalon.set(RobotMap.ArmMap.manualExtension * -1.0);
 	}
-	
+	public void stopExtension(){
+	extensionTalon.disable();
+	extensionTalon.set(0);
+	}
 	public void setAHRS(AHRS g) {
 		gyro = g;
 	}
@@ -114,4 +120,3 @@ public class ArmSubsystem extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
 }
-

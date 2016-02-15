@@ -164,8 +164,7 @@ public class SuperDrive extends Subsystem {
 		}
 		//this.searchTarget();
 		SmartDashboard.putNumber("Robot Yaw", gyro.pidGet());
-		//horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
-		//horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
+
 	}
 	public void visionStop(){
 		this.leftDrivePID.disable();

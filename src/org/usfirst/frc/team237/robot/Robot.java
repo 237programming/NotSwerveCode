@@ -11,7 +11,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
+import org.usfirst.frc.team237.robot.commands.TeleopArm;
+import org.usfirst.frc.team237.robot.commands.TeleopArmExtension;
 import org.usfirst.frc.team237.robot.commands.TeleopDrive;
+import org.usfirst.frc.team237.robot.commands.TeleopWrist;
 import org.usfirst.frc.team237.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.PIDDrive;
@@ -41,6 +44,9 @@ public class Robot extends IterativeRobot {
 	public static PneumaticControls pControls = new PneumaticControls();
     Command autonomousCommand;
     TeleopDrive driveCommand;
+    TeleopArm armCommand;
+    TeleopArmExtension armExtensionCommand;
+    TeleopWrist wristCommand; 
     SendableChooser chooser;
     public static NetworkTable visionSystemTable;
     public static Relay relay = new Relay(0);
@@ -65,6 +71,9 @@ public class Robot extends IterativeRobot {
 		//driveTrain = new PIDDrive();
 		
 		driveCommand = new TeleopDrive();
+		armCommand = new TeleopArm();
+	    armExtensionCommand = new TeleopArmExtension();
+	    wristCommand = new TeleopWrist(); 
 		//pControls = new PneumaticControls();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new ExampleCommand());
@@ -139,7 +148,8 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
         driveTrain.visionStop();
-        driveCommand.start();
+        armCommand.start();
+//      driveCommand.start();
     }
 
     /**
@@ -147,7 +157,6 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        
     }
     
     /**
