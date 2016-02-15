@@ -31,16 +31,10 @@ public class WristSubsystem extends Subsystem {
         // enable() - Enables the PID controller.
     }
     public void raiseWrist(){
-    	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Voltage);
     	rotateWrist.set(RobotMap.ArmMap.wristPositiveSpeed);
-    	rotateWrist.setSetpoint(rotateWrist.getPosition());
-    	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Position);
     }
     public void lowerWrist(){
-    	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Voltage);
     	rotateWrist.set(RobotMap.ArmMap.wristNegativeSpeed);
-    	rotateWrist.setSetpoint(rotateWrist.getPosition());
-    	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Position);
     }
     public void stopWrist(){
     	rotateWrist.set(0);
@@ -67,11 +61,16 @@ public class WristSubsystem extends Subsystem {
     }
     
     public void enableWrist(){
-    rotateWrist.enable();
+    	rotateWrist.setSetpoint(rotateWrist.getPosition());
+    	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Position);
+    	rotateWrist.enable();
     }
     
     public void disableWrist(){
-    rotateWrist.disable();
+    	
+    	rotateWrist.disable();
+    	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Voltage);
+    	
     }
     public void set(double speed){
     	disableWrist();
