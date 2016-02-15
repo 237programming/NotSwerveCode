@@ -70,7 +70,7 @@ public class RobotMap {
 	}
 	public class ArmMap{
 		public static final double wristPositiveSpeed = 0.3;
-		public static final double wirstNegativeSpeed = -0.3;
+		public static final double wristNegativeSpeed = -0.3;
 		public static final double wristHome = 0.0;
 		public static final double wristTransverseDefense = 0.0;
 		public static final double ballIntake = 0.0;

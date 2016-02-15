@@ -23,17 +23,24 @@ public class WristSubsystem extends Subsystem {
     	intake = new Talon(RobotMap.DriveMap.intake);
     	rotateWrist = new CANTalon(RobotMap.DriveMap.rotateWrist);
     	rotateWrist.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
-    	rotateWrist.setPID(1.0, 0.0, 0.0);
+    	rotateWrist.setPID(0.3, 0.0, 0.0);
+    	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Position);
         // Use these to get going:
         // setSetpoint() -  Sets where the PID controller should move the system
         //                  to
         // enable() - Enables the PID controller.
     }
     public void raiseWrist(){
+    	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Voltage);
     	rotateWrist.set(RobotMap.ArmMap.wristPositiveSpeed);
+    	rotateWrist.setSetpoint(rotateWrist.getPosition());
+    	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Position);
     }
     public void lowerWrist(){
-    	rotateWrist.set(RobotMap.ArmMap.wirstNegativeSpeed);
+    	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Voltage);
+    	rotateWrist.set(RobotMap.ArmMap.wristNegativeSpeed);
+    	rotateWrist.setSetpoint(rotateWrist.getPosition());
+    	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Position);
     }
     public void stopWrist(){
     	rotateWrist.set(0);
@@ -55,6 +62,7 @@ public class WristSubsystem extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     public void setWristPosition(double angle) {
+    	
     	rotateWrist.setSetpoint(angle);	
     }
     

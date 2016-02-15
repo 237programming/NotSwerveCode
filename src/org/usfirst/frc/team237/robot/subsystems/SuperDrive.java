@@ -50,7 +50,8 @@ public class SuperDrive extends Subsystem {
 		this.rightMotorPrime = new CANTalon(RobotMap.DriveMap.rightTalonPrime);
 		this.visionXSrc = new NetTablesPIDSource(); 
 		this.visionXSrc.setDirection(NetTablesPIDSource.direction.x);
-
+		//this.leftMotor.changeControlMode(CANTalon.TalonControlMode.Speed);
+		//this.rightMotor.changeControlMode(CANTalon.TalonControlMode.Speed);
 		this.leftMotorPrime.changeControlMode(CANTalon.TalonControlMode.Follower);
 		this.leftMotorPrime.set(RobotMap.DriveMap.leftTalon);
 		this.rightMotorPrime.changeControlMode(CANTalon.TalonControlMode.Follower);
