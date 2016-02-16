@@ -17,7 +17,7 @@ public class TeleopArm extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    Robot.armSubsystem.stopArm();
+    Robot.armSubsystem.jointDisable();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -33,7 +33,7 @@ public class TeleopArm extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    Robot.armSubsystem.stopArm();
+    Robot.armSubsystem.jointDisable();
     }
 
     // Called when another command which requires one or more of the same

@@ -53,19 +53,21 @@ public class ArmSubsystem extends Subsystem {
 	}
 	
 	public void jointEnable() {
+		jointTalon.setSetpoint(jointTalon.getPosition());
+		jointTalon.changeControlMode(CANTalon.TalonControlMode.Position);
 		jointTalon.enable();
 	}
 	public void extensionEnable() {
+		extensionTalon.setSetpoint(extensionTalon.getPosition());
+		extensionTalon.changeControlMode(CANTalon.TalonControlMode.Position);
 		extensionTalon.enable();
 	}
-	public void stopArm(){
-		jointTalon.disable();
-		jointTalon.set(0);	
-	}
 	public void jointDisable() {
+		jointTalon.changeControlMode(CANTalon.TalonControlMode.Voltage);
 		jointTalon.disable();
 	}
 	public void extensionDisable() {
+		extensionTalon.changeControlMode(CANTalon.TalonControlMode.Voltage);
 		extensionTalon.disable();
 	}
 	
