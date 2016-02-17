@@ -27,6 +27,7 @@ public class ArmSubsystem extends Subsystem {
 	
 	public ArmSubsystem(AHRS g)
 	{
+		jointTalon = new CANTalon(RobotMap.ArmMap.jointTalon);
 		visionYSrc = new NetTablesPIDSource();
 		visionYSrc.setDirection(NetTablesPIDSource.direction.y);
 		gyro = g;
@@ -35,7 +36,6 @@ public class ArmSubsystem extends Subsystem {
 									 RobotMap.ArmMap.armRotationD,
 									 gyro, jointTalon);
 		
-		jointTalon = new CANTalon(RobotMap.ArmMap.jointTalon);
 		extensionTalon = new CANTalon(RobotMap.ArmMap.extensionTalon);
 		
 		jointTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
@@ -63,28 +63,31 @@ public class ArmSubsystem extends Subsystem {
 		extensionTalon.enable();
 	}
 	public void jointDisable() {
-		jointTalon.changeControlMode(CANTalon.TalonControlMode.Voltage);
 		jointTalon.disable();
+		jointTalon.changeControlMode(CANTalon.TalonControlMode.Voltage);
+		jointTalon.enable();
+		
 	}
 	public void extensionDisable() {
-		extensionTalon.changeControlMode(CANTalon.TalonControlMode.Voltage);
 		extensionTalon.disable();
+		extensionTalon.changeControlMode(CANTalon.TalonControlMode.Voltage);
+		extensionTalon.enable();
 	}
 	
 	public void angleArmUp() {
-		jointDisable();
+		//jointDisable();
 		jointTalon.set(RobotMap.ArmMap.manualAngle);
 	}
 	public void angleArmDown() {
-		jointDisable();
+		//jointDisable();
 		jointTalon.set(RobotMap.ArmMap.manualAngle * -1.0);
 	}
 	public void extendArm() {
-		extensionDisable();
+		//extensionDisable();
 		extensionTalon.set(RobotMap.ArmMap.manualExtension);
 	}
 	public void retractArm() {
-		extensionDisable();
+		//extensionDisable();
 		extensionTalon.set(RobotMap.ArmMap.manualExtension * -1.0);
 	}
 	public void stopExtension(){

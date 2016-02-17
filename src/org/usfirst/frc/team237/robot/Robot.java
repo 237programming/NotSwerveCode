@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
-import org.usfirst.frc.team237.robot.commands.TeleopArm;
-import org.usfirst.frc.team237.robot.commands.TeleopArmExtension;
+import org.usfirst.frc.team237.robot.commands.TeleopArmUp;
+import org.usfirst.frc.team237.robot.commands.TeleopArmExtend;
 import org.usfirst.frc.team237.robot.commands.TeleopDrive;
 import org.usfirst.frc.team237.robot.commands.TeleopWrist;
 import org.usfirst.frc.team237.robot.subsystems.ArmSubsystem;
@@ -41,11 +41,11 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	//public static PIDDrive driveTrain;
 	public static SuperDrive driveTrain; 
-	public static PneumaticControls pControls = new PneumaticControls();
+	public static PneumaticControls pControls;
     Command autonomousCommand;
     TeleopDrive driveCommand;
-    TeleopArm armCommand;
-    TeleopArmExtension armExtensionCommand;
+    //TeleopArmUp armCommand;
+    //TeleopArmExtend armExtensionCommand;
     TeleopWrist wristCommand; 
     SendableChooser chooser;
     public static NetworkTable visionSystemTable;
@@ -65,21 +65,22 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     	gyro = new AHRS(SerialPort.Port.kMXP);
+    	pControls = new PneumaticControls();
     	armSubsystem = new ArmSubsystem(gyro);
     	driveTrain = new SuperDrive(gyro);
+    	wristSubsystem = new WristSubsystem();
 		oi = new OI();
 		//driveTrain = new PIDDrive();
 		
 		driveCommand = new TeleopDrive();
-		armCommand = new TeleopArm();
-	    armExtensionCommand = new TeleopArmExtension();
+
 	    wristCommand = new TeleopWrist(); 
 		//pControls = new PneumaticControls();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new ExampleCommand());
         //chooser.addObject("Default Tele", new TeleopDrive());
 //        chooser.addObject("My Auto", new MyAutoCommand());
-        wristSubsystem = new WristSubsystem();
+        
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putNumber("PID error", driveTrain.getError());
         driveTrain.setAHRS(gyro);
@@ -127,7 +128,7 @@ public class Robot extends IterativeRobot {
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
         
-        driveTrain.visionStart();
+        //driveTrain.visionStart();
         
     }
 
@@ -138,7 +139,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("PID error", driveTrain.getError());
         SmartDashboard.putBoolean("On Target", driveTrain.onTarget());
-        driveTrain.visionPeriodic();
+        //driveTrain.visionPeriodic();
     }
 
     public void teleopInit() {
@@ -148,7 +149,7 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
         driveTrain.visionStop();
-        armCommand.start();
+        //armCommand.start();
 //      driveCommand.start();
     }
 
