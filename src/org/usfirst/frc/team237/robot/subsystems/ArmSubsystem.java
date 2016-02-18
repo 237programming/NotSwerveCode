@@ -41,8 +41,8 @@ public class ArmSubsystem extends Subsystem {
 		jointTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
 		extensionTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Absolute);
 		
-		extensionTalon.setPID(1, 0, 0);
-		jointTalon.setPID(1, 0, 0);
+		extensionTalon.setPID(1.0, 0, 0);
+		jointTalon.setPID(1.0, 0, 0);
 	}
 	
 	public void setAngle(double angle) {
@@ -64,13 +64,13 @@ public class ArmSubsystem extends Subsystem {
 	}
 	public void jointDisable() {
 		jointTalon.disable();
-		jointTalon.changeControlMode(CANTalon.TalonControlMode.Voltage);
+		jointTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 		jointTalon.enable();
 		
 	}
 	public void extensionDisable() {
 		extensionTalon.disable();
-		extensionTalon.changeControlMode(CANTalon.TalonControlMode.Voltage);
+		extensionTalon.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 		extensionTalon.enable();
 	}
 	
@@ -91,8 +91,7 @@ public class ArmSubsystem extends Subsystem {
 		extensionTalon.set(RobotMap.ArmMap.manualExtension * -1.0);
 	}
 	public void stopExtension(){
-	extensionTalon.disable();
-	extensionTalon.set(0);
+		extensionTalon.set(0.0);
 	}
 	public void setAHRS(AHRS g) {
 		gyro = g;

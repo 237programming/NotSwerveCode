@@ -23,7 +23,6 @@ public class TeleopArmRetract extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("retracting arm");
     	Robot.armSubsystem.retractArm();
     }
 
@@ -37,11 +36,12 @@ public class TeleopArmRetract extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.armSubsystem.extensionDisable();
+    	Robot.armSubsystem.stopExtension();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.armSubsystem.extensionDisable();
     }
 }
