@@ -14,6 +14,8 @@ import org.usfirst.frc.team237.robot.commands.TeleopWristDown;
 import org.usfirst.frc.team237.robot.commands.TeleopWristUp;
 import org.usfirst.frc.team237.robot.commands.TeleopArmExtend;
 import org.usfirst.frc.team237.robot.commands.TrackTarget;
+import org.usfirst.frc.team237.robot.commands.WristIntakeCommand;
+import org.usfirst.frc.team237.robot.commands.WristOuttakeCommand;
 
 /*
  * This class is the glue that binds the controls on the physical operator
@@ -30,8 +32,10 @@ public class OI {
 	public static Button armDown = new  JoystickButton(RightJoyStick, 3);
 	public static Button armExtend = new  JoystickButton(RightJoyStick, 4);
 	public static Button armRetract = new  JoystickButton(RightJoyStick, 5);
-	public static Button wristUp = new JoystickButton(LeftJoyStick, 6);
-	public static Button wristDown = new JoystickButton(LeftJoyStick, 7);
+	public static Button wristUp = new JoystickButton(LeftJoyStick, 7);
+	public static Button wristDown = new JoystickButton(LeftJoyStick, 6);
+	public static Button outTake = new JoystickButton(LeftJoyStick, 3);
+	public static Button inTake = new JoystickButton(LeftJoyStick, 2);
 	
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -71,6 +75,8 @@ public class OI {
 		armRetract.whenPressed(new TeleopArmRetract());
 		wristUp.whenPressed(new TeleopWristUp());
 		wristDown.whenPressed(new TeleopWristDown());
+		outTake.whenPressed(new WristOuttakeCommand());
+		inTake.whenPressed(new WristIntakeCommand());
 	}
 }
 

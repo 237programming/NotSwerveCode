@@ -69,11 +69,11 @@ public class WristSubsystem extends Subsystem {
     public void disableWrist(){
     	
     	rotateWrist.disable();
-    	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Voltage);
+    	rotateWrist.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+    	rotateWrist.enable();
     	
     }
     public void set(double speed){
-    	disableWrist();
     	rotateWrist.set(speed);
     }
     
