@@ -10,6 +10,8 @@ import org.usfirst.frc.team237.robot.commands.ShifterCommand;
 import org.usfirst.frc.team237.robot.commands.TeleopArmDown;
 import org.usfirst.frc.team237.robot.commands.TeleopArmRetract;
 import org.usfirst.frc.team237.robot.commands.TeleopArmUp;
+import org.usfirst.frc.team237.robot.commands.TeleopWristDown;
+import org.usfirst.frc.team237.robot.commands.TeleopWristUp;
 import org.usfirst.frc.team237.robot.commands.TeleopArmExtend;
 import org.usfirst.frc.team237.robot.commands.TrackTarget;
 
@@ -28,6 +30,8 @@ public class OI {
 	public static Button armDown = new  JoystickButton(RightJoyStick, 3);
 	public static Button armExtend = new  JoystickButton(RightJoyStick, 4);
 	public static Button armRetract = new  JoystickButton(RightJoyStick, 5);
+	public static Button wristUp = new JoystickButton(LeftJoyStick, 6);
+	public static Button wristDown = new JoystickButton(LeftJoyStick, 7);
 	
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -65,6 +69,8 @@ public class OI {
 		armDown.whenPressed(new TeleopArmDown());
 		armExtend.whenPressed(new TeleopArmExtend());
 		armRetract.whenPressed(new TeleopArmRetract());
+		wristUp.whenPressed(new TeleopWristUp());
+		wristDown.whenPressed(new TeleopWristDown());
 	}
 }
 

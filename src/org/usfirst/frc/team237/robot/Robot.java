@@ -14,7 +14,7 @@ import org.usfirst.frc.team237.robot.commands.ExampleCommand;
 import org.usfirst.frc.team237.robot.commands.TeleopArmUp;
 import org.usfirst.frc.team237.robot.commands.TeleopArmExtend;
 import org.usfirst.frc.team237.robot.commands.TeleopDrive;
-import org.usfirst.frc.team237.robot.commands.TeleopWrist;
+import org.usfirst.frc.team237.robot.commands.TeleopWristUp;
 import org.usfirst.frc.team237.robot.subsystems.ArmSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.PIDDrive;
@@ -46,7 +46,7 @@ public class Robot extends IterativeRobot {
     TeleopDrive driveCommand;
     //TeleopArmUp armCommand;
     //TeleopArmExtend armExtensionCommand;
-    TeleopWrist wristCommand; 
+    TeleopWristUp wristCommand; 
     SendableChooser chooser;
     public static NetworkTable visionSystemTable;
     public static Relay relay = new Relay(0);
@@ -74,7 +74,7 @@ public class Robot extends IterativeRobot {
 		
 		driveCommand = new TeleopDrive();
 
-	    wristCommand = new TeleopWrist(); 
+	    wristCommand = new TeleopWristUp(); 
 		//pControls = new PneumaticControls();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new ExampleCommand());
