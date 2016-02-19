@@ -18,8 +18,8 @@ public class PneumaticControls extends Subsystem {
 
 	Compressor compressor;
 	
-	static Solenoid shifter = new Solenoid(RobotMap.PneumaticsMap.CANAddres,RobotMap.PneumaticsMap.shifterSolenoid1);
-	static Solenoid iceSkate = new Solenoid(RobotMap.PneumaticsMap.CANAddres, RobotMap.PneumaticsMap.iceSkateSolenoid);
+	static Solenoid shifter = new Solenoid(RobotMap.PneumaticsMap.CANAddress,RobotMap.PneumaticsMap.shifterSolenoid1);
+	static Solenoid iceSkate = new Solenoid(RobotMap.PneumaticsMap.CANAddress, RobotMap.PneumaticsMap.iceSkateSolenoid);
 	
 	public PneumaticControls() {
 		compressor = new Compressor();

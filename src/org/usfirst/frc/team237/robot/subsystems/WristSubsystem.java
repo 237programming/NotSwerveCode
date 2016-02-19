@@ -5,8 +5,8 @@ import org.usfirst.frc.team237.robot.RobotMap;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -29,6 +29,7 @@ public class WristSubsystem extends Subsystem {
         // setSetpoint() -  Sets where the PID controller should move the system
         //                  to
         // enable() - Enables the PID controller.
+    	SmartDashboard.putNumber("RotateWristEncoder", rotateWrist.getPosition());
     }
     public void raiseWrist(){
     	rotateWrist.set(RobotMap.ArmMap.wristPositiveSpeed);
@@ -76,5 +77,7 @@ public class WristSubsystem extends Subsystem {
     public void set(double speed){
     	rotateWrist.set(speed);
     }
-    
+    public void post(){
+    	SmartDashboard.putNumber("RotateWristEncoder", rotateWrist.getPosition());
+    }
 }

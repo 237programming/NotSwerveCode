@@ -55,7 +55,7 @@ public class Robot extends IterativeRobot {
 	public static ArmSubsystem armSubsystem;
 	public AHRS gyro;
 	
-    //p.s. andew rule$
+    //andew rule$
     //private static SerialPort navXSerial = new SerialPort(57600, SerialPort.Port.kMXP);
     //public static AHRS navX ;
     boolean flag;
@@ -158,6 +158,10 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        driveTrain.post();
+        wristSubsystem.post();
+        armSubsystem.post();
+        
     }
     
     /**

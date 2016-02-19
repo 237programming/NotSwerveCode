@@ -48,9 +48,8 @@ public class RobotMap {
 		public static final int leftTalonPrime = 4;
 		public static final int rightTalon = 5; 
 		public static final int rightTalonPrime = 6;
-		//Values TBD
 		public static final int intake = 1;
-		public static final int rotateWrist = 7;
+		public static final int rotateWrist = 8;
 	}
 	// turret motors 
 	
@@ -65,18 +64,18 @@ public class RobotMap {
 	public class PneumaticsMap {
 		public static final int shifterSolenoid1 = 0;
 		public static final int shifterSolenoid2 = 1;
-		public static final int CANAddres = 2;
+		public static final int CANAddress = 2;
 		public static final int iceSkateSolenoid = 1;
 	}
 	public class ArmMap{
-		public static final double wristPositiveSpeed = 0.3;
-		public static final double wristNegativeSpeed = -0.3;
+		public static final double wristPositiveSpeed = 0.6;
+		public static final double wristNegativeSpeed = -0.6;
 		public static final double wristHome = 0.0;
 		public static final double wristTransverseDefense = 0.0;
 		public static final double ballIntake = 0.0;
 		public static final double drawBridge = 0.0;
 		public static final double portCullis = 0.0;
-		public static final int jointTalon = 8;
+		public static final int jointTalon = 7;
 		public static final int extensionTalon = 9; 
 		public static final int shooterLeftTalon = 10; 
 		public static final int shooterRightTalon = 11; 

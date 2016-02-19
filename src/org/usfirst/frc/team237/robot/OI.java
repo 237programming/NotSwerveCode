@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
+import org.usfirst.frc.team237.robot.commands.IceSkateCommand;
 import org.usfirst.frc.team237.robot.commands.LightCommand;
 import org.usfirst.frc.team237.robot.commands.ShifterCommand;
 import org.usfirst.frc.team237.robot.commands.TeleopArmDown;
@@ -36,6 +37,7 @@ public class OI {
 	public static Button wristDown = new JoystickButton(LeftJoyStick, 6);
 	public static Button outTake = new JoystickButton(LeftJoyStick, 3);
 	public static Button inTake = new JoystickButton(LeftJoyStick, 2);
+	public static Button toggleSkates = new JoystickButton(LeftJoyStick, 9);
 	
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -66,7 +68,7 @@ public class OI {
 	
 	public OI() {
 		
-		//shiftButton.whenPressed(new ShifterCommand());
+		shiftButton.whenPressed(new ShifterCommand());
 		enableLight.whenPressed(new LightCommand());
 		//enableVisionTrack.whenPressed(new TrackTarget());
 		armUp.whenPressed(new TeleopArmUp());
@@ -77,6 +79,6 @@ public class OI {
 		wristDown.whenPressed(new TeleopWristDown());
 		outTake.whenPressed(new WristOuttakeCommand());
 		inTake.whenPressed(new WristIntakeCommand());
+		toggleSkates.whenPressed(new IceSkateCommand());
 	}
 }
-

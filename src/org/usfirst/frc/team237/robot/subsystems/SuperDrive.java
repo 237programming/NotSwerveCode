@@ -38,7 +38,11 @@ public class SuperDrive extends Subsystem {
 	//TankDrive drive; 
 	
 	boolean _onTarget = false; 
-	
+	public enum QRDrive {
+		RIGHT,
+		LEFT,
+		BOTH
+	}
 	String DriveName = "Drive"; 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -77,7 +81,23 @@ public class SuperDrive extends Subsystem {
 		this.rightDrivePID.setToleranceBuffer(1);
 		this.leftDrivePID.setAbsoluteTolerance(20.0);
 		this.rightDrivePID.setAbsoluteTolerance(20.0);
-
+		leftMotor.setProfile(1);
+		rightMotor.setProfile(1);
+		leftMotor.setPID(0.0, 0.0, 0.0);
+		rightMotor.setPID(0.0, 0.0, 0.0);
+		leftMotor.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		rightMotor.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		leftMotor.setProfile(0);
+		rightMotor.setProfile(0);
+		leftMotor.setPID(
+				RobotMap.DriveMap.driveP,
+				RobotMap.DriveMap.driveI,
+				RobotMap.DriveMap.driveD);
+		rightMotor.setPID(
+				RobotMap.DriveMap.driveP,
+				RobotMap.DriveMap.driveI,
+				RobotMap.DriveMap.driveD);
+		
 		this.leftDrivePID.initTable(NetworkTable.getTable("PID/Horiontal PID"));
 		this.rightDrivePID.initTable(NetworkTable.getTable("PID/Horiontal Negated PID"));
 
@@ -202,5 +222,72 @@ public class SuperDrive extends Subsystem {
 	}
 	public double getRobotPitch() {
 		return gyro.getPitch();
+	}
+	public void driveFor(double rotations) {
+		leftMotor.setSetpoint(rotations+leftMotor.getEncPosition());
+		rightMotor.setSetpoint(rotations+rightMotor.getEncPosition());
+	}
+	
+	public void rotateTo(double angle){
+		this.leftDrivePID.disable();
+		this.rightDrivePID.disable();
+		this.leftDrivePID.setPID(
+				RobotMap.DriveMap.horizontalP,
+				RobotMap.DriveMap.horizontalI,
+				RobotMap.DriveMap.horizontalD
+				);
+		this.rightDrivePID.setPID(
+			RobotMap.DriveMap.horizontalP*RobotMap.DriveMap.driveNegated,
+			RobotMap.DriveMap.horizontalI*RobotMap.DriveMap.driveNegated,
+			RobotMap.DriveMap.horizontalD*RobotMap.DriveMap.driveNegated
+		);
+		this.leftDrivePID.enable();
+		this.rightDrivePID.enable();
+		this.leftDrivePID.setSetpoint(angle);
+		this.rightDrivePID.setSetpoint(angle);
+	}
+	
+	public void quickRotateTo(double angle, QRDrive dir ){
+		if (dir == QRDrive.RIGHT){
+			this.leftDrivePID.disable();
+			this.rightDrivePID.disable();
+			this.rightDrivePID.setPID(
+					RobotMap.DriveMap.horizontalP*RobotMap.DriveMap.driveNegated,
+					RobotMap.DriveMap.horizontalI*RobotMap.DriveMap.driveNegated,
+					RobotMap.DriveMap.horizontalD*RobotMap.DriveMap.driveNegated
+				);
+			this.rightDrivePID.enable();
+		} else if (dir == QRDrive.LEFT) {
+			this.leftDrivePID.disable();
+			this.rightDrivePID.disable();
+			this.leftDrivePID.setPID(
+					RobotMap.DriveMap.horizontalP,
+					RobotMap.DriveMap.horizontalI,
+					RobotMap.DriveMap.horizontalD
+					);
+			this.leftDrivePID.enable();
+		}
+		else {
+			this.leftDrivePID.disable();
+			this.rightDrivePID.disable();
+			this.leftDrivePID.setPID(
+					RobotMap.DriveMap.horizontalP,
+					RobotMap.DriveMap.horizontalI,
+					RobotMap.DriveMap.horizontalD
+					);
+			this.rightDrivePID.setPID(
+				RobotMap.DriveMap.horizontalP*RobotMap.DriveMap.driveNegated,
+				RobotMap.DriveMap.horizontalI*RobotMap.DriveMap.driveNegated,
+				RobotMap.DriveMap.horizontalD*RobotMap.DriveMap.driveNegated
+			);
+			this.leftDrivePID.enable();
+			this.rightDrivePID.enable();
+		}
+		this.rightDrivePID.setSetpoint(angle);
+		this.leftDrivePID.setSetpoint(angle);
+	}
+	public void post(){
+		SmartDashboard.putNumber("Encoder Left Drive", leftMotor.getPosition());
+		SmartDashboard.putNumber("Encoder Right Drive", rightMotor.getPosition());
 	}
 }

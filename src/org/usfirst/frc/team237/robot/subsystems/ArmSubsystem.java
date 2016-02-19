@@ -39,10 +39,13 @@ public class ArmSubsystem extends Subsystem {
 		extensionTalon = new CANTalon(RobotMap.ArmMap.extensionTalon);
 		
 		jointTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
-		extensionTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Absolute);
+		extensionTalon.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		
 		extensionTalon.setPID(1.0, 0, 0);
 		jointTalon.setPID(1.0, 0, 0);
+		SmartDashboard.putNumber("ArmExtensionEncoder", extensionTalon.getPosition());
+		SmartDashboard.putNumber("ArmAngleEncoder", jointTalon.getPosition());
+		
 	}
 	
 	public void setAngle(double angle) {
@@ -122,5 +125,9 @@ public class ArmSubsystem extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    }
+    public void post(){
+    	SmartDashboard.putNumber("ArmExtensionEncoder", extensionTalon.getPosition());
+		SmartDashboard.putNumber("ArmAngleEncoder", jointTalon.getPosition());
     }
 }
