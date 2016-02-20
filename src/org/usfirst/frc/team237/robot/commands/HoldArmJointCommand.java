@@ -8,35 +8,33 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class TeleopWristUp extends Command {
+public class HoldArmJointCommand extends Command {
 
-    public TeleopWristUp() {
-    	requires(Robot.wristSubsystem);
+    public HoldArmJointCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.armSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.wristSubsystem.disableWrist();
+    	Robot.armSubsystem.holdJoint();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.wristSubsystem.raiseWrist();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if (OI.wristUp.get() == false){
-        	return true;
+        if (OI.enableArmHold.get() == false){
+        	return true; 
         }
-    	return false;
+        return false; 
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.wristSubsystem.hold();
     }
 
     // Called when another command which requires one or more of the same

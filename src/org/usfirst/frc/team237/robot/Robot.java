@@ -43,7 +43,6 @@ public class Robot extends IterativeRobot {
 	//public static PIDDrive driveTrain;
 	public static SuperDrive driveTrain; 
 	public static PneumaticControls pControls;
-	public static AnalogInput lightSensor;
     Command autonomousCommand;
     TeleopDrive driveCommand;
     //TeleopArmUp armCommand;
@@ -71,7 +70,6 @@ public class Robot extends IterativeRobot {
     	driveTrain = new SuperDrive(gyro);
     	wristSubsystem = new WristSubsystem();
     	shooterSubsystem = new ShooterSubsystem();
-    	lightSensor = new AnalogInput(RobotMap.ArmMap.lightSensorChannel);
 		oi = new OI();
 		//driveTrain = new PIDDrive();
 		
@@ -102,6 +100,10 @@ public class Robot extends IterativeRobot {
 	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		driveTrain.post();
+        wristSubsystem.post();
+        armSubsystem.post();
+        shooterSubsystem.post();
 		SmartDashboard.putNumber("PID error", driveTrain.getError());
 	}
 

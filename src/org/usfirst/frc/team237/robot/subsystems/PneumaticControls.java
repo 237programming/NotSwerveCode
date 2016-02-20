@@ -25,8 +25,8 @@ public class PneumaticControls extends Subsystem {
 		//shifter = new DoubleSolenoid(RobotMap.PneumaticsMap.shifterSolenoid1, RobotMap.PneumaticsMap.shifterSolenoid2);
 //		shifter.set(false);
 //		iceSkate.set(false);
-		shifter.set(DoubleSolenoid.Value.kReverse);
-		iceSkate.set(DoubleSolenoid.Value.kReverse);
+		shifter.set(DoubleSolenoid.Value.kForward);
+		iceSkate.set(DoubleSolenoid.Value.kForward);
 		compressor.setClosedLoopControl(true);
 		compressor.start();
 	}

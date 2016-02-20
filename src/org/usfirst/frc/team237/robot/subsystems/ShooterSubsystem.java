@@ -40,18 +40,25 @@ public class ShooterSubsystem extends Subsystem {
 	
 	public boolean hasBall()
 	{
-		if(lightSensor.getVoltage() < 1.0) return true;
+		if(lightSensor.getVoltage() > 2.0) {
+			return true;
+		}
 		return false;
 	}
 	
 	public void shoot() {
 		setLeft(RobotMap.ArmMap.shooterFullSpeed);
 		setRight(RobotMap.ArmMap.shooterFullSpeed);
-		shooterVictor.set(RobotMap.ArmMap.shooterFullSpeed);
 	}
-	
+	public void triggerHold(){
+		shooterVictor.set(RobotMap.ArmMap.shooterVictorSpeed * RobotMap.ArmMap.intakeMultiplayer);
+	}
+	public void triggerRelease(){
+		shooterVictor.set(RobotMap.ArmMap.shooterVictorSpeed);
+	}
 	public void stopShoot(){
-		shooterVictor.set(0);
+		stopLeft();
+		stopRight();
 	}
 	public void intake() {
 		setLeft(RobotMap.ArmMap.shooterFullSpeed * RobotMap.ArmMap.intakeMultiplayer);
@@ -72,6 +79,7 @@ public class ShooterSubsystem extends Subsystem {
     }
 	public void post(){
 		SmartDashboard.putNumber("Light Sensor (Voltage)", lightSensor.getVoltage());
+		SmartDashboard.putBoolean("Has Ball", hasBall());
 	}
 }
 

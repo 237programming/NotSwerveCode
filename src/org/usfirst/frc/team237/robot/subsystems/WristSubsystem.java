@@ -16,13 +16,16 @@ public class WristSubsystem extends Subsystem {
     	private Talon intake;
     	private CANTalon rotateWrist;
     	private DigitalInput limitWrist;
-    	
+    	private double tolerance = 0.05;
     // Initialize your subsystem here
     public WristSubsystem() {
     	
     	intake = new Talon(RobotMap.DriveMap.intake);
     	rotateWrist = new CANTalon(RobotMap.DriveMap.rotateWrist);
     	rotateWrist.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
+    	rotateWrist.setForwardSoftLimit(-10.0);
+    	rotateWrist.setReverseSoftLimit(1.0);
+    	rotateWrist.reverseOutput(true);
     	rotateWrist.setPID(0.3, 0.0, 0.0);
     	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Position);
         // Use these to get going:
@@ -62,8 +65,8 @@ public class WristSubsystem extends Subsystem {
     }
     
     public void enableWrist(){
-    	rotateWrist.setSetpoint(rotateWrist.getPosition());
     	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Position);
+    	rotateWrist.setSetpoint(rotateWrist.get());
     	rotateWrist.enable();
     }
     
@@ -77,7 +80,21 @@ public class WristSubsystem extends Subsystem {
     public void set(double speed){
     	rotateWrist.set(speed);
     }
+    public void hold(){
+    	enableWrist();
+    }
+    public void release(){
+    	disableWrist();
+    }
+    public boolean onTarget(){
+    	if (rotateWrist.get() < rotateWrist.getSetpoint() + tolerance && rotateWrist.get() > rotateWrist.getSetpoint() - tolerance){
+    		return true;
+    	} else {
+    		return false; 
+    	}
+    }
     public void post(){
-    	SmartDashboard.putNumber("RotateWristEncoder", rotateWrist.getPosition());
+    	SmartDashboard.putNumber("wrist Setpoint", rotateWrist.getSetpoint());
+    	SmartDashboard.putNumber("RotateWristEncoder", rotateWrist.get());
     }
 }

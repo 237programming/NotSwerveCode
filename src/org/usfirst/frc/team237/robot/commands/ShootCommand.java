@@ -1,5 +1,6 @@
 package org.usfirst.frc.team237.robot.commands;
 
+import org.usfirst.frc.team237.robot.OI;
 import org.usfirst.frc.team237.robot.Robot;
 import org.usfirst.frc.team237.robot.subsystems.ShooterSubsystem;
 
@@ -19,21 +20,21 @@ public class ShootCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooterSubsystem.stopLeft();
-    	Robot.shooterSubsystem.stopRight();
-    	Robot.shooterSubsystem.stopShoot();
+    	Robot.shooterSubsystem.triggerRelease();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 //    	System.out.println("SHOOTER EXECUTE");
-    	Robot.shooterSubsystem.shoot();
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-//    	System.out.println("SHOOTER FINISHED");
-        return false;
+    	if (Robot.shooterSubsystem.hasBall() == false ){
+    		return true; 
+    	}
+    	return false; 
     }
 
     // Called once after isFinished returns true

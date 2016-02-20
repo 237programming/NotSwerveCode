@@ -1,5 +1,6 @@
 package org.usfirst.frc.team237.robot.commands;
 
+import org.usfirst.frc.team237.robot.OI;
 import org.usfirst.frc.team237.robot.Robot;
 import org.usfirst.frc.team237.robot.subsystems.ShooterSubsystem;
 
@@ -8,9 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeCommand extends Command {
+public class FeedBallCommand extends Command {
 
-    public IntakeCommand() {
+    public FeedBallCommand() {
     	requires(Robot.shooterSubsystem);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -18,7 +19,6 @@ public class IntakeCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -28,13 +28,14 @@ public class IntakeCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	Robot.shooterSubsystem.stopLeft();
-    	Robot.shooterSubsystem.stopRight();
-        return false;
+    	return Robot.shooterSubsystem.hasBall();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.shooterSubsystem.stopLeft();
+    	Robot.shooterSubsystem.stopRight();
+    	Robot.shooterSubsystem.stopShoot();
     }
 
     // Called when another command which requires one or more of the same
