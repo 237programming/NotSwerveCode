@@ -26,9 +26,9 @@ public class WristOuttakeCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (OI.outTake.get() == false){
-        	return true;
-        }
+//    	if (OI.outTake.get() == false){
+//        	return true;
+//        }
     	return false;
     }
 

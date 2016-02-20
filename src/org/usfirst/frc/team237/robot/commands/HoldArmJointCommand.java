@@ -27,9 +27,9 @@ public class HoldArmJointCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if (OI.enableArmHold.get() == false){
-        	return true; 
-        }
+//        if (OI.enableArmHold.get() == false){
+//        	return true; 
+//        }
         return false; 
     }
 

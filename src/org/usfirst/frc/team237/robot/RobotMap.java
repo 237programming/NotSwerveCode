@@ -59,7 +59,8 @@ public class RobotMap {
 	public class ControlMap {
 		public static final int leftStick = 0;
 		public static final int rightStick = 1; 
-		public static final int controller = 2; 
+		public static final int board1 = 2;
+		public static final int board2 = 3;;
 	}
 	public class PneumaticsMap {
 		public static final int shifterSolenoid1 = 0;
