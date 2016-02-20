@@ -21,6 +21,7 @@ public class ArmSubsystem extends Subsystem {
 	
 	public CANTalon jointTalon;
 	public CANTalon extensionTalon;
+	public CANTalon slaveExtension;
 	private PIDController anglePID;
 	private AHRS gyro;
 	private NetTablesPIDSource visionYSrc;
@@ -37,6 +38,9 @@ public class ArmSubsystem extends Subsystem {
 									 gyro, jointTalon);
 		
 		extensionTalon = new CANTalon(RobotMap.ArmMap.extensionTalon);
+		slaveExtension = new CANTalon(RobotMap.ArmMap.slaveExtension);
+		slaveExtension.changeControlMode(CANTalon.TalonControlMode.Follower);
+		slaveExtension.set(RobotMap.ArmMap.extensionTalon);
 		
 		jointTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
 		extensionTalon.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);

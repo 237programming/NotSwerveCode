@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team237.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SerialPort;
@@ -42,6 +43,7 @@ public class Robot extends IterativeRobot {
 	//public static PIDDrive driveTrain;
 	public static SuperDrive driveTrain; 
 	public static PneumaticControls pControls;
+	public static AnalogInput lightSensor;
     Command autonomousCommand;
     TeleopDrive driveCommand;
     //TeleopArmUp armCommand;
@@ -69,6 +71,7 @@ public class Robot extends IterativeRobot {
     	driveTrain = new SuperDrive(gyro);
     	wristSubsystem = new WristSubsystem();
     	shooterSubsystem = new ShooterSubsystem();
+    	lightSensor = new AnalogInput(RobotMap.ArmMap.lightSensorChannel);
 		oi = new OI();
 		//driveTrain = new PIDDrive();
 		
@@ -160,7 +163,8 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         driveTrain.post();
         wristSubsystem.post();
-        armSubsystem.post();        
+        armSubsystem.post();
+        shooterSubsystem.post();
     }
     
     /**

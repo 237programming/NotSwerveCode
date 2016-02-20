@@ -2,10 +2,12 @@ package org.usfirst.frc.team237.robot.subsystems;
 
 import org.usfirst.frc.team237.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -19,12 +21,14 @@ public class ShooterSubsystem extends Subsystem {
 	public CANTalon shooterLeftTalon;
 	public CANTalon shooterRightTalon;
 	public VictorSP shooterVictor;
+	public AnalogInput lightSensor;
 	
 	public ShooterSubsystem()
 	{
 		shooterLeftTalon = new CANTalon(RobotMap.ArmMap.shooterLeftTalon);
 		shooterRightTalon = new CANTalon(RobotMap.ArmMap.shooterRightTalon);
 		shooterVictor = new VictorSP(RobotMap.ArmMap.shooterVictor);
+		lightSensor = new AnalogInput(RobotMap.ArmMap.lightSensorChannel);
 	}
 
 	public void setLeft(double speed) {
@@ -32,6 +36,12 @@ public class ShooterSubsystem extends Subsystem {
 	}
 	public void setRight(double speed) {
 		shooterRightTalon.set(speed);
+	}
+	
+	public boolean hasBall()
+	{
+		if(lightSensor.getVoltage() < 1.0) return true;
+		return false;
 	}
 	
 	public void shoot() {
@@ -60,5 +70,8 @@ public class ShooterSubsystem extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+	public void post(){
+		SmartDashboard.putNumber("Light Sensor (Voltage)", lightSensor.getVoltage());
+	}
 }
 
