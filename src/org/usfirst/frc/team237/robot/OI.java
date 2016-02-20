@@ -8,6 +8,7 @@ import org.usfirst.frc.team237.robot.commands.ExampleCommand;
 import org.usfirst.frc.team237.robot.commands.IceSkateCommand;
 import org.usfirst.frc.team237.robot.commands.LightCommand;
 import org.usfirst.frc.team237.robot.commands.ShifterCommand;
+import org.usfirst.frc.team237.robot.commands.ShootCommand;
 import org.usfirst.frc.team237.robot.commands.TeleopArmDown;
 import org.usfirst.frc.team237.robot.commands.TeleopArmRetract;
 import org.usfirst.frc.team237.robot.commands.TeleopArmUp;
@@ -25,19 +26,20 @@ import org.usfirst.frc.team237.robot.commands.WristOuttakeCommand;
 public class OI {
 	public static Joystick LeftJoyStick = new Joystick(RobotMap.ControlMap.leftStick);
 	public static Joystick RightJoyStick = new Joystick(RobotMap.ControlMap.rightStick);
-	public static Button shiftButton = new JoystickButton(LeftJoyStick, 1);
-	public static Button enableLight = new JoystickButton(RightJoyStick , 1);
-	public static Button enableVisionTrack = new JoystickButton(RightJoyStick, 2);
+	public static Button shiftButton        = new JoystickButton(LeftJoyStick, 1);
+	public static Button enableLight        = new JoystickButton(RightJoyStick , 1);
+	public static Button enableVisionTrack  = new JoystickButton(RightJoyStick, 2);
 	public static Button disableVisionTrack = new JoystickButton(RightJoyStick, 3);
-	public static Button armUp = new  JoystickButton(RightJoyStick, 2);
-	public static Button armDown = new  JoystickButton(RightJoyStick, 3);
-	public static Button armExtend = new  JoystickButton(RightJoyStick, 4);
-	public static Button armRetract = new  JoystickButton(RightJoyStick, 5);
-	public static Button wristUp = new JoystickButton(LeftJoyStick, 7);
-	public static Button wristDown = new JoystickButton(LeftJoyStick, 6);
-	public static Button outTake = new JoystickButton(LeftJoyStick, 3);
-	public static Button inTake = new JoystickButton(LeftJoyStick, 2);
-	public static Button toggleSkates = new JoystickButton(LeftJoyStick, 9);
+	public static Button armUp              = new JoystickButton(RightJoyStick, 2);
+	public static Button armDown            = new JoystickButton(RightJoyStick, 3);
+	public static Button armExtend          = new JoystickButton(RightJoyStick, 4);
+	public static Button armRetract         = new JoystickButton(RightJoyStick, 5);
+	public static Button wristUp            = new JoystickButton(LeftJoyStick, 7);
+	public static Button wristDown          = new JoystickButton(LeftJoyStick, 6);
+	public static Button outTake            = new JoystickButton(LeftJoyStick, 3);
+	public static Button inTake             = new JoystickButton(LeftJoyStick, 2);
+	public static Button toggleSkates       = new JoystickButton(LeftJoyStick, 9);
+	public static Button victorShooter      = new JoystickButton(LeftJoyStick, 4);
 	
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -80,5 +82,6 @@ public class OI {
 		outTake.whenPressed(new WristOuttakeCommand());
 		inTake.whenPressed(new WristIntakeCommand());
 		toggleSkates.whenPressed(new IceSkateCommand());
+		victorShooter.whenPressed(new ShootCommand());
 	}
 }

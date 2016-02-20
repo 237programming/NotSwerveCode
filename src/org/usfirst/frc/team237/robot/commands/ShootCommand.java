@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
+
 public class ShootCommand extends Command {
 
     public ShootCommand() {
@@ -18,23 +19,28 @@ public class ShootCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+    	Robot.shooterSubsystem.stopLeft();
+    	Robot.shooterSubsystem.stopRight();
+    	Robot.shooterSubsystem.stopShoot();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+//    	System.out.println("SHOOTER EXECUTE");
     	Robot.shooterSubsystem.shoot();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	Robot.shooterSubsystem.stopLeft();
-    	Robot.shooterSubsystem.stopRight();
+//    	System.out.println("SHOOTER FINISHED");
         return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.shooterSubsystem.stopLeft();
+    	Robot.shooterSubsystem.stopRight();
+    	Robot.shooterSubsystem.stopShoot();
     }
 
     // Called when another command which requires one or more of the same

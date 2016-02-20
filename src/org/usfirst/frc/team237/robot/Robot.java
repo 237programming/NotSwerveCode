@@ -49,7 +49,6 @@ public class Robot extends IterativeRobot {
     TeleopWristUp wristCommand; 
     SendableChooser chooser;
     public static NetworkTable visionSystemTable;
-    public static Relay relay = new Relay(0);
     public static WristSubsystem wristSubsystem;
     public static ShooterSubsystem shooterSubsystem;
 	public static ArmSubsystem armSubsystem;
@@ -69,6 +68,7 @@ public class Robot extends IterativeRobot {
     	armSubsystem = new ArmSubsystem(gyro);
     	driveTrain = new SuperDrive(gyro);
     	wristSubsystem = new WristSubsystem();
+    	shooterSubsystem = new ShooterSubsystem();
 		oi = new OI();
 		//driveTrain = new PIDDrive();
 		
@@ -160,8 +160,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         driveTrain.post();
         wristSubsystem.post();
-        armSubsystem.post();
-        
+        armSubsystem.post();        
     }
     
     /**

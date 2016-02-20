@@ -6,7 +6,6 @@ import org.usfirst.frc.team237.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  *
@@ -18,29 +17,33 @@ public class PneumaticControls extends Subsystem {
 
 	Compressor compressor;
 	
-	static Solenoid shifter = new Solenoid(RobotMap.PneumaticsMap.CANAddress,RobotMap.PneumaticsMap.shifterSolenoid1);
-	static Solenoid iceSkate = new Solenoid(RobotMap.PneumaticsMap.CANAddress, RobotMap.PneumaticsMap.iceSkateSolenoid);
+	static DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.PneumaticsMap.CANAddress, RobotMap.PneumaticsMap.shifterSolenoid1, RobotMap.PneumaticsMap.shifterSolenoid2);
+	static DoubleSolenoid iceSkate = new DoubleSolenoid(RobotMap.PneumaticsMap.CANAddress, RobotMap.PneumaticsMap.iceSkateSolenoid1, RobotMap.PneumaticsMap.iceSkateSolenoid2);
 	
 	public PneumaticControls() {
 		compressor = new Compressor();
 		//shifter = new DoubleSolenoid(RobotMap.PneumaticsMap.shifterSolenoid1, RobotMap.PneumaticsMap.shifterSolenoid2);
-		shifter.set(false);
-		iceSkate.set(false);
+//		shifter.set(false);
+//		iceSkate.set(false);
+		shifter.set(DoubleSolenoid.Value.kReverse);
+		iceSkate.set(DoubleSolenoid.Value.kReverse);
 		compressor.setClosedLoopControl(true);
 		compressor.start();
 	}
 	
 	public void shiftHigh() {
-		shifter.set(true);
+//		shifter.set(true);
+		shifter.set(DoubleSolenoid.Value.kForward);
 	}
 	public void shiftLow() {
-		shifter.set(false);
+//		shifter.set(false);
+		shifter.set(DoubleSolenoid.Value.kReverse);
 	}
 	public void toggle() {
-		if(shifter.get() == true) {
+		if(shifter.get() == /*true*/DoubleSolenoid.Value.kForward) {
 			this.shiftLow();
 		}
-		else if(shifter.get() == false) {
+		else if(shifter.get() == /*false*/DoubleSolenoid.Value.kReverse) {
 			this.shiftHigh();
 		} else {
 			//:^)
@@ -48,16 +51,18 @@ public class PneumaticControls extends Subsystem {
 		}
 	}
 	public void iceSkateOn(){
-		iceSkate.set(true);
+//		iceSkate.set(true);
+		iceSkate.set(DoubleSolenoid.Value.kForward);
 	}
 	public void iceSkateOff(){
-		iceSkate.set(false);
+//		iceSkate.set(false);
+		iceSkate.set(DoubleSolenoid.Value.kReverse);
 	}
 	public void iceSkateToggle(){
-		if(iceSkate.get() == true ){
+		if(iceSkate.get() == /*true*/ DoubleSolenoid.Value.kForward){
 			this.iceSkateOff();
 		}
-		else if(iceSkate.get() == false ){
+		else if(iceSkate.get() == /*false*/ DoubleSolenoid.Value.kReverse){
 			this.iceSkateOn();
 		}
 	}

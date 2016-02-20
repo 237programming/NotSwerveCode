@@ -65,7 +65,8 @@ public class RobotMap {
 		public static final int shifterSolenoid1 = 0;
 		public static final int shifterSolenoid2 = 1;
 		public static final int CANAddress = 2;
-		public static final int iceSkateSolenoid = 1;
+		public static final int iceSkateSolenoid1 = 2;
+		public static final int iceSkateSolenoid2 = 3;
 	}
 	public class ArmMap{
 		public static final double wristPositiveSpeed = 0.6;
@@ -81,6 +82,7 @@ public class RobotMap {
 		public static final int shooterRightTalon = 11; 
 		public static final int shooterVictor = 0;
 		public static final double shooterFullSpeed = 1.0;
+		public static final double shooterVictorSpeed = 1.0;
 		public static final double intakeMultiplayer = 0.3;
 		public static final double manualAngle = 0.5;
 		public static final double manualExtension = 0.5;

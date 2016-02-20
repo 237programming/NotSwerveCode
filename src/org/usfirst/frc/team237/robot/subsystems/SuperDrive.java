@@ -33,6 +33,7 @@ public class SuperDrive extends Subsystem {
 	private NetTablesPIDSource visionXSrc; 
 	private double leftTolerance;
 	private double rightTolerance;
+    public static Relay relay = new Relay(0);
 	private AHRS gyro;
 	//Define the drive
 	//TankDrive drive; 
@@ -108,7 +109,7 @@ public class SuperDrive extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public static void toggleRelay(Relay relay)
+    public void toggleRelay()
     {
     	if(relay.get() == Relay.Value.kForward)
     	{
