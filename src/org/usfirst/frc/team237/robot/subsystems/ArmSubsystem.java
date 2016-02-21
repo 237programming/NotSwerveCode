@@ -25,7 +25,8 @@ public class ArmSubsystem extends Subsystem {
 	private PIDController anglePID;
 	private AHRS gyro;
 	private NetTablesPIDSource visionYSrc;
-	
+	private double jointTolerance = 1.0;
+	private double extensionTolerance = 1.0;
 	public ArmSubsystem(AHRS g)
 	{
 		jointTalon = new CANTalon(RobotMap.ArmMap.jointTalon);
@@ -136,6 +137,20 @@ public class ArmSubsystem extends Subsystem {
     }
     public void releaseJoint(){
     	jointDisable();
+    }
+    public boolean onTargetJoint(){
+    	if (jointTalon.get() < jointTalon.getSetpoint() + jointTolerance && jointTalon.get() > jointTalon.getSetpoint() - jointTolerance){
+    		return true;
+    	} else {
+    		return false; 
+    	}
+    }
+    public boolean onTargetExtension(){
+    	if (extensionTalon.get() < extensionTalon.getSetpoint() + extensionTolerance && extensionTalon.get() > extensionTalon.getSetpoint() - extensionTolerance){
+    		return true;
+    	} else {
+    		return false; 
+    	}
     }
     public void post(){
     	SmartDashboard.putNumber("ArmExtensionEncoder", extensionTalon.get());
