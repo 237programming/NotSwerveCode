@@ -10,11 +10,14 @@ public class IntakePosition extends CommandGroup {
     public  IntakePosition() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
+    	addSequential(new ExtensionZeroCommand());
         //      addSequential(new Command2());
         // these will run in order.
 
         // To run multiple commands at the same time,
         // use addParallel()
+    	addParallel(new WristToCommand(-5));
+    	addParallel(new JointToAngleCommand(3)); //TBD
         // e.g. addParallel(new Command1());
         //      addSequential(new Command2());
         // Command1 and Command2 will run in parallel.
@@ -26,3 +29,4 @@ public class IntakePosition extends CommandGroup {
         // arm.
     }
 }
+//did i mention that Andrew rule$?
