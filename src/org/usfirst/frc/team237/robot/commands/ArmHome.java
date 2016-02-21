@@ -22,7 +22,7 @@ public class ArmHome extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.armSubsystem.setAngle(0);
-    	Robot.armSubsystem.setExtensionSpeed(0);
+    	Robot.armSubsystem.setExtensionDistance(0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

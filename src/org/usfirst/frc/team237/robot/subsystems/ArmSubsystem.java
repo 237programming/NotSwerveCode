@@ -56,12 +56,11 @@ public class ArmSubsystem extends Subsystem {
 	public void setAngle(double angle) {
 		jointTalon.setSetpoint(angle);
 	}
-	public void setExtensionSpeed(double distance) {
+	public void setExtensionDistance(double distance) {
 		extensionTalon.setSetpoint(distance);
 	}
 	
-	public void jointEnable() {
-		
+	public void jointEnable() {		
 		jointTalon.changeControlMode(CANTalon.TalonControlMode.Position);
 		jointTalon.setSetpoint(jointTalon.getPosition());
 		jointTalon.enable();
