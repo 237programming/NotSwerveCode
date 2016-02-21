@@ -15,6 +15,7 @@ public class ShootCommand extends Command {
 
     public ShootCommand() {
     	requires(Robot.shooterSubsystem);
+    	requires(Robot.pControls);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -22,7 +23,7 @@ public class ShootCommand extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Timer.delay(2.0);
-    	Robot.shooterSubsystem.triggerRelease();
+    	Robot.pControls.punch();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -41,7 +42,7 @@ public class ShootCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.shooterSubsystem.triggerStop();
+    	Robot.pControls.retract();
     	Robot.shooterSubsystem.stopShoot();
     }
 

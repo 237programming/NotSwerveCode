@@ -19,6 +19,7 @@ public class PneumaticControls extends Subsystem {
 	
 	static DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.PneumaticsMap.CANAddress, RobotMap.PneumaticsMap.shifterSolenoid1, RobotMap.PneumaticsMap.shifterSolenoid2);
 	static DoubleSolenoid iceSkate = new DoubleSolenoid(RobotMap.PneumaticsMap.CANAddress, RobotMap.PneumaticsMap.iceSkateSolenoid1, RobotMap.PneumaticsMap.iceSkateSolenoid2);
+	static DoubleSolenoid trigger = new DoubleSolenoid(RobotMap.PneumaticsMap.CANAddress, RobotMap.PneumaticsMap.trigger1, RobotMap.PneumaticsMap.trigger2);
 	
 	public PneumaticControls() {
 		compressor = new Compressor();
@@ -27,8 +28,17 @@ public class PneumaticControls extends Subsystem {
 //		iceSkate.set(false);
 		shifter.set(DoubleSolenoid.Value.kForward);
 		iceSkate.set(DoubleSolenoid.Value.kForward);
+		trigger.set(DoubleSolenoid.Value.kForward);
 		compressor.setClosedLoopControl(true);
 		compressor.start();
+	}
+	
+	public void punch() {
+		trigger.set(DoubleSolenoid.Value.kForward);
+	}
+	
+	public void retract() {
+		trigger.set(DoubleSolenoid.Value.kReverse);
 	}
 	
 	public void shiftHigh() {

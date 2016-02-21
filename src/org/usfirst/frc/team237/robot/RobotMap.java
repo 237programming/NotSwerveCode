@@ -63,11 +63,13 @@ public class RobotMap {
 		public static final int board2 = 3;;
 	}
 	public class PneumaticsMap {
+		public static final int CANAddress = 2;
 		public static final int shifterSolenoid1 = 0;
 		public static final int shifterSolenoid2 = 1;
-		public static final int CANAddress = 2;
 		public static final int iceSkateSolenoid1 = 2;
 		public static final int iceSkateSolenoid2 = 3;
+		public static final int trigger1 = 4;
+		public static final int trigger2 = 5;
 	}
 	public class ArmMap{
 		public static final double wristPositiveSpeed = 0.6;
