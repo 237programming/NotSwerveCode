@@ -155,7 +155,7 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         driveTrain.visionStop();
         //armCommand.start();
-//      driveCommand.start();
+        driveCommand.start();
     }
 
     /**

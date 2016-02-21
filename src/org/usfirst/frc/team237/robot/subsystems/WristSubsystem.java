@@ -16,7 +16,7 @@ public class WristSubsystem extends Subsystem {
     	private Talon intake;
     	private CANTalon rotateWrist;
     	private DigitalInput limitWrist;
-    	private double tolerance = 0.05;
+    	private double tolerance = 1.0;
     // Initialize your subsystem here
     public WristSubsystem() {
     	
@@ -44,10 +44,10 @@ public class WristSubsystem extends Subsystem {
     	rotateWrist.set(0);
     }
     public void inTake(){
-    	intake.set(1);
+    	intake.set(-1);
     }
     public void outTake(){
-    	intake.set(-1);
+    	intake.set(1);
     }
     public void stopTake(){
     	intake.set(0);

@@ -56,6 +56,9 @@ public class ShooterSubsystem extends Subsystem {
 	public void triggerRelease(){
 		shooterVictor.set(RobotMap.ArmMap.shooterVictorSpeed);
 	}
+	public void triggerStop(){
+		shooterVictor.set(0.0);
+	}
 	public void stopShoot(){
 		stopLeft();
 		stopRight();
@@ -63,7 +66,7 @@ public class ShooterSubsystem extends Subsystem {
 	public void intake() {
 		setLeft(RobotMap.ArmMap.shooterFullSpeed * RobotMap.ArmMap.intakeMultiplayer);
 		setRight(RobotMap.ArmMap.shooterFullSpeed * RobotMap.ArmMap.intakeMultiplayer);
-		shooterVictor.set(RobotMap.ArmMap.shooterVictorSpeed * RobotMap.ArmMap.intakeMultiplayer);
+		shooterVictor.set(RobotMap.ArmMap.shooterVictorSpeed*-1.0);
 	}
 	
 	public void stopLeft() {

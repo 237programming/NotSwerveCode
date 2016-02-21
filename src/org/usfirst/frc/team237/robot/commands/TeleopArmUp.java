@@ -22,7 +22,6 @@ public class TeleopArmUp extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("raise arm");
     	Robot.armSubsystem.angleArmUp();
     }
 

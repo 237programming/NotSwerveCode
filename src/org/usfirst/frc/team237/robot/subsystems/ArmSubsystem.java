@@ -44,9 +44,9 @@ public class ArmSubsystem extends Subsystem {
 		
 		jointTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
 		extensionTalon.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-		
+		jointTalon.reverseOutput(true);
 		extensionTalon.setPID(0.3, 0, 0);
-		jointTalon.setPID(1.0, 0, 0);
+		jointTalon.setPID(0.5, 0.0, 0);
 		SmartDashboard.putNumber("ArmExtensionEncoder", extensionTalon.getPosition());
 		SmartDashboard.putNumber("ArmAngleEncoder", jointTalon.getPosition());
 		
@@ -138,7 +138,11 @@ public class ArmSubsystem extends Subsystem {
     	jointDisable();
     }
     public void post(){
-    	SmartDashboard.putNumber("ArmExtensionEncoder", extensionTalon.getPosition());
-		SmartDashboard.putNumber("ArmAngleEncoder", jointTalon.getPosition());
+    	SmartDashboard.putNumber("ArmExtensionEncoder", extensionTalon.get());
+    	SmartDashboard.putNumber("Arm extension encoder", jointTalon.getSetpoint());
+    	SmartDashboard.putNumber("ArmAngleEncoder", jointTalon.getPosition());
+		SmartDashboard.putNumber("Arm Angle Setpoint", jointTalon.getSetpoint());
+		
+		
     }
 }

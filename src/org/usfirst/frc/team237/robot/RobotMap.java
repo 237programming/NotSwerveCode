@@ -84,8 +84,8 @@ public class RobotMap {
 		public static final int shooterVictor = 0;
 		public static final double shooterFullSpeed = 1.0;
 		public static final double shooterVictorSpeed = 1.0;
-		public static final double intakeMultiplayer = -0.3;
-		public static final double manualAngle = 0.5;
+		public static final double intakeMultiplayer = -0.2;
+		public static final double manualAngle = 0.7;
 		public static final double manualExtension = 1.0;
 		public static final double armRotationP = 1;
 		public static final double armRotationI = 0;

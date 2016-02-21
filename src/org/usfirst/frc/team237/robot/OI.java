@@ -45,7 +45,7 @@ public class OI {
 	public static Button wristUp            = new JoystickButton(Joystick2, 1);
 	public static Button wristDown          = new JoystickButton(Joystick2, 2);
 	public static Button autoTarget         = new JoystickButton(Joystick2, 5);
-	
+	public static Button multiFunc 			= new JoystickButton(Joystick3, 5);
 //	public static Button enableLight        = new JoystickButton(LeftJoyStick, 11);
 //	public static Button enableVisionTrack  = new JoystickButton(RightJoyStick, 2);
 //	public static Button disableVisionTrack = new JoystickButton(RightJoyStick, 3);
@@ -104,6 +104,7 @@ public class OI {
 		wristDown.whenPressed(new TeleopWristDown());
 		iceSkate.whenPressed(new IceSkateCommand());
 		shoot.whenPressed(new ShootCommandGroup());
-		intake.whenPressed(new FeedBallCommand());		
+		intake.whenPressed(new FeedBallCommand());
+		multiFunc.whenPressed(new HoldArmJointCommand());
 	}
 }
