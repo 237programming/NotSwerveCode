@@ -15,30 +15,31 @@ public class TrackTarget extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.driveTrain);
-    	System.out.println("INITIALIZING TRACKING COMMAND \n");
+    	requires(Robot.armSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.driveTrain.visionStart();
-    	System.out.println("DONE INITIALIZING COMMAND \n");
+    	Robot.armSubsystem.visionStart();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.driveTrain.searchTarget();
+    	Robot.armSubsystem.searchTarget();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	
-        return Robot.driveTrain.onTarget();
+        return Robot.driveTrain.onTarget() && Robot.armSubsystem.onTargetJoint();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	System.out.println("DONE WITH VISION COMMAND \n");
     	Robot.driveTrain.visionStop();
+    	Robot.armSubsystem.visionStop();
     }
 
     // Called when another command which requires one or more of the same
