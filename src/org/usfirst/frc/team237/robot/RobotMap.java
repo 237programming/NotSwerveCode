@@ -92,7 +92,7 @@ public class RobotMap {
 		public static final double armRotationP = 1;
 		public static final double armRotationI = 0;
 		public static final double armRotationD = 0;
-		public static final int lightSensorChannel = 0;
+		public static final int ballCheckChannel = 0;
 		public static final int slaveExtension = 12; //TBD
 	}
     // If you are using multiple modules, make sure to define both the port

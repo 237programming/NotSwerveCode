@@ -4,6 +4,7 @@ import org.usfirst.frc.team237.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,14 +22,14 @@ public class ShooterSubsystem extends Subsystem {
 	public CANTalon shooterLeftTalon;
 	public CANTalon shooterRightTalon;
 	public VictorSP shooterVictor;
-	public AnalogInput lightSensor;
+	public DigitalInput ballCheck;
 	
 	public ShooterSubsystem()
 	{
 		shooterLeftTalon = new CANTalon(RobotMap.ArmMap.shooterLeftTalon);
 		shooterRightTalon = new CANTalon(RobotMap.ArmMap.shooterRightTalon);
 		shooterVictor = new VictorSP(RobotMap.ArmMap.shooterVictor);
-		lightSensor = new AnalogInput(RobotMap.ArmMap.lightSensorChannel);
+		ballCheck = new DigitalInput(RobotMap.ArmMap.ballCheckChannel);
 	}
 
 	public void setLeft(double speed) {
@@ -40,10 +41,7 @@ public class ShooterSubsystem extends Subsystem {
 	
 	public boolean hasBall()
 	{
-		if(lightSensor.getVoltage() > 2.0) {
-			return true;
-		}
-		return false;
+		return ballCheck.get();
 	}
 	
 	public void shoot() {
@@ -81,7 +79,6 @@ public class ShooterSubsystem extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
 	public void post(){
-		SmartDashboard.putNumber("Light Sensor (Voltage)", lightSensor.getVoltage());
 		SmartDashboard.putBoolean("Has Ball", hasBall());
 	}
 }
