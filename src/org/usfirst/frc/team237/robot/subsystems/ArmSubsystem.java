@@ -25,7 +25,7 @@ public class ArmSubsystem extends Subsystem {
 	private PIDController anglePID;
 	private AHRS gyro;
 	private NetTablesPIDSource visionYSrc;
-	private double jointTolerance = 1.0;
+	private double jointTolerance = 1000.0;
 	private double extensionTolerance = 1.0;
 	public ArmSubsystem(AHRS g)
 	{
@@ -43,8 +43,9 @@ public class ArmSubsystem extends Subsystem {
 		slaveExtension.changeControlMode(CANTalon.TalonControlMode.Follower);
 		slaveExtension.set(RobotMap.ArmMap.extensionTalon);
 		
-		jointTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
-		extensionTalon.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		jointTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Absolute);
+		jointTalon.setPosition(0);
+		extensionTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
 		jointTalon.reverseOutput(true);
 		extensionTalon.setPID(0.3, 0, 0);
 		jointTalon.setPID(0.5, 0.0, 0);
@@ -152,9 +153,9 @@ public class ArmSubsystem extends Subsystem {
     	}
     }
     public void post(){
-    	SmartDashboard.putNumber("ArmExtensionEncoder", extensionTalon.get());
+    	SmartDashboard.putNumber("Arm Extension Encoder", extensionTalon.getPosition());
     	SmartDashboard.putNumber("Arm extension encoder", jointTalon.getSetpoint());
-    	SmartDashboard.putNumber("ArmAngleEncoder", jointTalon.getPosition());
+    	SmartDashboard.putNumber("Arm Angle Encoder", jointTalon.getPulseWidthPosition());
 		SmartDashboard.putNumber("Arm Angle Setpoint", jointTalon.getSetpoint());
 		
 		

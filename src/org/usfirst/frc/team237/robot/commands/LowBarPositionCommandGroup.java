@@ -12,8 +12,8 @@ public class LowBarPositionCommandGroup extends CommandGroup {
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.
-    	addParallel(new WristToCommand(-5));
-    	addParallel(new JointToAngleCommand(3));
+    	addSequential(new JointToAngleCommand(-50000.0));
+    	addSequential(new WristToCommand(-10.0));
 
         // To run multiple commands at the same time,
         // use addParallel()

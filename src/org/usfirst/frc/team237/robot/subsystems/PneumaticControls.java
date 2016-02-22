@@ -34,11 +34,11 @@ public class PneumaticControls extends Subsystem {
 	}
 	
 	public void punch() {
-		trigger.set(DoubleSolenoid.Value.kForward);
+		trigger.set(DoubleSolenoid.Value.kReverse);
 	}
 	
 	public void retract() {
-		trigger.set(DoubleSolenoid.Value.kReverse);
+		trigger.set(DoubleSolenoid.Value.kForward);
 	}
 	
 	public void shiftHigh() {
@@ -62,11 +62,11 @@ public class PneumaticControls extends Subsystem {
 	}
 	public void iceSkateOn(){
 //		iceSkate.set(true);
-		iceSkate.set(DoubleSolenoid.Value.kForward);
+		iceSkate.set(DoubleSolenoid.Value.kReverse);
 	}
 	public void iceSkateOff(){
 //		iceSkate.set(false);
-		iceSkate.set(DoubleSolenoid.Value.kReverse);
+		iceSkate.set(DoubleSolenoid.Value.kForward);
 	}
 	public void iceSkateToggle(){
 		if(iceSkate.get() == /*true*/ DoubleSolenoid.Value.kForward){

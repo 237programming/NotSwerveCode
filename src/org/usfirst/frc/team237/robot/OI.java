@@ -10,6 +10,7 @@ import org.usfirst.frc.team237.robot.commands.HoldArmJointCommand;
 import org.usfirst.frc.team237.robot.commands.HoldWristCommand;
 import org.usfirst.frc.team237.robot.commands.IceSkateCommand;
 import org.usfirst.frc.team237.robot.commands.LightCommand;
+import org.usfirst.frc.team237.robot.commands.LowBarPositionCommandGroup;
 import org.usfirst.frc.team237.robot.commands.ShifterCommand;
 import org.usfirst.frc.team237.robot.commands.ShootCommand;
 import org.usfirst.frc.team237.robot.commands.ShootCommandGroup;
@@ -23,6 +24,7 @@ import org.usfirst.frc.team237.robot.commands.TrackTarget;
 import org.usfirst.frc.team237.robot.commands.WristGoToShoot;
 import org.usfirst.frc.team237.robot.commands.WristIntakeCommand;
 import org.usfirst.frc.team237.robot.commands.WristOuttakeCommand;
+import org.usfirst.frc.team237.robot.commands.WristToCommand;
 
 /*
  * This class is the glue that binds the controls on the physical operator
@@ -38,12 +40,12 @@ public class OI {
 	public static Button iceSkate           = new JoystickButton(LeftJoyStick, 1);
 	public static Button shoot              = new JoystickButton(Joystick2, 12);
 	public static Button intake             = new JoystickButton(Joystick2, 11);
-	public static Button armExtend          = new JoystickButton(Joystick3, 4);
-	public static Button armRetract         = new JoystickButton(Joystick3, 3);
-	public static Button armUp              = new JoystickButton(Joystick2, 3);
-	public static Button armDown            = new JoystickButton(Joystick2, 4);
-	public static Button wristUp            = new JoystickButton(Joystick2, 1);
-	public static Button wristDown          = new JoystickButton(Joystick2, 2);
+	public static Button armExtend          = new JoystickButton(Joystick3, 3);
+	public static Button armRetract         = new JoystickButton(Joystick3, 4);
+	public static Button armUp              = new JoystickButton(Joystick2, 4);
+	public static Button armDown            = new JoystickButton(Joystick2, 3);
+	public static Button wristUp            = new JoystickButton(Joystick2, 2);
+	public static Button wristDown          = new JoystickButton(Joystick2, 1);
 	public static Button autoTarget         = new JoystickButton(Joystick2, 5);
 	public static Button multiFunc 			= new JoystickButton(Joystick3, 5);
 //	public static Button enableLight        = new JoystickButton(LeftJoyStick, 11);
@@ -59,7 +61,7 @@ public class OI {
 //	public static Button inTake             = new JoystickButton(LeftJoyStick, 2);
 //	public static Button toggleSkates       = new JoystickButton(RightJoyStick, 11);
 //	public static Button enableHold         = new JoystickButton(RightJoyStick,8);
-//	public static Button enableArmHold    = new JoystickButton(RightJoyStick,9);	
+//	public static Button enableArmHold      = new JoystickButton(RightJoyStick,9);	
 //	public static Button shooterButton      = new JoystickButton(RightJoyStick, 1);
 //	public static Button shooterIntake      = new JoystickButton(LeftJoyStick, 1);
 //	public static Button shiftButton        = new JoystickButton(LeftJoyStick, 2);
@@ -105,6 +107,6 @@ public class OI {
 		iceSkate.whenPressed(new IceSkateCommand());
 		shoot.whenPressed(new ShootCommandGroup());
 		intake.whenPressed(new FeedBallCommand());
-		multiFunc.whenPressed(new HoldArmJointCommand());
+		//multiFunc.whenPressed(new LowBarPositionCommandGroup());
 	}
 }

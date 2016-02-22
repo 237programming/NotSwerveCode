@@ -41,7 +41,7 @@ public class ShooterSubsystem extends Subsystem {
 	
 	public boolean hasBall()
 	{
-		return ballCheck.get();
+		return !ballCheck.get();
 	}
 	
 	public void shoot() {

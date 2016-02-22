@@ -42,6 +42,7 @@ public class ShootCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Timer.delay(1.0);
     	Robot.pControls.retract();
     	Robot.shooterSubsystem.stopShoot();
     }
