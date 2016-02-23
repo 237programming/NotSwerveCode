@@ -44,6 +44,11 @@ public class ShooterSubsystem extends Subsystem {
 		return !ballCheck.get();
 	}
 	
+	public void set(double speed) {
+		setLeft(speed);
+		setRight(speed);
+	}
+	
 	public void shoot() {
 		setLeft(RobotMap.ArmMap.shooterFullSpeed);
 		setRight(RobotMap.ArmMap.shooterFullSpeed);

@@ -57,7 +57,7 @@ public class Robot extends IterativeRobot {
     public static ShooterSubsystem shooterSubsystem;
 	public static ArmSubsystem armSubsystem;
 	public AHRS gyro;
-	public static PowerDistributionPanel powerBlock;
+	//public static PowerDistributionPanel powerBlock;
     //andew rule$
     //private static SerialPort navXSerial = new SerialPort(57600, SerialPort.Port.kMXP);
     //public static AHRS navX ;
@@ -75,7 +75,7 @@ public class Robot extends IterativeRobot {
     	shooterSubsystem = new ShooterSubsystem();
 		oi = new OI();
 		//driveTrain = new PIDDrive();
-		powerBlock = new PowerDistributionPanel();
+		//powerBlock = new PowerDistributionPanel();
 		driveCommand = new TeleopDrive();
 		camServer = CameraServer.getInstance();
 		camServer.startAutomaticCapture(RobotMap.DriveMap.cameraName);
@@ -168,7 +168,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Current draw of Arm", powerBlock.getCurrent(0));;
+        //SmartDashboard.putNumber("Current draw of Arm", powerBlock.getCurrent(0));;
         driveTrain.post();
         wristSubsystem.post();
         armSubsystem.post();

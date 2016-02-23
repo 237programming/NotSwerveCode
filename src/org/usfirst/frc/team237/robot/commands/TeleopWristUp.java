@@ -36,7 +36,7 @@ public class TeleopWristUp extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.wristSubsystem.hold();
+    	Robot.wristSubsystem.disableWrist();;
     }
 
     // Called when another command which requires one or more of the same

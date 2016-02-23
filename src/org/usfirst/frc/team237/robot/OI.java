@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import org.usfirst.frc.team237.robot.commands.ArmHome;
+import org.usfirst.frc.team237.robot.commands.ArmHomeWristSet;
+import org.usfirst.frc.team237.robot.commands.ArmToWristTo;
 import org.usfirst.frc.team237.robot.commands.DisableControlLoops;
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
 import org.usfirst.frc.team237.robot.commands.FeedBallCommand;
@@ -15,6 +18,7 @@ import org.usfirst.frc.team237.robot.commands.LowBarPositionCommandGroup;
 import org.usfirst.frc.team237.robot.commands.ShifterCommand;
 import org.usfirst.frc.team237.robot.commands.ShootCommand;
 import org.usfirst.frc.team237.robot.commands.ShootCommandGroup;
+import org.usfirst.frc.team237.robot.commands.SpitBallGroup;
 import org.usfirst.frc.team237.robot.commands.TeleopArmDown;
 import org.usfirst.frc.team237.robot.commands.TeleopArmRetract;
 import org.usfirst.frc.team237.robot.commands.TeleopArmUp;
@@ -39,7 +43,8 @@ public class OI {
 	
 	public static Button shift              = new JoystickButton(RightJoyStick, 1);
 	public static Button iceSkate           = new JoystickButton(LeftJoyStick, 1);
-	public static Button shoot              = new JoystickButton(Joystick2, 12);
+	public static Button spitBall           = new JoystickButton(Joystick2, 12);
+	public static Button shootBall			= new JoystickButton(Joystick2, 9);
 	public static Button intake             = new JoystickButton(Joystick2, 11);
 	public static Button armExtend          = new JoystickButton(Joystick3, 3);
 	public static Button armRetract         = new JoystickButton(Joystick3, 4);
@@ -48,7 +53,9 @@ public class OI {
 	public static Button wristUp            = new JoystickButton(Joystick2, 2);
 	public static Button wristDown          = new JoystickButton(Joystick2, 1);
 	public static Button autoTarget         = new JoystickButton(Joystick2, 5);
-	public static Button multiFunc 			= new JoystickButton(Joystick3, 5);
+	public static Button transverseDefence 	= new JoystickButton(Joystick3, 5);
+	public static Button intakePos 			= new JoystickButton(Joystick2, 7);
+	public static Button lowBarPos 			= new JoystickButton(Joystick2, 8);
 	public static Button nuclearOption 		= new JoystickButton(Joystick3, 2);
 //	public static Button enableLight        = new JoystickButton(LeftJoyStick, 11);
 //	public static Button enableVisionTrack  = new JoystickButton(RightJoyStick, 2);
@@ -107,9 +114,12 @@ public class OI {
 		wristUp.whenPressed(new TeleopWristUp());
 		wristDown.whenPressed(new TeleopWristDown());
 		iceSkate.whenPressed(new IceSkateCommand());
-		shoot.whenPressed(new ShootCommandGroup());
+		spitBall.whenPressed(new SpitBallGroup());
 		intake.whenPressed(new FeedBallCommand());
 		nuclearOption.whenPressed(new DisableControlLoops());
-		//multiFunc.whenPressed(new LowBarPositionCommandGroup());
+		shootBall.whenPressed(new ShootCommandGroup());
+		lowBarPos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristHome));
+		intakePos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristIntake));
+		transverseDefence.whenPressed(new ArmToWristTo(RobotMap.AutoMap.armDefense,RobotMap.AutoMap.wristDefense));
 	}
 }

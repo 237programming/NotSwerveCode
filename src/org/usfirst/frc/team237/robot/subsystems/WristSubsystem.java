@@ -65,6 +65,7 @@ public class WristSubsystem extends Subsystem {
     }
     
     public void enableWrist(){
+    	
     	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Position);
     	rotateWrist.setSetpoint(rotateWrist.get());
     	rotateWrist.enable();
@@ -95,6 +96,6 @@ public class WristSubsystem extends Subsystem {
     }
     public void post(){
     	SmartDashboard.putNumber("wrist Setpoint", rotateWrist.getSetpoint());
-    	SmartDashboard.putNumber("RotateWristEncoder", rotateWrist.get());
+    	SmartDashboard.putNumber("RotateWristEncoder", rotateWrist.getPosition());
     }
 }

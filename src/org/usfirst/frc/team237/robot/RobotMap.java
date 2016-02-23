@@ -69,8 +69,8 @@ public class RobotMap {
 		public static final int trigger2 = 7;
 	}
 	public class ArmMap{
-		public static final double wristPositiveSpeed = 0.8;
-		public static final double wristNegativeSpeed = -0.6;
+		public static final double wristPositiveSpeed = 0.6;
+		public static final double wristNegativeSpeed = -0.8;
 		public static final double wristHome = 0.0;
 		public static final double wristTransverseDefense = 0.0;
 		public static final double ballIntake = 0.0;
@@ -92,6 +92,17 @@ public class RobotMap {
 		public static final int ballCheckChannel = 0;
 		public static final int slaveExtension = 12; //TBD
 		public static final double currentLimit = 0.0;
+	}
+	
+	public class AutoMap {
+		public static final double armHome = 0;
+		public static final double wristHome = -48.0;
+		public static final double armDefense = 3.25;
+		public static final double wristDefense = -10.0;
+		public static final double armHang = 0;
+		public static final double wristHang = 0;
+		public static final double wristIntake = -29;
+		
 	}
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:
