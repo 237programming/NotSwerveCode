@@ -1,6 +1,7 @@
 package org.usfirst.frc.team237.robot.commands;
 
 import org.usfirst.frc.team237.robot.Robot;
+import org.usfirst.frc.team237.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -15,6 +16,7 @@ public class JointToAngleCommand extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.armSubsystem);
+    	
     }
 
     // Called just before this Command runs the first time
@@ -29,7 +31,10 @@ public class JointToAngleCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.armSubsystem.onTargetJoint();
+        //if (Robot.powerBlock.getCurrent(7) > RobotMap.ArmMap.currentLimit){
+        //	return true;
+        //}
+    	return Robot.armSubsystem.onTargetJoint(); 
     }
 
     // Called once after isFinished returns true

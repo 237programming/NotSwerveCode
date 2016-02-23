@@ -28,6 +28,9 @@ public class TeleopArmDown extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	//if (Robot.powerBlock.getCurrent(7) > RobotMap.ArmMap.currentLimit){
+        //	return true;
+        //}
         if (OI.armDown.get() == false){
         	return true;
         }

@@ -3,6 +3,7 @@ package org.usfirst.frc.team237.robot;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Command;
@@ -54,7 +55,7 @@ public class Robot extends IterativeRobot {
     public static ShooterSubsystem shooterSubsystem;
 	public static ArmSubsystem armSubsystem;
 	public AHRS gyro;
-	
+	public static PowerDistributionPanel powerBlock;
     //andew rule$
     //private static SerialPort navXSerial = new SerialPort(57600, SerialPort.Port.kMXP);
     //public static AHRS navX ;
@@ -72,9 +73,9 @@ public class Robot extends IterativeRobot {
     	shooterSubsystem = new ShooterSubsystem();
 		oi = new OI();
 		//driveTrain = new PIDDrive();
-		
+		powerBlock = new PowerDistributionPanel(1);
 		driveCommand = new TeleopDrive();
-
+		
 	    wristCommand = new TeleopWristUp(); 
 		//pControls = new PneumaticControls();
         chooser = new SendableChooser();
@@ -163,6 +164,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putNumber("Current draw of Arm", powerBlock.getCurrent(0));;
         driveTrain.post();
         wristSubsystem.post();
         armSubsystem.post();

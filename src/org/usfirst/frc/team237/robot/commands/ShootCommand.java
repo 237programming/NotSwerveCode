@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 
 public class ShootCommand extends Command {
-
+	Timer myTimer;
     public ShootCommand() {
     	requires(Robot.shooterSubsystem);
     	requires(Robot.pControls);
@@ -22,19 +22,22 @@ public class ShootCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Timer.delay(2.0);
-    	Robot.pControls.punch();
+    	myTimer = new Timer();
+    	myTimer.start();
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 //    	System.out.println("SHOOTER EXECUTE");
-    	
+    	if (myTimer.get() > 2.0 ){
+    		Robot.pControls.punch();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (Robot.shooterSubsystem.hasBall() == false ){
+    	if (Robot.shooterSubsystem.hasBall() == false && myTimer.get() > 3.0 ){
     		return true; 
     	}
     	return false; 
@@ -42,7 +45,7 @@ public class ShootCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Timer.delay(1.0);
+    	
     	Robot.pControls.retract();
     	Robot.shooterSubsystem.stopShoot();
     }

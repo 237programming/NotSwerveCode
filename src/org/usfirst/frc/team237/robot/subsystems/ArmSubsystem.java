@@ -49,6 +49,7 @@ public class ArmSubsystem extends Subsystem {
 		jointTalon.reverseOutput(true);
 		extensionTalon.setPID(0.3, 0, 0);
 		jointTalon.setPID(0.5, 0.0, 0);
+		
 		SmartDashboard.putNumber("ArmExtensionEncoder", extensionTalon.getPosition());
 		SmartDashboard.putNumber("ArmAngleEncoder", jointTalon.getPosition());
 		

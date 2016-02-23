@@ -86,7 +86,7 @@ public class RobotMap {
 		public static final int shooterVictor = 0;
 		public static final double shooterFullSpeed = 1.0;
 		public static final double shooterVictorSpeed = 1.0;
-		public static final double intakeMultiplayer = -0.3;
+		public static final double intakeMultiplayer = -0.5;
 		public static final double manualAngle = 1.0;
 		public static final double manualExtension = 1.0;
 		public static final double armRotationP = 1;
@@ -94,6 +94,7 @@ public class RobotMap {
 		public static final double armRotationD = 0;
 		public static final int ballCheckChannel = 0;
 		public static final int slaveExtension = 12; //TBD
+		public static final double currentLimit = 0.0;
 	}
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:
