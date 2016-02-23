@@ -50,12 +50,9 @@ public class RobotMap {
 		public static final int rightTalonPrime = 6;
 		public static final int intake = 1;
 		public static final int rotateWrist = 8;
+		public static final String cameraName = "cam0";
 	}
-	// turret motors 
 	
-	public class TurretMap {
-		// TODO: add turret map.
-	}
 	public class ControlMap {
 		public static final int leftStick = 0;
 		public static final int rightStick = 1; 

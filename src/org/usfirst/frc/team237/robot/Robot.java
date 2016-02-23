@@ -2,6 +2,7 @@
 package org.usfirst.frc.team237.robot;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Relay;
@@ -39,6 +40,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+	public static CameraServer camServer;
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 	//public static PIDDrive driveTrain;
@@ -73,8 +75,10 @@ public class Robot extends IterativeRobot {
     	shooterSubsystem = new ShooterSubsystem();
 		oi = new OI();
 		//driveTrain = new PIDDrive();
-		powerBlock = new PowerDistributionPanel(1);
+		powerBlock = new PowerDistributionPanel();
 		driveCommand = new TeleopDrive();
+		camServer = CameraServer.getInstance();
+		camServer.startAutomaticCapture(RobotMap.DriveMap.cameraName);
 		
 	    wristCommand = new TeleopWristUp(); 
 		//pControls = new PneumaticControls();
