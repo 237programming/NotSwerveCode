@@ -158,9 +158,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-        driveTrain.visionStop();
         //armCommand.start();
-        driveCommand.start();
     }
 
     /**
@@ -168,7 +166,11 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        //SmartDashboard.putNumber("Current draw of Arm", powerBlock.getCurrent(0));;
+        if (driveTrain.isTargeting == false){
+        	double left = Robot.oi.LeftJoyStick.getY();
+    		double right = Robot.oi.RightJoyStick.getY();
+    		Robot.driveTrain.set(left, right);
+        }
         driveTrain.post();
         wristSubsystem.post();
         armSubsystem.post();

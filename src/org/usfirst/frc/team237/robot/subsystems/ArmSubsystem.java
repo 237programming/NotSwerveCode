@@ -44,7 +44,7 @@ public class ArmSubsystem extends Subsystem {
 		slaveExtension.set(RobotMap.ArmMap.extensionTalon);
 		
 		jointTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Absolute);
-		//jointTalon.setPosition(0);
+		jointTalon.setPosition(237000);
 		extensionTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
 		jointTalon.reverseOutput(true);
 		extensionTalon.setPID(0.3, 0, 0);
@@ -114,16 +114,15 @@ public class ArmSubsystem extends Subsystem {
     	double yLocation = visionYSrc.pidGet(); 
     	double setPoint = calcSetPoint(yLocation-RobotMap.DriveMap.centerScreenY);
     	SmartDashboard.putNumber("Target Vertical", setPoint);
-    	jointTalon.setSetpoint(setPoint);
+    	anglePID.setSetpoint(setPoint);
     }
     
 	public void visionStart(){
 		this.anglePID.initTable(NetworkTable.getTable("PID/Vertical PID"));
-		this.anglePID.disable();
-			this.anglePID.enable();
-			//this.horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
-			//this.horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
-			this.searchTarget();
+		this.anglePID.enable();
+		//this.horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
+		//this.horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
+		this.searchTarget();
 	}
 	public void visionStop(){
 		this.anglePID.disable();
@@ -158,6 +157,9 @@ public class ArmSubsystem extends Subsystem {
     }
     public void setEncZero(){
     	jointTalon.setPosition(0);
+    }
+    public void setEncHigh(){
+    	jointTalon.setPosition(237000);
     }
     public void post(){
     	SmartDashboard.putNumber("Arm Extension Encoder", extensionTalon.getPosition());

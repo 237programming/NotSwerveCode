@@ -2,6 +2,7 @@ package org.usfirst.frc.team237.robot;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class NetTablesPIDSource implements PIDSource {
@@ -17,6 +18,7 @@ public class NetTablesPIDSource implements PIDSource {
 	}
 	public NetTablesPIDSource(){
 		table = NetworkTable.getTable("GRIP/Vision");
+		
 		System.out.print("Aquired Table");
 	}
 	private int getLargestAreaIndex(){
@@ -63,6 +65,7 @@ public class NetTablesPIDSource implements PIDSource {
 		if (m_direction == direction.x){
 			//System.out.print(getCenterX());
 			//System.out.print("\n");
+			SmartDashboard.putNumber("Center X", getCenterX());
 			return getCenterX();
 		} else if (m_direction == direction.y){
 			return getCenterY();

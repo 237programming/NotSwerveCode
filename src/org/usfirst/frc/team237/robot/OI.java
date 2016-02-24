@@ -57,6 +57,8 @@ public class OI {
 	public static Button intakePos 			= new JoystickButton(Joystick2, 7);
 	public static Button lowBarPos 			= new JoystickButton(Joystick2, 8);
 	public static Button nuclearOption 		= new JoystickButton(Joystick3, 2);
+	public static Button target             = new JoystickButton(Joystick2, 5);
+	public static Button lightToggle        = new JoystickButton(Joystick3, 1);
 //	public static Button enableLight        = new JoystickButton(LeftJoyStick, 11);
 //	public static Button enableVisionTrack  = new JoystickButton(RightJoyStick, 2);
 //	public static Button disableVisionTrack = new JoystickButton(RightJoyStick, 3);
@@ -121,5 +123,7 @@ public class OI {
 		lowBarPos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristHome));
 		intakePos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristIntake));
 		transverseDefence.whenPressed(new ArmToWristTo(RobotMap.AutoMap.armDefense,RobotMap.AutoMap.wristDefense));
+		target.whenPressed(new TrackTarget());
+		lightToggle.whenPressed(new LightCommand());
 	}
 }

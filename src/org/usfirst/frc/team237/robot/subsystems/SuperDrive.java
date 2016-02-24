@@ -33,7 +33,8 @@ public class SuperDrive extends Subsystem {
 	private NetTablesPIDSource visionXSrc; 
 	private double leftTolerance;
 	private double rightTolerance;
-    public static Relay relay = new Relay(0);
+	public boolean isTargeting = false;
+    public Relay relay = new Relay(0);
 	private AHRS gyro;
 	//Define the drive
 	//TankDrive drive; 
@@ -126,7 +127,7 @@ public class SuperDrive extends Subsystem {
     
     public void searchTarget() {
     	double xLocation = visionXSrc.pidGet(); 
-    	double setPoint = calcSetPoint(xLocation-RobotMap.DriveMap.centerScreenX);
+    	double setPoint = calcSetPoint(xLocation-(RobotMap.DriveMap.centerScreenX+25));
     	SmartDashboard.putNumber("Target Angle", setPoint);
     	leftDrivePID.setSetpoint(setPoint);
     	rightDrivePID.setSetpoint(setPoint);
@@ -154,7 +155,7 @@ public class SuperDrive extends Subsystem {
 		setLeft(0.0);
 	}
 	public void visionStart(){
-		
+		isTargeting = true;
 		this.leftDrivePID.initTable(NetworkTable.getTable("PID/Horiontal PID"));
 		this.leftDrivePID.disable();
 		this.rightDrivePID.disable();
@@ -170,6 +171,7 @@ public class SuperDrive extends Subsystem {
 		);
 		this.leftDrivePID.enable();
 		this.rightDrivePID.enable();
+		
 		//this.horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
 		//this.horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
 		this.searchTarget();
@@ -192,7 +194,7 @@ public class SuperDrive extends Subsystem {
 		this.leftDrivePID.disable();
 		this.rightDrivePID.disable();
 		rightDrivePID.setPID(RobotMap.DriveMap.horizontalP, RobotMap.DriveMap.horizontalI, RobotMap.DriveMap.horizontalD);
-		
+		isTargeting = false;
 		
 	}
 	public double getError(){
