@@ -29,8 +29,7 @@ public class PneumaticControls extends Subsystem {
 		shifter.set(DoubleSolenoid.Value.kForward);
 		iceSkate.set(DoubleSolenoid.Value.kForward);
 		trigger.set(DoubleSolenoid.Value.kForward);
-		compressor.setClosedLoopControl(true);
-		compressor.start();
+		
 	}
 	
 	public void punch() {
@@ -75,6 +74,10 @@ public class PneumaticControls extends Subsystem {
 		else if(iceSkate.get() == /*false*/ DoubleSolenoid.Value.kReverse){
 			this.iceSkateOn();
 		}
+	}
+	public void startCompressor(){
+		compressor.setClosedLoopControl(true);
+		compressor.start();
 	}
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

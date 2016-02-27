@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
+import org.usfirst.frc.team237.robot.commands.AutonomousCommandGroup;
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
 import org.usfirst.frc.team237.robot.commands.TeleopArmUp;
 import org.usfirst.frc.team237.robot.commands.TeleopArmExtend;
@@ -52,6 +53,7 @@ public class Robot extends IterativeRobot {
     //TeleopArmExtend armExtensionCommand;
     TeleopWristUp wristCommand; 
     SendableChooser chooser;
+    AutonomousCommandGroup autoCommand;
     public static NetworkTable visionSystemTable;
     public static WristSubsystem wristSubsystem;
     public static ShooterSubsystem shooterSubsystem;
@@ -80,7 +82,7 @@ public class Robot extends IterativeRobot {
 		camServer = CameraServer.getInstance();
 		camServer.startAutomaticCapture(RobotMap.DriveMap.cameraName);
 		
-	    wristCommand = new TeleopWristUp(); 
+	    autoCommand = new AutonomousCommandGroup(); 
 		//pControls = new PneumaticControls();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new ExampleCommand());
@@ -88,7 +90,6 @@ public class Robot extends IterativeRobot {
 //        chooser.addObject("My Auto", new MyAutoCommand());
         
         SmartDashboard.putData("Auto mode", chooser);
-        SmartDashboard.putNumber("PID error", driveTrain.getError());
         driveTrain.setAHRS(gyro);
         armSubsystem.setAHRS(gyro);
     }
@@ -109,7 +110,6 @@ public class Robot extends IterativeRobot {
         wristSubsystem.post();
         armSubsystem.post();
         shooterSubsystem.post();
-		SmartDashboard.putNumber("PID error", driveTrain.getError());
 	}
 
 	/**
@@ -137,7 +137,9 @@ public class Robot extends IterativeRobot {
     	
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+        gyro.zeroYaw();
         
+        autoCommand.start();
         //driveTrain.visionStart();
         
     }
@@ -147,7 +149,10 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("PID error", driveTrain.getError());
+        driveTrain.post();
+        wristSubsystem.post();
+        armSubsystem.post();
+        shooterSubsystem.post();
         SmartDashboard.putBoolean("On Target", driveTrain.onTarget());
         //driveTrain.visionPeriodic();
     }
@@ -158,6 +163,9 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        if (autoCommand != null) autoCommand.cancel();
+        
+        pControls.iceSkateOff();
         //armCommand.start();
     }
 

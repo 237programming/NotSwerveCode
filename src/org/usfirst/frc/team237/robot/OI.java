@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team237.robot.commands.ArmHome;
 import org.usfirst.frc.team237.robot.commands.ArmHomeWristSet;
 import org.usfirst.frc.team237.robot.commands.ArmToWristTo;
-import org.usfirst.frc.team237.robot.commands.DisableControlLoops;
+import org.usfirst.frc.team237.robot.commands.DisableArmExtention;
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
 import org.usfirst.frc.team237.robot.commands.FeedBallCommand;
 import org.usfirst.frc.team237.robot.commands.HoldArmJointCommand;
@@ -59,6 +59,7 @@ public class OI {
 	public static Button nuclearOption 		= new JoystickButton(Joystick3, 2);
 	public static Button target             = new JoystickButton(Joystick2, 5);
 	public static Button lightToggle        = new JoystickButton(Joystick3, 1);
+	
 //	public static Button enableLight        = new JoystickButton(LeftJoyStick, 11);
 //	public static Button enableVisionTrack  = new JoystickButton(RightJoyStick, 2);
 //	public static Button disableVisionTrack = new JoystickButton(RightJoyStick, 3);
@@ -118,7 +119,7 @@ public class OI {
 		iceSkate.whenPressed(new IceSkateCommand());
 		spitBall.whenPressed(new SpitBallGroup());
 		intake.whenPressed(new FeedBallCommand());
-		nuclearOption.whenPressed(new DisableControlLoops());
+		nuclearOption.whenPressed(new DisableArmExtention());
 		shootBall.whenPressed(new ShootCommandGroup());
 		lowBarPos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristHome));
 		intakePos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristIntake));

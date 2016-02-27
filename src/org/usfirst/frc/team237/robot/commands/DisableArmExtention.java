@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DisableControlLoops extends Command {
+public class DisableArmExtention extends Command {
 
-    public DisableControlLoops() {
+    public DisableArmExtention() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.wristSubsystem);

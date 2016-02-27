@@ -25,8 +25,9 @@ public class ArmSubsystem extends Subsystem {
 	private PIDController anglePID;
 	private AHRS gyro;
 	private NetTablesPIDSource visionYSrc;
-	private double jointTolerance = 1.0;
-	private double extensionTolerance = 1.0;
+	private double jointTolerance = 2.0;
+	private double extensionTolerance = 2.0;
+	private double extensionForwardLimit = 250; 
 	public ArmSubsystem(AHRS g)
 	{
 		jointTalon = new CANTalon(RobotMap.ArmMap.jointTalon);
@@ -49,16 +50,23 @@ public class ArmSubsystem extends Subsystem {
 		jointTalon.reverseOutput(true);
 		extensionTalon.setPID(0.3, 0, 0);
 		jointTalon.setPID(0.5, 0.0, 0);
+		
 		jointTalon.ConfigFwdLimitSwitchNormallyOpen(true);
 		jointTalon.ConfigRevLimitSwitchNormallyOpen(true);
+		extensionTalon.reverseSensor(true);
+		extensionTalon.ConfigFwdLimitSwitchNormallyOpen(true);
+		extensionTalon.ConfigRevLimitSwitchNormallyOpen(true);
+		
 		//jointTalon.setForwardSoftLimit(-35000);
 		
 	}
 	
 	public void setAngle(double angle) {
+		
 		jointTalon.setSetpoint(angle);
 	}
 	public void setExtensionDistance(double distance) {
+		if (distance <= extensionForwardLimit) distance = extensionForwardLimit-10;
 		extensionTalon.setSetpoint(distance);
 	}
 	
@@ -94,7 +102,12 @@ public class ArmSubsystem extends Subsystem {
 	}
 	public void extendArm() {
 		//extensionDisable();
-		extensionTalon.set(RobotMap.ArmMap.manualExtension);
+		if ( extensionTalon.getPosition() <extensionForwardLimit-10) {
+			extensionTalon.set(RobotMap.ArmMap.manualExtension);
+		} else {
+			extensionTalon.set(0.0);
+		}
+		
 	}
 	public void retractArm() {
 		//extensionDisable();
@@ -152,11 +165,17 @@ public class ArmSubsystem extends Subsystem {
     		return false; 
     	}
     }
-    public boolean isAtZero(){
+    public boolean isShoulderAtZero(){
     	return jointTalon.isFwdLimitSwitchClosed();
     }
-    public void setEncZero(){
+    public void setShoulderEncZero(){
     	jointTalon.setPosition(0);
+    }
+    public boolean isExtesionAtZero(){
+    	return extensionTalon.isRevLimitSwitchClosed();
+    }
+    public void setExtensionEncZero(){
+    	extensionTalon.setPosition(0);
     }
     public void setEncHigh(){
     	jointTalon.setPosition(237000);

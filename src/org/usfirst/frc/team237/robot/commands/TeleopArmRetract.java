@@ -28,7 +28,7 @@ public class TeleopArmRetract extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (OI.armRetract.get() == false){
+    	if (OI.armRetract.get() == false || OI.nuclearOption.get() == false){
         	return true;
         }
     	return false;

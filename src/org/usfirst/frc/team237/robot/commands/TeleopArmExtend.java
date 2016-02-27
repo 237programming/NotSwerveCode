@@ -23,11 +23,12 @@ public class TeleopArmExtend extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.armSubsystem.extendArm();
+    	if(Robot.armSubsystem.isExtesionAtZero()) Robot.armSubsystem.setExtensionEncZero(); 
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (OI.armExtend.get() == false){
+    	if (OI.armExtend.get() == false || OI.nuclearOption.get() == false){
         	return true;
         }
     	return false;
@@ -36,7 +37,7 @@ public class TeleopArmExtend extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	
-    	Robot.armSubsystem.stopExtension();
+    	Robot.armSubsystem.extensionDisable();
     }
 
     // Called when another command which requires one or more of the same

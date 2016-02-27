@@ -28,12 +28,12 @@ public class ArmHome extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return Robot.armSubsystem.isAtZero();
+    	return Robot.armSubsystem.isShoulderAtZero();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.armSubsystem.setEncZero();
+    	Robot.armSubsystem.setShoulderEncZero();
     }
 
     // Called when another command which requires one or more of the same

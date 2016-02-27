@@ -9,16 +9,18 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class SpoolUpShooter extends Command {
-
-    public SpoolUpShooter() {
+	double speed; 
+    public SpoolUpShooter(double a) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.shooterSubsystem);
+    	speed = a; 
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooterSubsystem.set(1.0);
+    	
+    	Robot.shooterSubsystem.set(speed);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -38,5 +40,6 @@ public class SpoolUpShooter extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.shooterSubsystem.set(0.0);
     }
 }
