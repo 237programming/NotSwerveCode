@@ -14,6 +14,7 @@ public class AutoDefenceShoot extends CommandGroup {
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.
+    	addSequential( new DisableCompressor());
     	addSequential( new DriveFor(10000));
     	addParallel( new AutoRotateTo(15,AutoRotateTo.Directions.BOTH));
     	addSequential( new ArmToWristTo(18.5,-3.0));
@@ -21,6 +22,7 @@ public class AutoDefenceShoot extends CommandGroup {
     	addSequential( new AutonomousTrack());
     	addSequential(new SpoolUpShooter(1.0));
     	addSequential( new ShootCommand());
+    	addSequential( new EnableCompressor());
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
