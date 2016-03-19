@@ -23,7 +23,7 @@ public class TeleopArmExtend extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.armSubsystem.extendArm();
-    	if(Robot.armSubsystem.isExtesionAtZero()) Robot.armSubsystem.setExtensionEncZero(); 
+    	 
     }
 
     // Make this return true when this Command no longer needs to run execute()

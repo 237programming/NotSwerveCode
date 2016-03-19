@@ -19,8 +19,12 @@ public class ExtensionToPositionCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.armSubsystem.extensionEnable();
-    	Robot.armSubsystem.setExtensionDistance(position);
+    	Robot.armSubsystem.extensionDisable();
+    	if (position < Robot.armSubsystem.extensionTalon.getPosition()){
+    		Robot.armSubsystem.extendArm();
+    	} else if (position > Robot.armSubsystem.extensionTalon.getPosition()){
+    		Robot.armSubsystem.retractArm();
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -29,17 +33,23 @@ public class ExtensionToPositionCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.armSubsystem.onTargetExtension();
+       if (position < Robot.armSubsystem.extensionTalon.getPosition()+ 10 &&position > Robot.armSubsystem.extensionTalon.getPosition()- 10  ){ 
+    	  return true;
+       }
+       return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.println("done moving");
+    	Robot.armSubsystem.stopExtension();
     	Robot.armSubsystem.extensionDisable();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.armSubsystem.stopExtension();
     	Robot.armSubsystem.extensionDisable();
     }
 }

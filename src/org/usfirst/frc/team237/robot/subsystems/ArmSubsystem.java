@@ -26,8 +26,8 @@ public class ArmSubsystem extends Subsystem {
 	private AHRS gyro;
 	private NetTablesPIDSource visionYSrc;
 	private double jointTolerance = 2.0;
-	private double extensionTolerance = 2.0;
-	private double extensionForwardLimit = 250; 
+	private double extensionTolerance = 5.0;
+	private double extensionForwardLimit = 595; 
 	public ArmSubsystem(AHRS g)
 	{
 		jointTalon = new CANTalon(RobotMap.ArmMap.jointTalon);
@@ -48,7 +48,7 @@ public class ArmSubsystem extends Subsystem {
 		jointTalon.setPosition(237000);
 		extensionTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
 		jointTalon.reverseOutput(true);
-		extensionTalon.setPID(0.3, 0, 0);
+		extensionTalon.setPID(-0.5, 0, 0);
 		jointTalon.setPID(0.5, 0.0, 0);
 		
 		jointTalon.ConfigFwdLimitSwitchNormallyOpen(true);
@@ -66,7 +66,7 @@ public class ArmSubsystem extends Subsystem {
 		jointTalon.setSetpoint(angle);
 	}
 	public void setExtensionDistance(double distance) {
-		if (distance <= extensionForwardLimit) distance = extensionForwardLimit-10;
+		if (distance >= extensionForwardLimit) distance = extensionForwardLimit-10;
 		extensionTalon.setSetpoint(distance);
 	}
 	
@@ -102,16 +102,17 @@ public class ArmSubsystem extends Subsystem {
 	}
 	public void extendArm() {
 		//extensionDisable();
-		if ( extensionTalon.getPosition() <extensionForwardLimit-10) {
+		
 			extensionTalon.set(RobotMap.ArmMap.manualExtension);
-		} else {
-			extensionTalon.set(0.0);
-		}
 		
 	}
 	public void retractArm() {
 		//extensionDisable();
-		extensionTalon.set(RobotMap.ArmMap.manualExtension * -1.0);
+		if ( extensionTalon.getPosition() < extensionForwardLimit) {
+			extensionTalon.set(RobotMap.ArmMap.manualExtension * -1.0);
+		} else {
+			extensionTalon.set(0.0);
+		}
 	}
 	public void stopExtension(){
 		extensionTalon.set(0.0);
@@ -159,7 +160,7 @@ public class ArmSubsystem extends Subsystem {
     	}
     }
     public boolean onTargetExtension(){
-    	if (extensionTalon.get() < extensionTalon.getSetpoint() + extensionTolerance && extensionTalon.get() > extensionTalon.getSetpoint() - extensionTolerance){
+    	if (extensionTalon.getPosition() < extensionTalon.getSetpoint() + extensionTolerance && extensionTalon.getPosition() > extensionTalon.getSetpoint() - extensionTolerance){
     		return true;
     	} else {
     		return false; 
@@ -182,7 +183,7 @@ public class ArmSubsystem extends Subsystem {
     }
     public void post(){
     	SmartDashboard.putNumber("Arm Extension Encoder", extensionTalon.getPosition());
-    	SmartDashboard.putNumber("Arm extension encoder", jointTalon.getSetpoint());
+    	SmartDashboard.putNumber("Arm extension setpoint", extensionTalon.getSetpoint());
     	SmartDashboard.putNumber("Arm Angle Encoder", jointTalon.getPosition());
 		SmartDashboard.putNumber("Arm Angle Setpoint", jointTalon.getSetpoint());
 		SmartDashboard.putBoolean("Arm Fw limit closed", jointTalon.isFwdLimitSwitchClosed());

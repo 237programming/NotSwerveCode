@@ -24,6 +24,7 @@ public class TeleopArmRetract extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.armSubsystem.retractArm();
+    	if(Robot.armSubsystem.isExtesionAtZero()) Robot.armSubsystem.setExtensionEncZero();
     }
 
     // Make this return true when this Command no longer needs to run execute()

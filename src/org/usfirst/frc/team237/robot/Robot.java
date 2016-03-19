@@ -69,7 +69,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	gyro = new AHRS(SerialPort.Port.kMXP);
+    	gyro = new AHRS(SerialPort.Port.kUSB);
     	pControls = new PneumaticControls();
     	armSubsystem = new ArmSubsystem(gyro);
     	driveTrain = new SuperDrive(gyro);

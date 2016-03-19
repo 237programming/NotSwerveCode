@@ -17,11 +17,12 @@ public class EnableCompressor extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.pControls.startCompressor();
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.pControls.startCompressor();
     }
 
     // Make this return true when this Command no longer needs to run execute()

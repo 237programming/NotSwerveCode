@@ -9,7 +9,9 @@ import org.usfirst.frc.team237.robot.commands.ArmHomeWristSet;
 import org.usfirst.frc.team237.robot.commands.ArmToWristTo;
 import org.usfirst.frc.team237.robot.commands.DisableArmExtention;
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
+import org.usfirst.frc.team237.robot.commands.ExtensionToPositionCommand;
 import org.usfirst.frc.team237.robot.commands.FeedBallCommand;
+import org.usfirst.frc.team237.robot.commands.HangPositionCommand;
 import org.usfirst.frc.team237.robot.commands.HoldArmJointCommand;
 import org.usfirst.frc.team237.robot.commands.HoldWristCommand;
 import org.usfirst.frc.team237.robot.commands.IceSkateCommand;
@@ -125,6 +127,6 @@ public class OI {
 		intakePos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristIntake));
 		transverseDefence.whenPressed(new ArmToWristTo(RobotMap.AutoMap.armDefense,RobotMap.AutoMap.wristDefense));
 		target.whenPressed(new TrackTarget());
-		lightToggle.whenPressed(new LightCommand());
+		lightToggle.whenPressed(new HangPositionCommand());
 	}
 }
