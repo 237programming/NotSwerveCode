@@ -53,7 +53,7 @@ public class TrackTargetManual extends Command {
     protected void end() {
     	Robot.driveTrain.visionStop();
     	Robot.driveTrain.relay.set(Relay.Value.kOff);
-    	
+    	myTimer.reset();
 //    	Robot.armSubsystem.visionStop();
     }
 

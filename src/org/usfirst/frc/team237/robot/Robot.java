@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
+import org.usfirst.frc.team237.robot.commands.AutoDefenceShoot;
 import org.usfirst.frc.team237.robot.commands.AutonomousCommandGroup;
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
 import org.usfirst.frc.team237.robot.commands.TeleopArmUp;
@@ -54,6 +55,7 @@ public class Robot extends IterativeRobot {
     TeleopWristUp wristCommand; 
     SendableChooser chooser;
     AutonomousCommandGroup autoCommand;
+    AutoDefenceShoot autoDefenceCommand; 
     public static NetworkTable visionSystemTable;
     public static WristSubsystem wristSubsystem;
     public static ShooterSubsystem shooterSubsystem;
@@ -83,6 +85,7 @@ public class Robot extends IterativeRobot {
 		camServer.startAutomaticCapture(RobotMap.DriveMap.cameraName);
 		
 	    autoCommand = new AutonomousCommandGroup(); 
+	    autoDefenceCommand = new AutoDefenceShoot();
 		//pControls = new PneumaticControls();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new ExampleCommand());
@@ -139,7 +142,8 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.start();
         gyro.zeroYaw();
         
-        autoCommand.start();
+        autoDefenceCommand.start();
+        //autoCommand.start();
         //driveTrain.visionStart();
         
     }

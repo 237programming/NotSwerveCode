@@ -39,6 +39,7 @@ public class NetTablesPIDSource implements PIDSource {
 		if (centerX.length == 0) {
 			return 0.0;
 		}
+		System.out.println("Array Exists");
 		//SmartDashboard.putNumber("Center X", centerX[index]);
 		return centerX[index]; 
 	}

@@ -13,6 +13,7 @@ public class CrossDefenceCommand extends Command {
 	double _pitchStart; 
 	double _pitchCurrent;
 	int _count; 
+	boolean _finishedCrossFlag;
     public CrossDefenceCommand() {
         // Use requires() here to declare subsystem dependencies
          requires(Robot.driveTrain);
@@ -21,13 +22,17 @@ public class CrossDefenceCommand extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	_pitchStart = Robot.driveTrain.getRobotPitch();
-    	Robot.driveTrain.set(0.8, 0.8);
+    	Robot.driveTrain.set(-1.0, -1.0);
+    	_finishedCrossFlag = false; 
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	_pitchCurrent = Robot.driveTrain.getRobotPitch();
-    	if ((_pitchCurrent <= _pitchStart + RobotMap.DriveMap.pitchFudgeFactor) && (_pitchCurrent >= _pitchStart - RobotMap.DriveMap.pitchFudgeFactor )) {
+    	if (_finishedCrossFlag == false && _pitchCurrent < _pitchStart-5){
+    		_finishedCrossFlag = true; 
+    	}
+    	if ((_pitchCurrent <= _pitchStart + RobotMap.DriveMap.pitchFudgeFactor) && (_pitchCurrent >= _pitchStart - RobotMap.DriveMap.pitchFudgeFactor )&& _finishedCrossFlag == true) {
     		_count++;
     	}  else {
         	_count = 0; 
@@ -36,7 +41,7 @@ public class CrossDefenceCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if (_count >= 200) {
+        if (_count >= 50) {
         	return true; 
         }
     	return false;
@@ -50,5 +55,6 @@ public class CrossDefenceCommand extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.driveTrain.stop();
     }
 }
