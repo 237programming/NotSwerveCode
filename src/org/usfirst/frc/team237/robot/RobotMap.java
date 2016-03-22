@@ -23,7 +23,7 @@ public class RobotMap {
 		public static final int encoderSetPoint = 10000; 
 		public static final int minInput = 0;
 		public static final int maxInput = 360;
-		public static final int centerScreenX = 200;
+		public static final int centerScreenX = 192;
 		public static final int centerScreenY = 100;
 		public static final int setPoint = maxInput/2;
 		public static final int encFullRotation = 25000;
@@ -34,9 +34,9 @@ public class RobotMap {
 		public static final double autoDriveMin = -0.5; 
 		public static final double autoEncMax = 0.0; 
 		public static final double autoEncMin = 0.0; 
-		public static final double horizontalP = 0.25;
-		public static final double horizontalI = 0.2;
-		public static final double horizontalD = 0.0;
+		public static final double horizontalP = 0.01;
+		public static final double horizontalI = 0.00;
+		public static final double horizontalD = 0.01;
 		public static final double quickTurnP = 0.5;
 		public static final double quickTurnI = 0.2;
 		public static final double quickTurnD = 0.0;
@@ -45,8 +45,8 @@ public class RobotMap {
 		public static final double driveD = 0.0;
 		public static final double absTolerance = 2.50;
 		public static final double adjacentLength = 9.25;
-		public static final double feetPerPixel = 0.0305997;
-		public static final double pixelPerFoot = 32.68;
+		public static final double feetPerPixel = 0.031877;
+		public static final double pixelPerFoot = 31.37;
 		public static final double pitchFudgeFactor = 0.1; 
 		// Motors 
 		public static final int leftTalon = 3;
@@ -106,7 +106,7 @@ public class RobotMap {
 		public static final double wristDefense = -10.0;
 		public static final double armHang = 0;
 		public static final double wristHang = 0;
-		public static final double wristIntake = -29;
+		public static final double wristIntake = -19;
 		
 	}
     // If you are using multiple modules, make sure to define both the port

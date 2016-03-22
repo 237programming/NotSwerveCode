@@ -1,17 +1,19 @@
 package org.usfirst.frc.team237.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import org.usfirst.frc.team237.robot.commands.*;
-import org.usfirst.frc.team237.robot.subsystems.SuperDrive;
 
-public class AutonomousTrack extends CommandGroup {
+/**
+ *
+ */
+public class HangCommand extends CommandGroup {
     
-    public  AutonomousTrack() {
+    public  HangCommand() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
-    	// these will run in order.
-
+        // these will run in order.
+    	addSequential(new ExtensionToPositionCommand(10.0));
+    	addSequential(new JointToAngleCommand(-33.0));
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
@@ -23,8 +25,5 @@ public class AutonomousTrack extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	//addSequential(new LightCommand());
-    	addSequential(new TrackTarget());
-    	//addSequential(new LightCommand());
     }
 }

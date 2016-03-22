@@ -47,7 +47,7 @@ public class ArmSubsystem extends Subsystem {
 		jointTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Absolute);
 		jointTalon.setPosition(237000);
 		extensionTalon.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
-		jointTalon.reverseOutput(true);
+		jointTalon.reverseOutput(false);
 		extensionTalon.setPID(-0.5, 0, 0);
 		jointTalon.setPID(0.5, 0.0, 0);
 		

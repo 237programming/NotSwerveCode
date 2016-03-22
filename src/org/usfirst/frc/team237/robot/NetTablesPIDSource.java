@@ -33,17 +33,22 @@ public class NetTablesPIDSource implements PIDSource {
 		}
 		return indexOfLargest; 
 	}
-	private double getCenterX(){
+	public double getCenterX(){
 		int index = getLargestAreaIndex(); 
 		double[] centerX = table.getNumberArray("centerX", new double[0]);
 		if (centerX.length == 0) {
 			return 0.0;
 		}
+		//SmartDashboard.putNumber("Center X", centerX[index]);
 		return centerX[index]; 
 	}
-	private double getCenterY(){
+	public double getCenterY(){
 		int index = getLargestAreaIndex(); 
 		double[] centerY = table.getNumberArray("centerY", new double[0]);
+		//SmartDashboard.putNumber("Center Y", centerY[index]);
+		if (centerY.length == 0) {
+			return 0.0;
+		}
 		return centerY[index]; 
 	}
 	@Override
@@ -65,7 +70,7 @@ public class NetTablesPIDSource implements PIDSource {
 		if (m_direction == direction.x){
 			//System.out.print(getCenterX());
 			//System.out.print("\n");
-			SmartDashboard.putNumber("Center X", getCenterX());
+			//SmartDashboard.putNumber("Center X", getCenterX());
 			return getCenterX();
 		} else if (m_direction == direction.y){
 			return getCenterY();

@@ -11,6 +11,7 @@ import org.usfirst.frc.team237.robot.commands.DisableArmExtention;
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
 import org.usfirst.frc.team237.robot.commands.ExtensionToPositionCommand;
 import org.usfirst.frc.team237.robot.commands.FeedBallCommand;
+import org.usfirst.frc.team237.robot.commands.HangCommand;
 import org.usfirst.frc.team237.robot.commands.HangPositionCommand;
 import org.usfirst.frc.team237.robot.commands.HoldArmJointCommand;
 import org.usfirst.frc.team237.robot.commands.HoldWristCommand;
@@ -28,6 +29,7 @@ import org.usfirst.frc.team237.robot.commands.TeleopWristDown;
 import org.usfirst.frc.team237.robot.commands.TeleopWristUp;
 import org.usfirst.frc.team237.robot.commands.TeleopArmExtend;
 import org.usfirst.frc.team237.robot.commands.TrackTarget;
+import org.usfirst.frc.team237.robot.commands.TrackTargetManual;
 import org.usfirst.frc.team237.robot.commands.WristGoToShoot;
 import org.usfirst.frc.team237.robot.commands.WristIntakeCommand;
 import org.usfirst.frc.team237.robot.commands.WristOuttakeCommand;
@@ -111,7 +113,7 @@ public class OI {
 	
 	public OI() {
 		shift.whenPressed(new ShifterCommand());
-		autoTarget.whenPressed(new TrackTarget());
+		//autoTarget.whenPressed(new TrackTarget());
 		armUp.whenPressed(new TeleopArmUp());
 		armDown.whenPressed(new TeleopArmDown());
 		armExtend.whenPressed(new TeleopArmExtend());
@@ -121,12 +123,14 @@ public class OI {
 		iceSkate.whenPressed(new IceSkateCommand());
 		spitBall.whenPressed(new SpitBallGroup());
 		intake.whenPressed(new FeedBallCommand());
-		nuclearOption.whenPressed(new DisableArmExtention());
+		//nuclearOption.whenPressed(new DisableArmExtention());
+		
+		lightToggle.whenPressed(new HangPositionCommand());
+		//target.whenPressed(new HangCommand());
+		target.whenPressed(new TrackTargetManual());
 		shootBall.whenPressed(new ShootCommandGroup());
 		lowBarPos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristHome));
 		intakePos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristIntake));
 		transverseDefence.whenPressed(new ArmToWristTo(RobotMap.AutoMap.armDefense,RobotMap.AutoMap.wristDefense));
-		target.whenPressed(new TrackTarget());
-		lightToggle.whenPressed(new HangPositionCommand());
 	}
 }

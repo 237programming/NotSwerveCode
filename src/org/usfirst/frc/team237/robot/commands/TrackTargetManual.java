@@ -12,10 +12,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class TrackTarget extends Command {
+public class TrackTargetManual extends Command {
 	Timer myTimer;
 	boolean trackingFlag;
-    public TrackTarget() {
+    public TrackTargetManual() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.driveTrain);
@@ -35,12 +35,16 @@ public class TrackTarget extends Command {
     protected void execute() {
     	if (myTimer.get() > 1 && trackingFlag == false) {
     		Robot.driveTrain.visionStart();
+    		System.out.println("Vision Start");
     		trackingFlag = true;
     	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	if (OI.target.get() == false) {
+    		return true; 
+    	}
     	
         return Robot.driveTrain.onTarget()/* && Robot.armSubsystem.onTargetJoint()*/;
     }

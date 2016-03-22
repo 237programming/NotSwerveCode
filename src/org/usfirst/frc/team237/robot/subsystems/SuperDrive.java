@@ -30,7 +30,7 @@ public class SuperDrive extends Subsystem {
 	private PIDController rightDrivePID;
 	private PIDController encoderPID; 
 	private PIDController yawPID; 
-	private NetTablesPIDSource visionXSrc; 
+	private NetTablesPIDSource visionSrc; 
 	private double leftTolerance;
 	private double rightTolerance;
 	public boolean isTargeting = false;
@@ -59,8 +59,8 @@ public class SuperDrive extends Subsystem {
 		this.leftMotorPrime = new CANTalon(RobotMap.DriveMap.leftTalonPrime);
 		this.rightMotor = new CANTalon(RobotMap.DriveMap.rightTalon);
 		this.rightMotorPrime = new CANTalon(RobotMap.DriveMap.rightTalonPrime);
-		this.visionXSrc = new NetTablesPIDSource(); 
-		this.visionXSrc.setDirection(NetTablesPIDSource.direction.x);
+		this.visionSrc = new NetTablesPIDSource(); 
+		this.visionSrc.setDirection(NetTablesPIDSource.direction.x);
 		//this.leftMotor.changeControlMode(CANTalon.TalonControlMode.Speed);
 		//this.rightMotor.changeControlMode(CANTalon.TalonControlMode.Speed);
 		this.leftMotorPrime.changeControlMode(CANTalon.TalonControlMode.Follower);
@@ -132,8 +132,9 @@ public class SuperDrive extends Subsystem {
     }
     
     public void searchTarget() {
-    	double xLocation = visionXSrc.pidGet(); 
-    	double setPoint = calcSetPoint(xLocation-(RobotMap.DriveMap.centerScreenX+25));
+    	double xLocation = visionSrc.getCenterX();
+    	double yLocation = visionSrc.getCenterY();
+    	double setPoint = calcSetPoint(xLocation-(RobotMap.DriveMap.centerScreenX));
     	SmartDashboard.putNumber("Target Angle", setPoint);
     	leftDrivePID.setSetpoint(setPoint);
     	rightDrivePID.setSetpoint(setPoint);
@@ -175,12 +176,13 @@ public class SuperDrive extends Subsystem {
 			RobotMap.DriveMap.horizontalI*RobotMap.DriveMap.driveNegated,
 			RobotMap.DriveMap.horizontalD*RobotMap.DriveMap.driveNegated
 		);
+		this.searchTarget();
 		this.leftDrivePID.enable();
 		this.rightDrivePID.enable();
 		
 		//this.horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
 		//this.horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
-		this.searchTarget();
+		//this.searchTarget();
 	}
 	public void visionPeriodic(){
 		if (this.onTarget() == true) {
@@ -209,9 +211,12 @@ public class SuperDrive extends Subsystem {
 	public boolean onTarget() {
 		SmartDashboard.putBoolean("Left On Target", leftDrivePID.onTarget());
 		if(gyro.getAngle() > leftDrivePID.getSetpoint()- RobotMap.DriveMap.absTolerance && gyro.getAngle() < leftDrivePID.getSetpoint()+ RobotMap.DriveMap.absTolerance)  {
+			System.out.println("TARGET FOUND");
 			return true;
 		} else if(gyro.getAngle() > rightDrivePID.getSetpoint()- RobotMap.DriveMap.absTolerance && gyro.getAngle() < rightDrivePID.getSetpoint()+ RobotMap.DriveMap.absTolerance)  {
+			System.out.println("TARGET FOUND");
 			return true;
+			
 		}
 		return false;
 	}
@@ -229,7 +234,9 @@ public class SuperDrive extends Subsystem {
 	}
 	public double calcSetPoint(double opposite){
 		double val = Math.toDegrees(Math.atan((opposite/RobotMap.DriveMap.pixelPerFoot)/RobotMap.DriveMap.adjacentLength));
-		return gyro.pidGet()+val;
+		double setPt = gyro.pidGet()+val;
+		if(setPt <= 0) setPt += 360;
+		return setPt;
 	}
 	public double getRobotPitch() {
 		return gyro.getPitch();
