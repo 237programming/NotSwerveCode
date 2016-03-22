@@ -235,7 +235,7 @@ public class SuperDrive extends Subsystem {
 	public double calcSetPoint(double opposite){
 		double val = Math.toDegrees(Math.atan((opposite/RobotMap.DriveMap.pixelPerFoot)/RobotMap.DriveMap.adjacentLength));
 		double setPt = gyro.pidGet()+val;
-		if(setPt <= 0) setPt += 360;
+		//if(setPt <= 0) setPt += 360;
 		return setPt;
 	}
 	public double getRobotPitch() {
