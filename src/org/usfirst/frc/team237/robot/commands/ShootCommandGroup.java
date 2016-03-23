@@ -15,12 +15,13 @@ public class ShootCommandGroup extends CommandGroup {
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.
-    	if ( OI.nuclearOption.get() == false) {
+    	
     		
-    		addSequential(new SpoolUpShooter(1.0));
-    		addSequential(new WristGoToShoot());
-    		addSequential(new ShootCommand());
-    	}
+    	addSequential(new ArmToWristTo(-18.75,0.0));
+    	addSequential(new SpoolUpShooter(1.0));
+    	addSequential(new TrackTargetManual());
+    	//addSequential(new ShootCommand());
+    	
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
@@ -34,5 +35,6 @@ public class ShootCommandGroup extends CommandGroup {
         // arm.
     	requires(Robot.shooterSubsystem);
     	requires(Robot.wristSubsystem);
+    	requires(Robot.armSubsystem);
     }
 }

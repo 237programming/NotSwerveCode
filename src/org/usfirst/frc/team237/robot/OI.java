@@ -62,6 +62,7 @@ public class OI {
 	public static Button lowBarPos 			= new JoystickButton(Joystick2, 8);
 	public static Button nuclearOption 		= new JoystickButton(Joystick3, 2);
 	public static Button target             = new JoystickButton(Joystick2, 5);
+	public static Button finalHangBtn		= new JoystickButton(Joystick3, 7);
 	public static Button lightToggle        = new JoystickButton(Joystick3, 1);
 	
 //	public static Button enableLight        = new JoystickButton(LeftJoyStick, 11);
@@ -126,9 +127,9 @@ public class OI {
 		//nuclearOption.whenPressed(new DisableArmExtention());
 		
 		lightToggle.whenPressed(new HangPositionCommand());
-		//target.whenPressed(new HangCommand());
-		target.whenPressed(new TrackTargetManual());
-		shootBall.whenPressed(new ShootCommandGroup());
+		finalHangBtn.whenPressed(new HangCommand());
+		target.whenPressed(new ShootCommandGroup());
+		//shootBall.whenPressed(new ShootCommandGroup());
 		lowBarPos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristHome));
 		intakePos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristIntake));
 		transverseDefence.whenPressed(new ArmToWristTo(RobotMap.AutoMap.armDefense,RobotMap.AutoMap.wristDefense));

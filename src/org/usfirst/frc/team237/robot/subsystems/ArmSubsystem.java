@@ -124,22 +124,26 @@ public class ArmSubsystem extends Subsystem {
 		double val = Math.toDegrees(Math.atan((opposite/RobotMap.DriveMap.pixelPerFoot)/RobotMap.DriveMap.adjacentLength));
 		return gyro.pidGet()+val;
 	}
+	public double remap(double val, double fromMin, double fromMax, double toMin, double toMax){
+		return ((val - fromMin)*(toMax - toMin))/(fromMax - fromMin) + toMin;
+	}
     public void searchTarget() {
     	double yLocation = visionYSrc.pidGet(); 
     	double setPoint = calcSetPoint(yLocation-RobotMap.DriveMap.centerScreenY);
+    	
     	SmartDashboard.putNumber("Target Vertical", setPoint);
-    	anglePID.setSetpoint(setPoint);
+    	setAngle(setPoint);
     }
     
 	public void visionStart(){
-		this.anglePID.initTable(NetworkTable.getTable("PID/Vertical PID"));
-		this.anglePID.enable();
+		//this.anglePID.initTable(NetworkTable.getTable("PID/Vertical PID"));
+		//this.anglePID.enable();
 		//this.horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
 		//this.horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
 		this.searchTarget();
 	}
 	public void visionStop(){
-		this.anglePID.disable();
+		//this.anglePID.disable();
 	}
 	
     public void initDefaultCommand() {

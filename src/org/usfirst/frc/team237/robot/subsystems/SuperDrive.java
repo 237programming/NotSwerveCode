@@ -164,21 +164,18 @@ public class SuperDrive extends Subsystem {
 	}
 	public void visionStart(){
 		isTargeting = true;
-		leftDrivePID.initTable(NetworkTable.getTable("PID/Horiontal PID"));
-		leftDrivePID.disable();
-		rightDrivePID.disable();
-		leftDrivePID.setContinuous(true);
-		rightDrivePID.setContinuous(true);
-		changeControlMode(ControlMode.PercentVBus);
-		searchTarget();
-		//if (leftDrivePID.getSetpoint() > gyro.getAngle())
+		this.leftDrivePID.initTable(NetworkTable.getTable("PID/Horiontal PID"));
+		this.leftDrivePID.disable();
+		this.rightDrivePID.disable();
+		this.searchTarget();
+		//if (this.leftDrivePID.getSetpoint() > gyro.getAngle())
 		//{
-		leftDrivePID.setPID(
+		this.leftDrivePID.setPID(
 				RobotMap.DriveMap.horizontalP,
 				RobotMap.DriveMap.horizontalI,
 				RobotMap.DriveMap.horizontalD
 				);
-		rightDrivePID.setPID(
+		this.rightDrivePID.setPID(
 			RobotMap.DriveMap.horizontalP*RobotMap.DriveMap.driveNegated,
 			RobotMap.DriveMap.horizontalI*RobotMap.DriveMap.driveNegated,
 			RobotMap.DriveMap.horizontalD*RobotMap.DriveMap.driveNegated
@@ -186,12 +183,12 @@ public class SuperDrive extends Subsystem {
 		//}
 		//else
 		//{
-		//	leftDrivePID.setPID(
+		//	this.leftDrivePID.setPID(
 		//			RobotMap.DriveMap.horizontalP*RobotMap.DriveMap.driveNegated,
 		//			RobotMap.DriveMap.horizontalI*RobotMap.DriveMap.driveNegated,
 		//			RobotMap.DriveMap.horizontalD*RobotMap.DriveMap.driveNegated
 		//			);
-		//	rightDrivePID.setPID(
+		//	this.rightDrivePID.setPID(
 		//		RobotMap.DriveMap.horizontalP,
 		//		RobotMap.DriveMap.horizontalI,
 		//		RobotMap.DriveMap.horizontalD
@@ -199,17 +196,30 @@ public class SuperDrive extends Subsystem {
 		//}
 				
 				
-		leftDrivePID.enable();
-		rightDrivePID.enable();
+		this.leftDrivePID.enable();
+		this.rightDrivePID.enable();
 		
 		//this.horizontalPID.setSetpoint(RobotMap.DriveMap.setPoint);
 		//this.horizontalNegatedPID.setSetpoint(RobotMap.DriveMap.setPoint);
 		//this.searchTarget();
 	}
-	
+	public void visionPeriodic(){
+		if (this.onTarget() == true) {
+			System.out.println("Target Found");
+			this.leftDrivePID.disable();
+			this.rightDrivePID.disable();
+			this.stop();
+		} else {
+			this.leftDrivePID.enable();
+			this.rightDrivePID.enable();
+		}
+		//this.searchTarget();
+		SmartDashboard.putNumber("Robot Yaw", gyro.pidGet());
+
+	}
 	public void visionStop(){
-		leftDrivePID.disable();
-		rightDrivePID.disable();
+		this.leftDrivePID.disable();
+		this.rightDrivePID.disable();
 		rightDrivePID.setPID(RobotMap.DriveMap.horizontalP, RobotMap.DriveMap.horizontalI, RobotMap.DriveMap.horizontalD);
 		isTargeting = false;
 		
@@ -245,9 +255,9 @@ public class SuperDrive extends Subsystem {
 		double val = Math.toDegrees(Math.atan((opposite/RobotMap.DriveMap.pixelPerFoot)/RobotMap.DriveMap.adjacentLength));
 		//double setPt = gyro.getAngle()+val;
 		//double val = opposite/8; 
-		double setPt = gyro.pidGet()+val;
-		//if(setPt < 0) setPt += 360;
-		//else if (setPt >= 360) setPt -= 360;
+		double setPt = gyro.pidGet()+val-6;
+		if(setPt < 0) setPt += 360;
+		else if (setPt >= 360) setPt -= 360;
 		return setPt;
 	}
 	public double getRobotPitch() {
