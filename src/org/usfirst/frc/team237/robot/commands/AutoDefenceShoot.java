@@ -17,6 +17,9 @@ public class AutoDefenceShoot extends CommandGroup {
     	addSequential( new DisableCompressor());
     	addSequential( new ArmToWristTo(10,0));
     	addSequential( new CrossDefenceCommand());
+    	addParallel(new SpoolUpShooter(1.0));
+    	addSequential(new JointToAngleCommand(-5.0));
+    	addSequential( new TrackTargetAuto());
     	//addParallel( new AutoRotateTo(15,AutoRotateTo.Directions.BOTH));
     	//addSequential( new ArmToWristTo(18.5,-3.0));
     	//addSequential( new SpoolUpShooter(0.5));
@@ -38,6 +41,7 @@ public class AutoDefenceShoot extends CommandGroup {
     	requires(Robot.driveTrain);
     	requires(Robot.armSubsystem);
     	requires(Robot.wristSubsystem);
+    	requires(Robot.shooterSubsystem);
     	
     }
 }
