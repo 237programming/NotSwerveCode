@@ -20,7 +20,7 @@ import org.usfirst.frc.team237.robot.commands.LightCommand;
 import org.usfirst.frc.team237.robot.commands.LowBarPositionCommandGroup;
 import org.usfirst.frc.team237.robot.commands.ShifterCommand;
 import org.usfirst.frc.team237.robot.commands.ShootCommand;
-import org.usfirst.frc.team237.robot.commands.ShootCommandGroup;
+import org.usfirst.frc.team237.robot.commands.TrackShootCommandGroup;
 import org.usfirst.frc.team237.robot.commands.SpitBallGroup;
 import org.usfirst.frc.team237.robot.commands.TeleopArmDown;
 import org.usfirst.frc.team237.robot.commands.TeleopArmRetract;
@@ -28,7 +28,7 @@ import org.usfirst.frc.team237.robot.commands.TeleopArmUp;
 import org.usfirst.frc.team237.robot.commands.TeleopWristDown;
 import org.usfirst.frc.team237.robot.commands.TeleopWristUp;
 import org.usfirst.frc.team237.robot.commands.TeleopArmExtend;
-import org.usfirst.frc.team237.robot.commands.TrackTarget;
+import org.usfirst.frc.team237.robot.commands.TrackTargetAuto;
 import org.usfirst.frc.team237.robot.commands.TrackTargetManual;
 import org.usfirst.frc.team237.robot.commands.WristGoToShoot;
 import org.usfirst.frc.team237.robot.commands.WristIntakeCommand;
@@ -128,7 +128,7 @@ public class OI {
 		
 		lightToggle.whenPressed(new HangPositionCommand());
 		finalHangBtn.whenPressed(new HangCommand());
-		target.whenPressed(new ShootCommandGroup());
+		target.whenPressed(new TrackShootCommandGroup());
 		//shootBall.whenPressed(new ShootCommandGroup());
 		lowBarPos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristHome));
 		intakePos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristIntake));

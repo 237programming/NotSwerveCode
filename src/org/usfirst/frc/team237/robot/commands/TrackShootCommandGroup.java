@@ -8,16 +8,16 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class ShootCommandGroup extends CommandGroup {
+public class TrackShootCommandGroup extends CommandGroup {
     
-    public  ShootCommandGroup() {
+    public  TrackShootCommandGroup() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.
     	
     		
-    	addSequential(new ArmToWristTo(-18.75,0.0));
+    	//addSequential(new ArmToWristTo(-13.0,0.0));
     	addSequential(new SpoolUpShooter(1.0));
     	addSequential(new TrackTargetManual());
     	//addSequential(new ShootCommand());

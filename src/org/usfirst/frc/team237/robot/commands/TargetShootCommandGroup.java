@@ -14,7 +14,7 @@ public class TargetShootCommandGroup extends CommandGroup {
         // these will run in order.
     	addParallel(new SpoolUpShooter(0.5));
     	addSequential(new JointToAngleCommand(18.7));
-    	addSequential(new TrackTarget());
+    	addSequential(new TrackTargetAuto());
     	//addSequential(new ShootCommand());
 
         // To run multiple commands at the same time,

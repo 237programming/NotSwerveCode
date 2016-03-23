@@ -14,6 +14,7 @@ public class CrossDefenceCommand extends Command {
 	double _pitchCurrent;
 	int _count; 
 	boolean _finishedCrossFlag;
+	double _encCount; 
     public CrossDefenceCommand() {
         // Use requires() here to declare subsystem dependencies
          requires(Robot.driveTrain);
@@ -29,19 +30,17 @@ public class CrossDefenceCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	_pitchCurrent = Robot.driveTrain.getRobotPitch();
-    	if (_finishedCrossFlag == false && _pitchCurrent < _pitchStart-5){
+    	if (_finishedCrossFlag == false && _pitchCurrent < _pitchStart-15){
+    		_encCount = Robot.driveTrain.getLeftEncCount();
     		_finishedCrossFlag = true; 
+    		System.out.println("Defence Crossed");
     	}
-    	if ((_pitchCurrent <= _pitchStart + RobotMap.DriveMap.pitchFudgeFactor) && (_pitchCurrent >= _pitchStart - RobotMap.DriveMap.pitchFudgeFactor )&& _finishedCrossFlag == true) {
-    		_count++;
-    	}  else {
-        	_count = 0; 
-        }
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if (_count >= 50) {
+        if (Robot.driveTrain.getLeftEncCount() > _encCount+25000 && _finishedCrossFlag == true) {
         	return true; 
         }
     	return false;
@@ -49,6 +48,7 @@ public class CrossDefenceCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	
     	Robot.driveTrain.stop();
     }
 
