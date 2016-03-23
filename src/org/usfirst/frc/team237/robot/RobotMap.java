@@ -30,8 +30,8 @@ public class RobotMap {
 		public static final double encCountPerInch = encFullRotation / 37;
 		public static final double driveMultiplier = 1.0;
 		public static final double driveNegated = -1.0;
-		public static final double autoDriveMax = 0.25;
-		public static final double autoDriveMin = -0.25; 
+		public static final double autoDriveMax = 0.3;
+		public static final double autoDriveMin = -0.3; 
 		public static final double autoEncMax = 0.0; 
 		public static final double autoEncMin = 0.0; 
 		public static final double horizontalP = 1.0;
@@ -43,7 +43,7 @@ public class RobotMap {
 		public static final double driveP = 0.5;
 		public static final double driveI = 0.2;
 		public static final double driveD = 0.0;
-		public static final double absTolerance = 1.0;
+		public static final double absTolerance = 2.0;
 		public static final double adjacentLength = 9.25;
 		public static final double feetPerPixel = 0.031877;
 		public static final double pixelPerFoot = 31.37;
