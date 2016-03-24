@@ -36,6 +36,7 @@ public class SuperDrive extends Subsystem {
 	public boolean isTargeting = false;
     public Relay relay = new Relay(0);
 	private AHRS gyro;
+	private double currentTarget;
 	//Define the drive
 	//TankDrive drive; 
 	
@@ -136,7 +137,8 @@ public class SuperDrive extends Subsystem {
     	double yLocation = visionSrc.getCenterY();
     	System.out.println(xLocation);
     	double setPoint = calcSetPoint(xLocation-(RobotMap.DriveMap.centerScreenX));
-    	SmartDashboard.putNumber("Target Angle", setPoint);
+    	
+    	
     	leftDrivePID.setSetpoint(setPoint);
     	rightDrivePID.setSetpoint(setPoint);
     }
@@ -180,6 +182,8 @@ public class SuperDrive extends Subsystem {
 			RobotMap.DriveMap.horizontalI*RobotMap.DriveMap.driveNegated,
 			RobotMap.DriveMap.horizontalD*RobotMap.DriveMap.driveNegated
 				);
+		//leftDrivePID.setContinuous(true);
+		//rightDrivePID.setContinuous(true);
 		//}
 		//else
 		//{
@@ -229,7 +233,7 @@ public class SuperDrive extends Subsystem {
 	}
 	public boolean onTarget() {
 		SmartDashboard.putBoolean("Left On Target", leftDrivePID.onTarget());
-		if(gyro.getAngle() > leftDrivePID.getSetpoint()- RobotMap.DriveMap.absTolerance && gyro.getAngle() < leftDrivePID.getSetpoint()+ RobotMap.DriveMap.absTolerance)  {
+		if(gyro.getAngle() > currentTarget- RobotMap.DriveMap.absTolerance && gyro.getAngle() < currentTarget+ RobotMap.DriveMap.absTolerance)  {
 			System.out.println("TARGET FOUND");
 			return true;
 		} /*else if(gyro.getAngle() > rightDrivePID.getSetpoint()- RobotMap.DriveMap.absTolerance && gyro.getAngle() < rightDrivePID.getSetpoint()+ RobotMap.DriveMap.absTolerance)  {
@@ -256,8 +260,10 @@ public class SuperDrive extends Subsystem {
 		//double setPt = gyro.getAngle()+val;
 		//double val = opposite/8; 
 		double setPt = gyro.pidGet()+val-6;
-		if(setPt < 0) setPt += 360;
-		else if (setPt >= 360) setPt -= 360;
+		currentTarget = setPt;
+		if(currentTarget < 0) currentTarget += 360;
+		else if (currentTarget >= 360) currentTarget -= 360;
+		SmartDashboard.putNumber("Target Angle", currentTarget);
 		return setPt;
 	}
 	public double getRobotPitch() {

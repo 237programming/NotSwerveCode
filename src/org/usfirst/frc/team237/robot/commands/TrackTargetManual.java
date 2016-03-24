@@ -37,12 +37,12 @@ public class TrackTargetManual extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (myTimer.get() > 1 && trackingFlag == false) {
+    	if (myTimer.get() > 2 && trackingFlag == false) {
     		Robot.driveTrain.visionStart();
     		System.out.println("Vision Start");
     		trackingFlag = true;
     	}
-    	if (shootFlag == false && Robot.driveTrain.onTarget() && myTimer.get() > 1){
+    	if (shootFlag == false && Robot.driveTrain.onTarget() && myTimer.get() > 2){
     		myTimer.reset();
     		myTimer.start();
     		shootFlag = true; 
