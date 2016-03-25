@@ -18,6 +18,7 @@ import org.usfirst.frc.team237.robot.commands.HoldWristCommand;
 import org.usfirst.frc.team237.robot.commands.IceSkateCommand;
 import org.usfirst.frc.team237.robot.commands.LightCommand;
 import org.usfirst.frc.team237.robot.commands.LowBarPositionCommandGroup;
+import org.usfirst.frc.team237.robot.commands.ManualShoot;
 import org.usfirst.frc.team237.robot.commands.ShifterCommand;
 import org.usfirst.frc.team237.robot.commands.ShootCommand;
 import org.usfirst.frc.team237.robot.commands.TrackShootCommandGroup;
@@ -129,7 +130,7 @@ public class OI {
 		lightToggle.whenPressed(new HangPositionCommand());
 		finalHangBtn.whenPressed(new HangCommand());
 		target.whenPressed(new TrackShootCommandGroup());
-		shootBall.whenPressed(new LightCommand());
+		shootBall.whenPressed(new ManualShoot());
 		lowBarPos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristHome));
 		intakePos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristIntake));
 		transverseDefence.whenPressed(new ArmToWristTo(RobotMap.AutoMap.armDefense,RobotMap.AutoMap.wristDefense));

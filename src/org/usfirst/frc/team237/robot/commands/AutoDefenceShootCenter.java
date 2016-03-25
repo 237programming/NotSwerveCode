@@ -17,7 +17,7 @@ public class AutoDefenceShootCenter extends CommandGroup {
     	addSequential( new DisableCompressor());
     	addSequential( new ArmToWristTo(10,0));
     	addSequential( new CrossDefenceCommand());
-    	addSequential( new AutoRotateTo(0.0));
+    	//addSequential( new AutoRotateTo(0.0));
     	addParallel(new SpoolUpShooter(1.0));
     	addSequential(new JointToAngleCommand(-5.0));
     	addSequential( new TrackTargetAuto());

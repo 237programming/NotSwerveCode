@@ -37,6 +37,7 @@ public class SuperDrive extends Subsystem {
     public Relay relay = new Relay(0);
 	private AHRS gyro;
 	private double currentTarget;
+	public boolean noTarget; 
 	//Define the drive
 	//TankDrive drive; 
 	
@@ -133,12 +134,14 @@ public class SuperDrive extends Subsystem {
     }
     
     public void searchTarget() {
+    	noTarget = false;
     	double xLocation = visionSrc.getCenterX();
+    	if (xLocation == 237237237.0){
+    		noTarget = true;
+    	}
     	double yLocation = visionSrc.getCenterY();
     	System.out.println(xLocation);
     	double setPoint = calcSetPoint(xLocation-(RobotMap.DriveMap.centerScreenX));
-    	
-    	
     	leftDrivePID.setSetpoint(setPoint);
     	rightDrivePID.setSetpoint(setPoint);
     }
