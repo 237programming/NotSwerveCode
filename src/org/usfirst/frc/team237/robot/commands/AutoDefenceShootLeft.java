@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoDefenceShoot extends CommandGroup {
+public class AutoDefenceShootLeft extends CommandGroup {
     
-    public  AutoDefenceShoot() {
+    public  AutoDefenceShootLeft() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -17,6 +17,7 @@ public class AutoDefenceShoot extends CommandGroup {
     	addSequential( new DisableCompressor());
     	addSequential( new ArmToWristTo(10,0));
     	addSequential( new CrossDefenceCommand());
+    	addSequential( new AutoRotateTo(45));
     	addParallel(new SpoolUpShooter(1.0));
     	addSequential(new JointToAngleCommand(-5.0));
     	addSequential( new TrackTargetAuto());

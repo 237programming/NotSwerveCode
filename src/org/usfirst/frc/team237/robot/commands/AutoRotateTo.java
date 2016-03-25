@@ -18,20 +18,19 @@ public class AutoRotateTo extends Command {
 		BOTH
 	}
 	private Directions direction;
-    public AutoRotateTo(double r, Directions d) {
+    public AutoRotateTo(double r) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.driveTrain);
     	angle = r;
-    	direction = d;
+    	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.driveTrain.changeControlMode(ControlMode.PercentVBus);
-    	if(direction == Directions.LEFT) Robot.driveTrain.quickRotateRelative(angle, QRDrive.LEFT);
-    	else if(direction == Directions.RIGHT) Robot.driveTrain.quickRotateRelative(angle, QRDrive.RIGHT);
-    	else Robot.driveTrain.quickRotateRelative(angle, QRDrive.BOTH);
+    	Robot.driveTrain.rotateNoControl(angle);
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -45,7 +44,7 @@ public class AutoRotateTo extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.driveTrain.visionStop();
+    	//Robot.driveTrain.visionStop();
     	Robot.driveTrain.stop();
     	
     }
@@ -53,7 +52,7 @@ public class AutoRotateTo extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.driveTrain.visionStop();
+    	//Robot.driveTrain.visionStop();
     	Robot.driveTrain.stop();
     }
 }

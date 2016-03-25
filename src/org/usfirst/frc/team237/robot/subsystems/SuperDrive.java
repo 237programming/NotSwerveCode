@@ -380,6 +380,22 @@ public class SuperDrive extends Subsystem {
 		quickRotateTo(setAngle, direction);
 	}
 	
+	public void rotateNoControl(double setAngle){
+		double oppositeAngle = setAngle + 180;
+		double yawCapture = gyro.getYaw();
+		if (oppositeAngle > 360){
+			oppositeAngle -= 360;
+		} else if (oppositeAngle < 360){
+			oppositeAngle += 360; 
+		}
+		currentTarget = setAngle; 
+		if (yawCapture >= oppositeAngle){
+			set(-0.5,0.5);
+		} else if (yawCapture < oppositeAngle){
+			set(0.5,-0.5);
+		}
+	}
+	
 	public void post(){
 		SmartDashboard.putNumber("Encoder Left Drive", leftMotor.getPosition());
 		SmartDashboard.putNumber("Encoder Right Drive", rightMotor.getPosition());
