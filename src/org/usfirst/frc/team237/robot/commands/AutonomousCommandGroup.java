@@ -16,7 +16,7 @@ public class AutonomousCommandGroup extends CommandGroup {
         //      addSequential(new Command2());
         // these will run in order.
     	addSequential(new DisableCompressor());
-    	addSequential(new TrackShootCommandGroup());
+    	addSequential(new SpyBotCommand());
     	//addSequential(new DriveFor(16000));
     	addSequential(new EnableCompressor());
     	//addSequential(new SetIceSkate(true));
