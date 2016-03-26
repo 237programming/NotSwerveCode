@@ -50,7 +50,7 @@ public class TrackTargetAuto extends Command {
     	}
     	if (myTimer.get() > 0.25 && shootFlag == true && Robot.driveTrain.onTarget()){
     		//if (Robot.driveTrain.noTarget == false){
-    			//Robot.pControls.punch();
+    		Robot.pControls.punch();
     		//} else {
     		//	Robot.driveTrain.visionStop();
     		//}
@@ -77,6 +77,7 @@ public class TrackTargetAuto extends Command {
     	Robot.pControls.retract();
     	Robot.driveTrain.relay.set(Relay.Value.kOff);
     	myTimer.reset();
+    	Robot.pControls.retract();
 //    	Robot.armSubsystem.visionStop();
     }
 
@@ -86,6 +87,7 @@ public class TrackTargetAuto extends Command {
     	Robot.driveTrain.visionStop();
     	Robot.driveTrain.relay.set(Relay.Value.kOff);
     	Robot.shooterSubsystem.stopShoot();
+    	myTimer.reset();
     	Robot.pControls.retract();
     }
 }

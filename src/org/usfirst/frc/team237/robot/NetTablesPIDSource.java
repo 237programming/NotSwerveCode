@@ -38,7 +38,7 @@ public class NetTablesPIDSource implements PIDSource {
 		int index = getLargestAreaIndex(); 
 		double[] centerX = table.getNumberArray("centerX", new double[0]);
 		if (centerX.length == 0) {
-			SmartDashboard.putNumber("Center X", centerX[index]);
+			
 			return 0.0;
 		}
 		System.out.println("Array Exists");

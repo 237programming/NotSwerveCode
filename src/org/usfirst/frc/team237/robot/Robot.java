@@ -88,7 +88,8 @@ public class Robot extends IterativeRobot {
 		driveCommand = new TeleopDrive();
 		camServer = CameraServer.getInstance();
 		camServer.startAutomaticCapture(RobotMap.DriveMap.cameraName);
-		
+		autoLeft = new AutoDefenceShootLeft();
+		autoRight = new AutoDefenceShootRight();
 	    spyCommand = new AutonomousCommandGroup(); 
 	    autoCenter = new AutoDefenceShootCenter();
 		//pControls = new PneumaticControls();
@@ -121,20 +122,29 @@ public class Robot extends IterativeRobot {
         //driveTrain.relay.set(Relay.Value.kForward);
         String autoSelected = SmartDashboard.getString("DB/String 0","Center");
 		//System.out.println(autoSelected); 
+        autoSelected = autoSelected.toLowerCase();
 		switch(autoSelected) {
-		case "Left":
+		case "left":
 			SmartDashboard.putString("DB/String 5", "Left");
+			//autoLeft.start();
 			break;
-		case "Right":
+		case "right":
+			//autoRight.start();
 			SmartDashboard.putString("DB/String 5", "Right");
 			break;
-		case "Center" : 
+		case "center" : 
+			//autoCenter.start();
 			SmartDashboard.putString("DB/String 5", "Center");
 			break;
-		default:
-			SmartDashboard.putString("DB/String 5", "No Command Set");
+		case "spy" :
+			SmartDashboard.putString("DB/String 5", "Spy");
+			//spyCommand.start();
 			break;
-		} 
+		default:
+			SmartDashboard.putString("DB/String 5", "");
+			//autoCenter.start();
+			break;
+		}
 	}
 
 	/**
@@ -151,32 +161,33 @@ public class Robot extends IterativeRobot {
         gyro.zeroYaw();
         String autoSelected = SmartDashboard.getString("DB/String 0","Center");
 		//System.out.println(autoSelected); 
+        autoSelected = autoSelected.toLowerCase();
 		switch(autoSelected) {
-		case "Left":
+		case "left":
 			SmartDashboard.putString("DB/String 5", "Left");
 			autoLeft.start();
 			break;
-		case "Right":
+		case "right":
 			autoRight.start();
 			SmartDashboard.putString("DB/String 5", "Right");
 			break;
-		case "Center" : 
+		case "center" : 
 			autoCenter.start();
 			SmartDashboard.putString("DB/String 5", "Center");
 			break;
-		case "Spy" :
+		case "spy" :
 			SmartDashboard.putString("DB/String 5", "Spy");
 			spyCommand.start();
 			break;
 		default:
-			SmartDashboard.putString("DB/String 5", "");
+			SmartDashboard.putString("DB/String 5", "default t Center");
 			autoCenter.start();
 			break;
 		}
     	
     	// schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
-        gyro.zeroYaw();
+        //if (autonomousCommand != null) autonomousCommand.start();
+        //gyro.zeroYaw();
         Robot.pControls.iceSkateOff();
         //autoDefenceCommand.start();
         //autoCommand.start();
@@ -203,10 +214,10 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-        if (spyCommand != null) spyCommand.cancel();
-        if (autoLeft != null) autoLeft.cancel();
-        if (autoRight != null) autoRight.cancel();
-        if (autoCenter != null) autoCenter.cancel();
+        if (spyCommand != null && spyCommand.isRunning()) spyCommand.cancel();
+        if (autoLeft != null && autoLeft.isRunning()) autoLeft.cancel();
+        if (autoRight != null && autoRight.isRunning()) autoRight.cancel();
+        if (autoCenter != null && autoCenter.isRunning()) autoCenter.cancel();
         
         pControls.iceSkateOff();
         //armCommand.start();

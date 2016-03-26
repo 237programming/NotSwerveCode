@@ -384,17 +384,13 @@ public class SuperDrive extends Subsystem {
 	}
 	
 	public void rotateNoControl(double setAngle){
-		double oppositeAngle = setAngle + 180;
-		double yawCapture = gyro.getYaw();
-		if (oppositeAngle > 360){
-			oppositeAngle -= 360;
-		} else if (oppositeAngle < 360){
-			oppositeAngle += 360; 
-		}
-		currentTarget = setAngle; 
-		if (yawCapture >= oppositeAngle){
+		double yawCap = gyro.getYaw();
+		double clockwise = yawCap-setAngle;
+		double anticlockwise = Math.abs(180-yawCap)+ Math.abs(-180-setAngle);
+		currentTarget = setAngle;
+		if(clockwise < anticlockwise){
 			set(-0.5,0.5);
-		} else if (yawCapture < oppositeAngle){
+		} else {
 			set(0.5,-0.5);
 		}
 	}
