@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 import org.usfirst.frc.team237.robot.commands.AutoDefenceShootCenter;
+import org.usfirst.frc.team237.robot.commands.AutoDefenceShootLeft;
+import org.usfirst.frc.team237.robot.commands.AutoDefenceShootRight;
 import org.usfirst.frc.team237.robot.commands.AutonomousCommandGroup;
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
 import org.usfirst.frc.team237.robot.commands.TeleopArmUp;
@@ -54,13 +56,16 @@ public class Robot extends IterativeRobot {
     //TeleopArmExtend armExtensionCommand;
     TeleopWristUp wristCommand; 
     SendableChooser chooser;
-    AutonomousCommandGroup autoCommand;
-    AutoDefenceShootCenter autoDefenceCommand; 
+    AutonomousCommandGroup spyCommand;
+    AutoDefenceShootCenter autoCenter; 
+    AutoDefenceShootLeft autoLeft; 
+    AutoDefenceShootRight autoRight;
     public static NetworkTable visionSystemTable;
     public static WristSubsystem wristSubsystem;
     public static ShooterSubsystem shooterSubsystem;
 	public static ArmSubsystem armSubsystem;
 	public AHRS gyro;
+	public String currentAuto;
 	//public static PowerDistributionPanel powerBlock;
     //andew rule$
     //private static SerialPort navXSerial = new SerialPort(57600, SerialPort.Port.kMXP);
@@ -84,8 +89,8 @@ public class Robot extends IterativeRobot {
 		camServer = CameraServer.getInstance();
 		camServer.startAutomaticCapture(RobotMap.DriveMap.cameraName);
 		
-	    autoCommand = new AutonomousCommandGroup(); 
-	    autoDefenceCommand = new AutoDefenceShootCenter();
+	    spyCommand = new AutonomousCommandGroup(); 
+	    autoCenter = new AutoDefenceShootCenter();
 		//pControls = new PneumaticControls();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new ExampleCommand());
@@ -113,6 +118,23 @@ public class Robot extends IterativeRobot {
         wristSubsystem.post();
         armSubsystem.post();
         shooterSubsystem.post();
+        //driveTrain.relay.set(Relay.Value.kForward);
+        String autoSelected = SmartDashboard.getString("DB/String 0","Center");
+		//System.out.println(autoSelected); 
+		switch(autoSelected) {
+		case "Left":
+			SmartDashboard.putString("DB/String 5", "Left");
+			break;
+		case "Right":
+			SmartDashboard.putString("DB/String 5", "Right");
+			break;
+		case "Center" : 
+			SmartDashboard.putString("DB/String 5", "Center");
+			break;
+		default:
+			SmartDashboard.putString("DB/String 5", "No Command Set");
+			break;
+		} 
 	}
 
 	/**
@@ -126,24 +148,37 @@ public class Robot extends IterativeRobot {
 	 */
     public void autonomousInit() {
         autonomousCommand = (Command) chooser.getSelected();
-        
-		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		 * 
+        gyro.zeroYaw();
+        String autoSelected = SmartDashboard.getString("DB/String 0","Center");
+		//System.out.println(autoSelected); 
 		switch(autoSelected) {
-		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
+		case "Left":
+			SmartDashboard.putString("DB/String 5", "Left");
+			autoLeft.start();
 			break;
-		case "Default Auto":
+		case "Right":
+			autoRight.start();
+			SmartDashboard.putString("DB/String 5", "Right");
+			break;
+		case "Center" : 
+			autoCenter.start();
+			SmartDashboard.putString("DB/String 5", "Center");
+			break;
+		case "Spy" :
+			SmartDashboard.putString("DB/String 5", "Spy");
+			spyCommand.start();
+			break;
 		default:
-			autonomousCommand = new ExampleCommand();
+			SmartDashboard.putString("DB/String 5", "");
+			autoCenter.start();
 			break;
-		} */
+		}
     	
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
         gyro.zeroYaw();
-        
-        autoDefenceCommand.start();
+        Robot.pControls.iceSkateOff();
+        //autoDefenceCommand.start();
         //autoCommand.start();
         //driveTrain.visionStart();
         
@@ -168,7 +203,10 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-        if (autoCommand != null) autoCommand.cancel();
+        if (spyCommand != null) spyCommand.cancel();
+        if (autoLeft != null) autoLeft.cancel();
+        if (autoRight != null) autoRight.cancel();
+        if (autoCenter != null) autoCenter.cancel();
         
         pControls.iceSkateOff();
         //armCommand.start();

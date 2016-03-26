@@ -62,7 +62,9 @@ public class ArmSubsystem extends Subsystem {
 	}
 	
 	public void setAngle(double angle) {
-		
+		if (angle < -40) {
+    		angle = -40;
+    	}
 		jointTalon.setSetpoint(angle);
 	}
 	public void setExtensionDistance(double distance) {
@@ -98,7 +100,13 @@ public class ArmSubsystem extends Subsystem {
 	}
 	public void angleArmDown() {
 		//jointDisable();
-		jointTalon.set(RobotMap.ArmMap.manualAngle * -1.0);
+		if (jointTalon.getPosition() <= -40){
+			jointTalon.set(0);
+		} else {
+			jointTalon.set(RobotMap.ArmMap.manualAngle * -1.0);
+		}
+		
+		
 	}
 	public void extendArm() {
 		//extensionDisable();

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team237.robot.commands;
 
+import org.usfirst.frc.team237.robot.OI;
 import org.usfirst.frc.team237.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -34,7 +35,12 @@ public class WristToCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.wristSubsystem.disableWrist();
+    	if (OI.nuclearOption.get() == true)
+    	{
+    		
+    	} else {
+    		Robot.wristSubsystem.disableWrist();
+    	}
     }
 
     // Called when another command which requires one or more of the same

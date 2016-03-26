@@ -49,11 +49,11 @@ public class TrackTargetAuto extends Command {
     		Robot.driveTrain.visionStop();
     	}
     	if (myTimer.get() > 0.25 && shootFlag == true && Robot.driveTrain.onTarget()){
-    		if (Robot.driveTrain.noTarget == false){
-    			Robot.pControls.punch();
-    		} else {
-    			Robot.driveTrain.visionStop();
-    		}
+    		//if (Robot.driveTrain.noTarget == false){
+    			//Robot.pControls.punch();
+    		//} else {
+    		//	Robot.driveTrain.visionStop();
+    		//}
     		//Robot.pControls.punch();
     		if(myTimer.get() > 1){
     			doneFlag = true; 

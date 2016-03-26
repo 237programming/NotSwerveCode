@@ -20,7 +20,7 @@ public class HangPositionCommand extends CommandGroup {
     	addSequential(new ExtensionToPositionCommand(567.97));
     	//System.out.println("Nuclear option: FALSE");
     	addSequential(new WristToCommand(-27.0));
-    	addSequential(new JointToAngleCommand(-42.0));
+    	addSequential(new JointToAngleCommand(-37.0));
     	
     	//addSequential();
     	

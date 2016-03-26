@@ -122,7 +122,7 @@ public class OI {
 		armRetract.whenPressed(new TeleopArmRetract());
 		wristUp.whenPressed(new TeleopWristUp());
 		wristDown.whenPressed(new TeleopWristDown());
-		iceSkate.whenPressed(new IceSkateCommand());
+		//iceSkate.whenPressed(new IceSkateCommand());
 		spitBall.whenPressed(new SpitBallGroup());
 		intake.whenPressed(new FeedBallCommand());
 		//nuclearOption.whenPressed(new DisableArmExtention());

@@ -18,8 +18,9 @@ public class NetTablesPIDSource implements PIDSource {
 	}
 	public NetTablesPIDSource(){
 		table = NetworkTable.getTable("GRIP/Vision");
-		
-		System.out.print("Aquired Table");
+		if (table != null) {
+			System.out.print("Aquired Table");
+		}
 	}
 	private int getLargestAreaIndex(){
 		double[] areas = table.getNumberArray("area", new double[0]);
@@ -37,10 +38,11 @@ public class NetTablesPIDSource implements PIDSource {
 		int index = getLargestAreaIndex(); 
 		double[] centerX = table.getNumberArray("centerX", new double[0]);
 		if (centerX.length == 0) {
-			return 237237237.0;
+			SmartDashboard.putNumber("Center X", centerX[index]);
+			return 0.0;
 		}
 		System.out.println("Array Exists");
-		//SmartDashboard.putNumber("Center X", centerX[index]);
+		SmartDashboard.putNumber("Center X", centerX[index]);
 		return centerX[index]; 
 	}
 	public double getCenterY(){

@@ -262,7 +262,7 @@ public class SuperDrive extends Subsystem {
 		double val = Math.toDegrees(Math.atan((opposite/RobotMap.DriveMap.pixelPerFoot)/RobotMap.DriveMap.adjacentLength));
 		//double setPt = gyro.getAngle()+val;
 		//double val = opposite/8; 
-		double setPt = gyro.pidGet()+val-6;
+		double setPt = gyro.pidGet()+val-4;
 		currentTarget = setPt;
 		if(currentTarget < 0) currentTarget += 360;
 		else if (currentTarget >= 360) currentTarget -= 360;

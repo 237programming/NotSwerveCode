@@ -39,7 +39,7 @@ public class ExtensionToPositionCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-       if (position < Robot.armSubsystem.extensionTalon.getPosition()+ 10 &&position > Robot.armSubsystem.extensionTalon.getPosition()- 10  ){ 
+       if (position < Robot.armSubsystem.extensionTalon.getPosition()+ 5 &&position > Robot.armSubsystem.extensionTalon.getPosition()- 5  ){ 
     	  return true;
        } else if (OI.nuclearOption.get() == false) {
     	   return true; 
