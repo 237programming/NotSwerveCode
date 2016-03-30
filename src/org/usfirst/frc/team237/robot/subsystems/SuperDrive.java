@@ -35,9 +35,10 @@ public class SuperDrive extends Subsystem {
 	private double rightTolerance;
 	public boolean isTargeting = false;
     public Relay relay = new Relay(0);
-	private AHRS gyro;
-	private double currentTarget;
+	public AHRS gyro;
+	public double currentTarget;
 	public boolean noTarget; 
+	private double cSet;
 	//Define the drive
 	//TankDrive drive; 
 	
@@ -88,8 +89,8 @@ public class SuperDrive extends Subsystem {
 		this.leftDrivePID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
 		this.leftDrivePID.setToleranceBuffer(100);
 		this.rightDrivePID.setToleranceBuffer(100);
-		this.leftDrivePID.setAbsoluteTolerance(2.0);
-		this.rightDrivePID.setAbsoluteTolerance(2.0);
+		this.leftDrivePID.setAbsoluteTolerance(0.5);
+		this.rightDrivePID.setAbsoluteTolerance(0.5);
 		leftMotor.reverseSensor(true);
 		leftMotor.setProfile(1);
 		rightMotor.setProfile(1);
@@ -144,6 +145,8 @@ public class SuperDrive extends Subsystem {
     	double setPoint = calcSetPoint(xLocation-(RobotMap.DriveMap.centerScreenX));
     	leftDrivePID.setSetpoint(setPoint);
     	rightDrivePID.setSetpoint(setPoint);
+		
+
     }
     public void setLeft(double speed) {
 		speed *= RobotMap.DriveMap.driveNegated;
@@ -211,7 +214,7 @@ public class SuperDrive extends Subsystem {
 		//this.searchTarget();
 	}
 	public void visionPeriodic(){
-		if (this.onTarget() == true) {
+		/*if (this.onTarget() == true) {
 			System.out.println("Target Found");
 			this.leftDrivePID.disable();
 			this.rightDrivePID.disable();
@@ -220,6 +223,7 @@ public class SuperDrive extends Subsystem {
 			this.leftDrivePID.enable();
 			this.rightDrivePID.enable();
 		}
+		*/
 		//this.searchTarget();
 		SmartDashboard.putNumber("Robot Yaw", gyro.pidGet());
 
@@ -246,7 +250,11 @@ public class SuperDrive extends Subsystem {
 		}
 		else return false;
 		*/
-		if (leftDrivePID.onTarget()){
+    	//System.out.println(currentTarget);
+    	//System.out.println(gyro.getAngle());
+		if (leftDrivePID.onTarget() &&  (gyro.getAngle() < (currentTarget + 0.5)) && (gyro.getAngle() > (currentTarget - 0.5)))
+		{
+		//if (leftDrivePID.onTarget() ){
 			System.out.println("TARGET FOUND");
 			return true;
 		}
@@ -390,11 +398,14 @@ public class SuperDrive extends Subsystem {
 	}
 	
 	public void rotateNoControl(double setAngle){
-		double yawCap = gyro.getYaw();
-		double clockwise = yawCap-setAngle;
-		double anticlockwise = Math.abs(180-yawCap)+ Math.abs(-180-setAngle);
+		double curPos = gyro.getAngle();
+		double Distance;
+		
 		currentTarget = setAngle;
-		if(clockwise < anticlockwise){
+		if (curPos > setAngle)
+			curPos -= 360;
+		Distance = setAngle -curPos;
+		if (Distance <= 180) {		
 			set(-0.5,0.5);
 		} else {
 			set(0.5,-0.5);

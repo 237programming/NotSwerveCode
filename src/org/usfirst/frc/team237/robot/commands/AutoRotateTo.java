@@ -39,7 +39,10 @@ public class AutoRotateTo extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.driveTrain.onTarget();
+        if (Robot.driveTrain.gyro.getAngle() < Robot.driveTrain.currentTarget+2 && Robot.driveTrain.gyro.getAngle() > Robot.driveTrain.currentTarget-2){
+        	return true; 
+        }
+        return false; 
     }
 
     // Called once after isFinished returns true
