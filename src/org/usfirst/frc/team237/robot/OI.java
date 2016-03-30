@@ -130,7 +130,7 @@ public class OI {
 		lightToggle.whenPressed(new HangPositionCommand());
 		finalHangBtn.whenPressed(new HangCommand());
 		target.whenPressed(new TrackShootCommandGroup());
-		shootBall.whenPressed(new ManualShoot());
+		shootBall.whenPressed(new LightCommand());
 		lowBarPos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristHome));
 		intakePos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristIntake));
 		transverseDefence.whenPressed(new ArmToWristTo(RobotMap.AutoMap.armDefense,RobotMap.AutoMap.wristDefense));

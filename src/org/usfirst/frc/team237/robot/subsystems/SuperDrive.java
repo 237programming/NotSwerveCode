@@ -86,10 +86,10 @@ public class SuperDrive extends Subsystem {
 		
 		this.rightDrivePID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
 		this.leftDrivePID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
-		this.leftDrivePID.setToleranceBuffer(1);
-		this.rightDrivePID.setToleranceBuffer(1);
-		this.leftDrivePID.setAbsoluteTolerance(20.0);
-		this.rightDrivePID.setAbsoluteTolerance(20.0);
+		this.leftDrivePID.setToleranceBuffer(100);
+		this.rightDrivePID.setToleranceBuffer(100);
+		this.leftDrivePID.setAbsoluteTolerance(2.0);
+		this.rightDrivePID.setAbsoluteTolerance(2.0);
 		leftMotor.reverseSensor(true);
 		leftMotor.setProfile(1);
 		rightMotor.setProfile(1);
@@ -236,15 +236,21 @@ public class SuperDrive extends Subsystem {
 	}
 	public boolean onTarget() {
 		SmartDashboard.putBoolean("Left On Target", leftDrivePID.onTarget());
-		if(gyro.getAngle() > currentTarget- RobotMap.DriveMap.absTolerance && gyro.getAngle() < currentTarget+ RobotMap.DriveMap.absTolerance)  {
+		/*if(gyro.getAngle() > currentTarget- RobotMap.DriveMap.absTolerance && gyro.getAngle() < currentTarget+ RobotMap.DriveMap.absTolerance)  {
 			System.out.println("TARGET FOUND");
 			return true;
-		} /*else if(gyro.getAngle() > rightDrivePID.getSetpoint()- RobotMap.DriveMap.absTolerance && gyro.getAngle() < rightDrivePID.getSetpoint()+ RobotMap.DriveMap.absTolerance)  {
+		} else if(gyro.getAngle() > rightDrivePID.getSetpoint()- RobotMap.DriveMap.absTolerance && gyro.getAngle() < rightDrivePID.getSetpoint()+ RobotMap.DriveMap.absTolerance)  {
 			System.out.println("TARGET FOUND");
 			return true;
 			
-		}*/
+		}
 		else return false;
+		*/
+		if (leftDrivePID.onTarget()){
+			System.out.println("TARGET FOUND");
+			return true;
+		}
+		return false;
 	}
 	public void setTolerance(double lTolerance, double rTolerance) {
 		this.leftTolerance = lTolerance;
@@ -262,7 +268,7 @@ public class SuperDrive extends Subsystem {
 		double val = Math.toDegrees(Math.atan((opposite/RobotMap.DriveMap.pixelPerFoot)/RobotMap.DriveMap.adjacentLength));
 		//double setPt = gyro.getAngle()+val;
 		//double val = opposite/8; 
-		double setPt = gyro.pidGet()+val-4;
+		double setPt = gyro.pidGet()+val-2;
 		currentTarget = setPt;
 		if(currentTarget < 0) currentTarget += 360;
 		else if (currentTarget >= 360) currentTarget -= 360;
@@ -400,8 +406,11 @@ public class SuperDrive extends Subsystem {
 		SmartDashboard.putNumber("Encoder Right Drive", rightMotor.getPosition());
 		SmartDashboard.putNumber("Current Yaw", gyro.getAngle());
 		SmartDashboard.putNumber("Current Pitch", gyro.getRoll());
-		SmartDashboard.putNumber("PID Left err", leftMotor.getError());
-		SmartDashboard.putNumber("PID Right err", rightMotor.getError());
+		SmartDashboard.putNumber("PID Left err avg", leftDrivePID.getAvgError());
+		SmartDashboard.putNumber("PID Left err", leftDrivePID.getError());
+		SmartDashboard.putNumber("PID Right err avg", rightDrivePID.getAvgError());
+		SmartDashboard.putNumber("PID Right err", rightDrivePID.getError());
+		SmartDashboard.putNumber("Motor out left", leftDrivePID.get());
 		SmartDashboard.putBoolean("Gyro Alive?", gyro.isConnected());
 		
 		
