@@ -15,11 +15,11 @@ public class AutoDefenceShootRight extends CommandGroup {
         //      addSequential(new Command2());
         // these will run in order.
     	addSequential( new DisableCompressor());
-    	addSequential( new ArmToWristTo(10,0));
+    	//addSequential( new ArmToWristTo(10,0));
     	addSequential( new CrossDefenceCommand());
-    	addSequential( new AutoRotateTo(315));
+    	addSequential( new AutoRotateTo(330));
     	addParallel(new SpoolUpShooter(1.0));
-    	addSequential(new JointToAngleCommand(-5.0));
+    	addSequential(new JointToAngleCommand(-6.5));
     	addSequential( new TrackTargetAuto());
     	//addParallel( new AutoRotateTo(15,AutoRotateTo.Directions.BOTH));
     	//addSequential( new ArmToWristTo(18.5,-3.0));

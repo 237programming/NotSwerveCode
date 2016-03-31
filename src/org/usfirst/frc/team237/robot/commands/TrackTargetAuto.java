@@ -17,6 +17,7 @@ public class TrackTargetAuto extends Command {
 	boolean trackingFlag;
 	boolean shootFlag;
 	boolean doneFlag;
+	boolean lightFlag;
     public TrackTargetAuto() {
     	// Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -33,28 +34,27 @@ public class TrackTargetAuto extends Command {
     	trackingFlag = false; 
     	shootFlag = false; 
     	doneFlag = false;
+    	lightFlag = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (myTimer.get() > 1 && trackingFlag == false) {
-    		Robot.driveTrain.visionStart();
+    	if (myTimer.get() > 0.5 && lightFlag == false){
+    		Robot.driveTrain.visionStart(); 		
+    		lightFlag = true;
+    	}
+    	else if (myTimer.get() > 1 && trackingFlag == false) {
     		System.out.println("Vision Start");
     		trackingFlag = true;
     	}
-    	if (shootFlag == false && Robot.driveTrain.onTarget() && myTimer.get() > 1){
+    	else if (shootFlag == false && Robot.driveTrain.onTarget() && myTimer.get() > 1){
     		myTimer.reset();
     		myTimer.start();
     		shootFlag = true; 
     		Robot.driveTrain.visionStop();
     	}
-    	if (myTimer.get() > 0.25 && shootFlag == true && Robot.driveTrain.onTarget()){
-    		//if (Robot.driveTrain.noTarget == false){
+    	else if (myTimer.get() > 0.25 && shootFlag == true){  // && Robot.driveTrain.onTarget()){
     		Robot.pControls.punch();
-    		//} else {
-    		//	Robot.driveTrain.visionStop();
-    		//}
-    		//Robot.pControls.punch();
     		if(myTimer.get() > 1){
     			doneFlag = true; 
     		}

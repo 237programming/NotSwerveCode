@@ -39,6 +39,8 @@ public class SuperDrive extends Subsystem {
 	public double currentTarget;
 	public boolean noTarget; 
 	private double cSet;
+	private double avgErr;
+	private int errCount;
 	//Define the drive
 	//TankDrive drive; 
 	
@@ -58,6 +60,7 @@ public class SuperDrive extends Subsystem {
     // here. Call these from Commands.
 	public SuperDrive(AHRS g){
 		gyro = g;
+		errCount = 0;
 		this.leftMotor = new CANTalon(RobotMap.DriveMap.leftTalon);
 		this.leftMotorPrime = new CANTalon(RobotMap.DriveMap.leftTalonPrime);
 		this.rightMotor = new CANTalon(RobotMap.DriveMap.rightTalon);
@@ -87,8 +90,8 @@ public class SuperDrive extends Subsystem {
 		
 		this.rightDrivePID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
 		this.leftDrivePID.setOutputRange(RobotMap.DriveMap.autoDriveMin, RobotMap.DriveMap.autoDriveMax);
-		this.leftDrivePID.setToleranceBuffer(100);
-		this.rightDrivePID.setToleranceBuffer(100);
+		this.leftDrivePID.setToleranceBuffer(10);
+		this.rightDrivePID.setToleranceBuffer(10);
 		this.leftDrivePID.setAbsoluteTolerance(0.5);
 		this.rightDrivePID.setAbsoluteTolerance(0.5);
 		leftMotor.reverseSensor(true);
@@ -233,6 +236,8 @@ public class SuperDrive extends Subsystem {
 		this.rightDrivePID.disable();
 		rightDrivePID.setPID(RobotMap.DriveMap.horizontalP, RobotMap.DriveMap.horizontalI, RobotMap.DriveMap.horizontalD);
 		isTargeting = false;
+		errCount = 0;
+		avgErr = 0;
 		
 	}
 	public double getErrorLeft(){
@@ -252,10 +257,24 @@ public class SuperDrive extends Subsystem {
 		*/
     	//System.out.println(currentTarget);
     	//System.out.println(gyro.getAngle());
-		if (leftDrivePID.onTarget() &&  (gyro.getAngle() < (currentTarget + 0.5)) && (gyro.getAngle() > (currentTarget - 0.5)))
+		errCount++;
+		double curPos = gyro.getAngle();
+		double instantErr = curPos - currentTarget;
+		
+		avgErr = (avgErr + instantErr) / errCount ;
+		System.out.println(avgErr);
+
+		if (errCount < 25)
+			return false;
+		
+		
+		if (avgErr < 0.5 && avgErr > -0.5 /*leftDrivePID.onTarget()*/ && instantErr < 0.5 && instantErr > - 0.5)
+		
 		{
 		//if (leftDrivePID.onTarget() ){
 			System.out.println("TARGET FOUND");
+			errCount = 0;
+			avgErr = 0;
 			return true;
 		}
 		return false;
