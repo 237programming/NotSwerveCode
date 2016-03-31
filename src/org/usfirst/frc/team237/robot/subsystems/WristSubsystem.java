@@ -16,7 +16,7 @@ public class WristSubsystem extends Subsystem {
     	private Talon intake;
     	private CANTalon rotateWrist;
     	private DigitalInput limitWrist;
-    	private double tolerance = 1.0;
+    	private double tolerance = 0.25;
     // Initialize your subsystem here
     public WristSubsystem() {
     	

@@ -41,6 +41,7 @@ public class SuperDrive extends Subsystem {
 	private double cSet;
 	private double avgErr;
 	private int errCount;
+	private int inRangeCount;
 	//Define the drive
 	//TankDrive drive; 
 	
@@ -61,6 +62,7 @@ public class SuperDrive extends Subsystem {
 	public SuperDrive(AHRS g){
 		gyro = g;
 		errCount = 0;
+		inRangeCount = 0;
 		this.leftMotor = new CANTalon(RobotMap.DriveMap.leftTalon);
 		this.leftMotorPrime = new CANTalon(RobotMap.DriveMap.leftTalonPrime);
 		this.rightMotor = new CANTalon(RobotMap.DriveMap.rightTalon);
@@ -238,43 +240,26 @@ public class SuperDrive extends Subsystem {
 		isTargeting = false;
 		errCount = 0;
 		avgErr = 0;
-		
+		inRangeCount = 0;
 	}
 	public double getErrorLeft(){
 		return leftDrivePID.getError();
 	}
 	public boolean onTarget() {
 		SmartDashboard.putBoolean("Left On Target", leftDrivePID.onTarget());
-		/*if(gyro.getAngle() > currentTarget- RobotMap.DriveMap.absTolerance && gyro.getAngle() < currentTarget+ RobotMap.DriveMap.absTolerance)  {
-			System.out.println("TARGET FOUND");
-			return true;
-		} else if(gyro.getAngle() > rightDrivePID.getSetpoint()- RobotMap.DriveMap.absTolerance && gyro.getAngle() < rightDrivePID.getSetpoint()+ RobotMap.DriveMap.absTolerance)  {
-			System.out.println("TARGET FOUND");
-			return true;
-			
-		}
-		else return false;
-		*/
-    	//System.out.println(currentTarget);
-    	//System.out.println(gyro.getAngle());
-		errCount++;
+		
 		double curPos = gyro.getAngle();
 		double instantErr = curPos - currentTarget;
 		
-		avgErr = (avgErr + instantErr) / errCount ;
-		System.out.println(avgErr);
-
-		if (errCount < 25)
-			return false;
+		if (instantErr < 0.5 && instantErr > - 0.5)
+			inRangeCount++;
+		else
+			inRangeCount = 0;
 		
-		
-		if (avgErr < 0.5 && avgErr > -0.5 /*leftDrivePID.onTarget()*/ && instantErr < 0.5 && instantErr > - 0.5)
-		
+		if (inRangeCount > 25)
 		{
-		//if (leftDrivePID.onTarget() ){
 			System.out.println("TARGET FOUND");
 			errCount = 0;
-			avgErr = 0;
 			return true;
 		}
 		return false;

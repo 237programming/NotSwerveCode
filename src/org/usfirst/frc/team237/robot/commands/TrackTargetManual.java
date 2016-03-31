@@ -39,7 +39,7 @@ public class TrackTargetManual extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (myTimer.get() > 0.5 && lightFlag == false){
+    	if (myTimer.get() > 0.75 && lightFlag == false){
     		Robot.driveTrain.visionStart(); 		
     		lightFlag = true;
     	}

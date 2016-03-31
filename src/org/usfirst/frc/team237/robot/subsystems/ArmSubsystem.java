@@ -25,7 +25,7 @@ public class ArmSubsystem extends Subsystem {
 	private PIDController anglePID;
 	private AHRS gyro;
 	private NetTablesPIDSource visionYSrc;
-	private double jointTolerance = 2.0;
+	private double jointTolerance = 0.5;
 	private double extensionTolerance = 5.0;
 	private double extensionForwardLimit = 595; 
 	public ArmSubsystem(AHRS g)
