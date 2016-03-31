@@ -34,9 +34,12 @@ public class RobotMap {
 		public static final double autoDriveMin = -1.0; 
 		public static final double autoEncMax = 0.0; 
 		public static final double autoEncMin = 0.0; 
-		public static final double horizontalP = 0.065;
+		public static final double horizontalP = 0.066;
 		public static final double horizontalI = 0.002;
-		public static final double horizontalD = 0.05;
+		public static final double horizontalD = 0.052;
+		//public static final double horizontalP = 0.065;
+		//public static final double horizontalI = 0.002;
+		//public static final double horizontalD = 0.05;
 		public static final double quickTurnP = 0.5;
 		public static final double quickTurnI = 0.2;
 		public static final double quickTurnD = 0.0;
