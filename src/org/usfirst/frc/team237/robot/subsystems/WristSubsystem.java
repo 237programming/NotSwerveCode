@@ -26,7 +26,8 @@ public class WristSubsystem extends Subsystem {
     	rotateWrist.setForwardSoftLimit(-10.0);
     	rotateWrist.setReverseSoftLimit(1.0);
     	rotateWrist.reverseOutput(true);
-    	rotateWrist.setPID(0.125, 0.0, 0.0);
+    	//rotateWrist.setPID(0.125, 0.0, 0.0);
+    	rotateWrist.setPID(0.08, 0, 0);
     	rotateWrist.changeControlMode(CANTalon.TalonControlMode.Position);
         // Use these to get going:
         // setSetpoint() -  Sets where the PID controller should move the system

@@ -82,6 +82,13 @@ public class PneumaticControls extends Subsystem {
 	public void stopCompressor(){
 		compressor.stop();
 	}
+	public boolean getTrigger() {
+		if (trigger.get() == DoubleSolenoid.Value.kReverse){
+			return true; 
+		} else {
+			return false;
+		}
+	}
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

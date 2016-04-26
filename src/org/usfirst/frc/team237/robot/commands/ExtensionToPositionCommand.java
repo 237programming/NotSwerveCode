@@ -16,6 +16,7 @@ public class ExtensionToPositionCommand extends Command {
         // eg. requires(chassis);
     	position = pos;
     	requires(Robot.armSubsystem);
+    	requires(Robot.wristSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -31,6 +32,10 @@ public class ExtensionToPositionCommand extends Command {
     			Robot.armSubsystem.extendArm();
     		} else if (position > Robot.armSubsystem.extensionTalon.getPosition()){
     			Robot.armSubsystem.retractArm();
+    		}
+    		if (Robot.armSubsystem.extensionTalon.getPosition() > 400){
+    			Robot.wristSubsystem.enableWrist();
+    			Robot.wristSubsystem.setWristPosition(-30.0);
     		}
     	} else {
     		Robot.armSubsystem.stopExtension();
@@ -51,6 +56,7 @@ public class ExtensionToPositionCommand extends Command {
     protected void end() {
     	System.out.println("done moving");
     	Robot.armSubsystem.stopExtension();
+    	//Robot.wristSubsystem.disableWrist();
     	//Robot.armSubsystem.extensionDisable();
     }
 
@@ -58,6 +64,7 @@ public class ExtensionToPositionCommand extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     	Robot.armSubsystem.stopExtension();
+    	Robot.wristSubsystem.disableWrist();
     	//Robot.armSubsystem.extensionDisable();
     }
 }

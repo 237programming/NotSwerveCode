@@ -17,7 +17,7 @@ public class TrackShootCommandGroup extends CommandGroup {
         // these will run in order.
     	
     		
-    	addSequential(new ArmToWristTo(-18.75,0.0));
+    	addSequential(new ArmToWristTo(-18.0,0.0));
     	addSequential(new SpoolUpShooter(1.0));
     	addSequential(new TrackTargetManual());
     	//addSequential(new ShootCommand());

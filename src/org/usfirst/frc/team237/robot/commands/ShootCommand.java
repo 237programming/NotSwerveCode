@@ -30,14 +30,14 @@ public class ShootCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 //    	System.out.println("SHOOTER EXECUTE");
-    	if (myTimer.get() > 2.0 ){
+    	if (myTimer.get() > 0.5 ){
     		Robot.pControls.punch();
     	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (Robot.shooterSubsystem.hasBall() == false && myTimer.get() > 3.0 ){
+    	if (Robot.shooterSubsystem.hasBall() == false && myTimer.get() > 1.0 ){
     		return true; 
     	}
     	return false; 

@@ -17,9 +17,9 @@ public class AutoDefenceShootLeft extends CommandGroup {
     	addSequential( new DisableCompressor());
     	//addSequential( new ArmToWristTo(10,0));
     	addSequential( new CrossDefenceCommand());
-    	addSequential( new AutoRotateTo(45));
+    	addSequential( new AutoRotateTo(20));
     	addParallel(new SpoolUpShooter(1.0));
-    	addSequential(new JointToAngleCommand(-6.5));
+    	addSequential(new JointToAngleCommand(-4.25));
     	addSequential( new TrackTargetAuto());
     	//addParallel( new AutoRotateTo(15,AutoRotateTo.Directions.BOTH));
     	//addSequential( new ArmToWristTo(18.5,-3.0));

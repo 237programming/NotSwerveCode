@@ -10,6 +10,7 @@ import org.usfirst.frc.team237.robot.commands.ArmToWristTo;
 import org.usfirst.frc.team237.robot.commands.DisableArmExtention;
 import org.usfirst.frc.team237.robot.commands.ExampleCommand;
 import org.usfirst.frc.team237.robot.commands.ExtensionToPositionCommand;
+import org.usfirst.frc.team237.robot.commands.FalconPunch;
 import org.usfirst.frc.team237.robot.commands.FeedBallCommand;
 import org.usfirst.frc.team237.robot.commands.HangCommand;
 import org.usfirst.frc.team237.robot.commands.HangPositionCommand;
@@ -122,7 +123,7 @@ public class OI {
 		armRetract.whenPressed(new TeleopArmRetract());
 		wristUp.whenPressed(new TeleopWristUp());
 		wristDown.whenPressed(new TeleopWristDown());
-		//iceSkate.whenPressed(new IceSkateCommand());
+		iceSkate.whenPressed(new FalconPunch());
 		spitBall.whenPressed(new SpitBallGroup());
 		intake.whenPressed(new FeedBallCommand());
 		//nuclearOption.whenPressed(new DisableArmExtention());
@@ -130,7 +131,7 @@ public class OI {
 		lightToggle.whenPressed(new HangPositionCommand());
 		finalHangBtn.whenPressed(new HangCommand());
 		target.whenPressed(new TrackShootCommandGroup());
-		shootBall.whenPressed(new LightCommand());
+		shootBall.whenPressed(new ManualShoot());
 		lowBarPos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristHome));
 		intakePos.whenPressed(new ArmHomeWristSet(RobotMap.AutoMap.wristIntake));
 		transverseDefence.whenPressed(new ArmToWristTo(RobotMap.AutoMap.armDefense,RobotMap.AutoMap.wristDefense));

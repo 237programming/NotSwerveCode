@@ -39,13 +39,17 @@ public class TrackTargetManual extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (myTimer.get() > 0.75 && lightFlag == false){
+    	if (myTimer.get() > 1.0 && lightFlag == false){
     		Robot.driveTrain.visionStart(); 		
     		lightFlag = true;
     	}
     	else if (myTimer.get() > 1 && trackingFlag == false) {
     		System.out.println("Vision Start");
     		trackingFlag = true;
+    	}
+    	else if (Robot.driveTrain.noTarget == true){
+    		doneFlag = true; 
+    		return; 
     	}
     	else if (shootFlag == false && Robot.driveTrain.onTarget() && myTimer.get() > 1){
     		myTimer.reset();
@@ -84,6 +88,7 @@ public class TrackTargetManual extends Command {
     	trackingFlag = false; 
     	shootFlag = false; 
     	doneFlag = false;
+    	Robot.driveTrain.noTarget = false;
 //    	Robot.armSubsystem.visionStop();
     }
 
@@ -99,5 +104,6 @@ public class TrackTargetManual extends Command {
     	trackingFlag = false; 
     	shootFlag = false; 
     	doneFlag = false;
+    	Robot.driveTrain.noTarget = false;
     }
 }

@@ -39,13 +39,13 @@ public class WristToCommand extends Command {
     	{
     		
     	} else {
-    		Robot.wristSubsystem.disableWrist();
+    		//Robot.wristSubsystem.disableWrist();
     	}
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.wristSubsystem.disableWrist();
+    	//Robot.wristSubsystem.disableWrist();
     }
 }

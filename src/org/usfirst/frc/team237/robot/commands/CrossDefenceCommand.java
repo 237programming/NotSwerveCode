@@ -30,7 +30,7 @@ public class CrossDefenceCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	_pitchCurrent = Robot.driveTrain.getRobotPitch();
-    	if (_finishedCrossFlag == false && _pitchCurrent < _pitchStart-15){
+    	if (_finishedCrossFlag == false && _pitchCurrent < _pitchStart-10){
     		_encCount = Robot.driveTrain.getLeftEncCount();
     		_finishedCrossFlag = true; 
     		System.out.println("Defence Crossed");

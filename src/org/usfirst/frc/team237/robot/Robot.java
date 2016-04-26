@@ -97,7 +97,7 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Default Auto", new ExampleCommand());
         //chooser.addObject("Default Tele", new TeleopDrive());
 //        chooser.addObject("My Auto", new MyAutoCommand());
-        
+        gyro.reset();
         SmartDashboard.putData("Auto mode", chooser);
         driveTrain.setAHRS(gyro);
         armSubsystem.setAHRS(gyro);
@@ -159,6 +159,7 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         autonomousCommand = (Command) chooser.getSelected();
         gyro.zeroYaw();
+      
         String autoSelected = SmartDashboard.getString("DB/String 0","Center");
 		//System.out.println(autoSelected); 
         autoSelected = autoSelected.toLowerCase();

@@ -17,10 +17,11 @@ public class HangPositionCommand extends CommandGroup {
         // these will run in order.
     	//addSequential(new JointToAngleCommand(-18.7));
     	//System.out.println("Nuclear option: TRUE");
-    	addSequential(new ExtensionToPositionCommand(567.97));
+    	
     	//System.out.println("Nuclear option: FALSE");
-    	addSequential(new WristToCommand(-27.0));
+    	addSequential(new WristToCommand(-45.0));
     	addSequential(new JointToAngleCommand(-37.0));
+    	addSequential(new ExtensionToPositionCommand(567.97));
     	
     	//addSequential();
     	

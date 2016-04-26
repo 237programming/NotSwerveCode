@@ -76,8 +76,8 @@ public class RobotMap {
 		public static final int trigger2 = 7;
 	}
 	public class ArmMap{
-		public static final double wristPositiveSpeed = 0.6;
-		public static final double wristNegativeSpeed = -0.8;
+		public static final double wristPositiveSpeed = 0.5;
+		public static final double wristNegativeSpeed = -0.5;
 		public static final double wristHome = 0.0;
 		public static final double wristTransverseDefense = 0.0;
 		public static final double ballIntake = 0.0;
@@ -108,7 +108,7 @@ public class RobotMap {
 		public static final double wristDefense = -10.0;
 		public static final double armHang = 0;
 		public static final double wristHang = 0;
-		public static final double wristIntake = -19;
+		public static final double wristIntake = -24;
 		
 	}
     // If you are using multiple modules, make sure to define both the port

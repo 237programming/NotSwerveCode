@@ -37,7 +37,7 @@ public class SuperDrive extends Subsystem {
     public Relay relay = new Relay(0);
 	public AHRS gyro;
 	public double currentTarget;
-	public boolean noTarget; 
+	public boolean noTarget=false; 
 	private double cSet;
 	private double avgErr;
 	private int errCount;
@@ -142,8 +142,9 @@ public class SuperDrive extends Subsystem {
     public void searchTarget() {
     	noTarget = false;
     	double xLocation = visionSrc.getCenterX();
-    	if (xLocation == 237237237.0){
+    	if (xLocation == 0.0){
     		noTarget = true;
+    		//visionStop();
     	}
     	double yLocation = visionSrc.getCenterY();
     	System.out.println(xLocation);
@@ -251,7 +252,7 @@ public class SuperDrive extends Subsystem {
 		double curPos = gyro.getAngle();
 		double instantErr = curPos - currentTarget;
 		
-		if (instantErr < 0.5 && instantErr > - 0.5)
+		if (instantErr < 0.75 && instantErr > - 0.75)
 			inRangeCount++;
 		else
 			inRangeCount = 0;
